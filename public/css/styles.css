@@ -1,0 +1,217 @@
+/* Custom styles for the daycare theme */
+body {
+  background-color: #fff;
+  color: #333;
+}
+.henny-penny-regular {
+  font-family: "Henny Penny", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+.abeezee-regular {
+  font-family: "ABeeZee", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.abeezee-regular-italic {
+  font-family: "ABeeZee", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+.navbar-custom {
+  background-color: #f1d016;
+  height: 90px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.navbar-custom .navbar-brand {
+  font-size: 15px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+}
+.navbar-custom .navbar-brand img {
+  height: 90px;
+}
+.navbar-custom .navbar-nav .nav-link {
+  color: black;
+  font-size: 15px;
+  position: relative;
+  text-decoration: none;
+}
+.navbar-custom .navbar-nav .nav-link:hover {
+  color: white;
+  text-decoration: none;
+}
+.navbar-custom .navbar-nav .nav-link::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: width .3s;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+}
+.navbar-custom .navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+.navbar-custom .navbar-toggler {
+  border-color: black;
+}
+.navbar-custom .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 0, 0, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+/* Adjust dropdown menu */
+.navbar-custom .dropdown-menu {
+  background-color: #f1d016; /* Background color for dropdown */
+  border: none; /* Remove default border */
+}
+
+.navbar-custom .dropdown-menu a.dropdown-item {
+  color: black; /* Text color */
+}
+
+.navbar-custom .dropdown-menu a.dropdown-item:hover {
+  color: white; /* Text color on hover */
+  background-color: #d1b506; /* Hover background color */
+}
+
+.navbar-custom .dropdown-menu a.dropdown-item.active {
+  color: white; /* Active item text color */
+  background-color: #d1b506; /* Active item background color */
+}
+.sidebar {
+    background-color: #07025d;
+    
+    padding: 20px;
+}
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  margin: 10px 0;
+}
+.sidebar a:hover {
+  color: #e7d234;
+}
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  border-radius: 10px;
+}
+.carousel-item img {
+  height: 500px;
+  object-fit: cover;
+}
+.btn-kprimary {
+  color: #fff;
+  background-color: #f1d016;
+  border-color: #f1ce0b;
+}
+.btn-kprimary:hover {
+  color: #fff;
+  background-color: #d6b707;
+  border-color: #f1ce0b;
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: #000;
+}
+
+.menu-item {
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+.menu-item:hover {
+  transform: scale(1.1); /* Scale up the menu item on hover */
+  color: #ff6f00; /* Change text color on hover */
+}
+.jumbotron {
+  background-color: transparent; /* Transparent background */
+  color: #fff;
+  padding-top: 100px; /* Adjust top padding as needed */
+}
+.welcome-text {
+  background-color: #f39c12; /* Orange background */
+  color: #fff;
+  padding: 25px;
+  text-align: center;
+}
+.login-btn {
+  background-color: #fff; /* Orange background */
+  color: #f1d016;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-transform:uppercase;
+}
+.login-btn:hover {
+  background-color: #0d0b3f; /* Darker blue on hover */
+  color: #fff;
+}
+.section-title {
+  color: #f39c12; /* Orange color */
+  font-weight: bolder;
+}
+.section-content {
+  padding: 40px 0;
+}
+.feature-icon {
+  font-size: 3rem;
+  color: #f39c12; /* Orange color */
+}
+.feature-title {
+  color: #333;
+}
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.instagram-gallery {
+  padding: 40px 0;
+}
+.instagram-gallery img {
+  width: 100%;
+  height: auto;
+}
+footer {
+  background-color: #000;
+  color: #fff;
+  padding: 20px 0;
+}
+/* Custom styles for logo section */
+.navbar-collapse:first-child {
+  padding-right: 30%;
+}
+.navbar-collapse:last-child {
+  padding-left: 25%;
+}
+.top-content {
+  width: 100%;
+  padding: 0;
+}
+.top-content .carousel-control-prev {
+  border-bottom: 0;
+}
+.top-content .carousel-control-next {
+  border-bottom: 0;
+}
+.top-content .carousel-indicators li {
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 50%;
+}
