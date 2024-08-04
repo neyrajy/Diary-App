@@ -32,7 +32,7 @@
                 <tbody>
 
                 @foreach($users as $user)
-                @if($user->student == $user->adm_no && $user->student !='')
+                @if(Auth::guard('web')->user()->student == $user->adm_no)
                 <tr>
                     <td><img src="{{asset('storage/' . $user->photo)}}" alt="Photo"></td>
                     <td>{{$user->adm_no}}</td>

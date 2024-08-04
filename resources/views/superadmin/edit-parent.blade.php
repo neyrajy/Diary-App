@@ -21,6 +21,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <input type="hidden" name="role_id" id="" value="4">
                                     <label for="firstname">First Name</label>
                                     <input type="text" id="firstname" name="firstname" class="form-control" value="{{ $parent->firstname }}">
                                 </div>
@@ -107,6 +108,54 @@
                                 <label for="address">Address</label>
                                 <textarea id="address" name="address" class="form-control">{{ $parent->address }}</textarea>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="class">{{ __('Select Class') }}</label>
+                                    <select id="class" class="form-control @error('class') is-invalid @enderror" name="class" required>
+                                        <option value="">Select Class</option>
+                                        @foreach($classes as $class)
+                                            <option value="{{ $class->id }}" {{ old('class') == $class->id ? 'selected' : '' }}>{{ $class->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('class')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="section">{{ __('Select Section') }}</label>
+                                    <select id="section" class="form-control @error('section') is-invalid @enderror" name="section" required>
+                                        <option value="">Select Class Section</option>
+                                        @foreach($sections as $section)
+                                            <option value="{{ $section->id }}" {{ old('section') == $section->id ? 'selected' : '' }}>{{ $section->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('section')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="student">{{ __('Student') }}</label>
+                                    <select id="student" class="form-control @error('student') is-invalid @enderror" name="student" required>
+                                        <option value="">Select Student</option>
+                                        <!-- <option value="">Chose Option</option> -->
+                                        @foreach($users as $user)
+                                            @if($user->role_id == 8)
+                                            <option value="{{$user->adm_no}}">{{$user->firstname}}, {{$user->adm_no}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    @error('student')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>    
+                            </div><br>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Update Parent</button>
                             </div>

@@ -134,13 +134,16 @@ class SuperAdminController extends Controller
         $nationalities = Nationality::all();
         $regions = Region::all();
         $districts = District::all();
+        $classes = SClass::all();
+        $sections = Section::all();
+        $users = User::where('role_id',8)->get();
            
-        return view('superadmin.edit-parent', compact('parent','nationalities', 'regions', 'districts'));
+        return view('superadmin.edit-parent', compact('parent','nationalities', 'regions', 'districts','classes','sections','users'));
     }
     public function updateParent(Request $request, $id)
     {
         // Validate incoming request data
-        $request->validate([
+        $parentDeails = $request->validate([
             'firstname' => 'required|string|max:255',
             'secondname' => 'nullable|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -151,6 +154,10 @@ class SuperAdminController extends Controller
             'nal_id' => 'nullable|exists:nationalities,id',
             'region_id' => 'nullable|exists:regions,id',
             'district_id' => 'nullable|exists:districts,id',
+            'class' => 'nullable',
+            'section' => 'nullable',
+            'student' => 'nullable',
+            'role_id' => 'required',
         ]);
 
         // Find the parent record by ID
@@ -158,10 +165,7 @@ class SuperAdminController extends Controller
 
         // Update the parent record with validated data
        
-        $parent->update($request->only([
-            'firstname', 'lastname', 'phone', 'phone2', 'address', 'street', 
-            'nal_id', 'region_id', 'district_id'
-        ]));
+        $parent->update($parentDeails);
         return redirect()->route('superadmin.parents')
             ->with('success', 'Parent updated successfully.');
     }

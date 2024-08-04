@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+<x-success />
+
 <div class="row py-3"></div>
 <div class="row mt-4">
     <div class="col-md-12">
