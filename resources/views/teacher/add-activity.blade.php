@@ -14,7 +14,7 @@
                     <div class="card-body">              
                         <form method="POST" action="/storeactivities" enctype="multipart/form-data" class="card-md-dealer">
                         @csrf
-                        <input type="hidden" name="student_id" id="" value="{{$user->id}}">
+                        <input type="hidden" name="adm_no" id="" value="{{$user->adm_no}}">
                         <input type="hidden" name="teacher_name" id="" value="{{Auth::guard('web')->user()->firstname}}">
                         <input type="hidden" name="date_time" id="" class="currentDateValue">
                         <div class="md-5-col-mod">

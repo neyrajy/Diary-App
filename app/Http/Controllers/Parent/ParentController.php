@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Parent;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Region;
 use App\Models\SClass;
 use App\Models\Section;
+use App\Models\Activity;
 use App\Models\District;
 use App\Models\Nationality;
 use Illuminate\Http\Request;
@@ -32,5 +34,13 @@ class ParentController extends Controller
     
             return view('parent.dashboard', compact('parents', 'teachers', 'staff', 'drivers', 'user','users','classes','sections'));
         }
+    }
+
+    public function child_activity($id){
+        $nowDate = Carbon::now()->format('Y-m-d');
+        $activities = Activity::whereDate('date_time',$nowDate)->get();
+        return view('parent.my-child',[
+            'user' => User::find($id),
+        ],compact('activities'));
     }
 }

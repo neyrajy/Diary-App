@@ -11,12 +11,12 @@ class Activity extends Model
 
     public function scopeFilter($query, array $filters){
         if($filters['search'] ?? false){
-            $query->where('student_id','like','%'.request('search').'%')
+            $query->where('adm_no','like','%'.request('search').'%')
             ->orwhere('date_time','like','%'.request('search').'%');
         }
     }
 
     protected $fillable =[
-        'student_id','teacher_name','date_time','poop_susu','nap','meals','dieppers','milk_bottle_feed','describe_poop_susu','describe_bootle_feed','describe_nap','describe_meals','describe_dieppers',
+        'adm_no','teacher_name','date_time','poop_susu','nap','meals','dieppers','milk_bottle_feed','describe_poop_susu','describe_bootle_feed','describe_nap','describe_meals','describe_dieppers',
     ];
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->string('student_id');
+            $table->string('adm_no');
             $table->string('teacher_name');
             $table->string('date_time');
             $table->string('poop_susu')->nullable();

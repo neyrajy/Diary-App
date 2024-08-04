@@ -51,7 +51,7 @@ class TeacherController extends Controller
 
     public function store_activities(Request $request){
         $activityDetails = $request->validate([
-            'student_id' => 'required|max:255',
+            'adm_no' => 'required|max:255',
             'teacher_name' => 'required|max:255',
             'date_time' => 'required|max:255',
             'poop_susu' => 'nullable|max:255',

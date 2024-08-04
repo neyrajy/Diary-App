@@ -75,15 +75,15 @@ class SuperAdminController extends Controller
             'district' => 'nullable|exists:districts,id',
             'street' => 'nullable|string|max:255',
             'guardian' => 'nullable|boolean',
-            'student' => 'nullable|integer|exists:students,id',
+            'student' => 'nullable|integer',
         ]);
 
         $photoPath = $request->hasFile('photo') ? $request->file('photo')->store('photos', 'public') : 'backend/assets/images/users/avatar-1.jpg';
-        if ($request->child) {
-        $student = Student::find($request->child);
-        $student->parent_id = $parent->id; 
-        $student->save();
-        }
+        // if ($request->child) {
+        // $student = Student::find($request->child);
+        // $student->parent_id = $parent->id; 
+        // $student->save();
+        // }
         // Create a new parent user
         $user = User::create([
             'student' => $request->student,

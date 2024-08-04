@@ -53,7 +53,7 @@
                         @endforeach
                     </td>
                     <td style="color:#0000FF; text-decoration:underline;">
-                        <a href="/parent/my-child/{{$user->id}}">View Activity</a>
+                        <a href="/my-child/{{$user->id}}">View Activity</a>
                     </td>
                 </tr>
                 @endif

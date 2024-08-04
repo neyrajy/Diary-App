@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/storeactivities', [App\Http\Controllers\Teacher\TeacherController::class, 'store_activities']);
     Route::get('/superadmin/register-student', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'register_student']);
     Route::post('/storestudents', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_students']);
+    Route::get('/my-child/{user}', [App\Http\Controllers\Parent\ParentController::class, 'child_activity'])->name('parent.my-child');
 });
 
 
