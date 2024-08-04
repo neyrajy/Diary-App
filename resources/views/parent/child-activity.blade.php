@@ -13,17 +13,52 @@
             <table class="table datatable-button-html5-columns">
                 <thead>
                 <tr>
-                    <th>S/N</th>
+                    <!-- <th>S/N</th>
                     <th>Photo</th>
                     <th>Name</th>
                     <th>ADM_No</th>
                     <th>Section</th>
                     <th>Fees</th>
-                    <th>Profile</th>
+                    <th>Profile</th> -->
+                    <th>Photo</th>
+                    <th>ADM_No</th>
+                    <th>Name</th>
+                    <th>Fees</th>
+                    <th>Class</th>
+                    <th>Section</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
+
+                @foreach($users as $user)
+                @if($user->student == $user->adm_no && $user->student !='')
+                <tr>
+                    <td><img src="{{asset('storage/' . $user->photo)}}" alt="Photo"></td>
+                    <td>{{$user->adm_no}}</td>
+                    <td>{{$user->firstname}}</td>
+                    <td>100000</td>
+                    <td>
+                        @foreach($classes as $class)
+                        @if($class->id == $user->class_id)
+                        {{$class->name}}
+                        @endif
+                        @endforeach
+                    </td>
+                    <td>
+                    @foreach($sections as $section)
+                        @if($section->id == $user->class_id)
+                        {{$section->name}}
+                        @endif
+                        @endforeach
+                    </td>
+                    <td style="color:#0000FF; text-decoration:underline;">
+                        <a href="/parent/my-child/{{$user->id}}">View Activity</a>
+                    </td>
+                </tr>
+                @endif
+                @endforeach
+                    <!-- <tr>
                         <td>1</td>
                         <td><img class="rounded-circle" style="height: 40px; width: 40px;" src="" alt="photo"></td>
                         <td>nane</td>
@@ -45,7 +80,7 @@
                                 </div>
                             </div>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
 

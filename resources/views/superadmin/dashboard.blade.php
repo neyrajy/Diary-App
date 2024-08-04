@@ -91,13 +91,16 @@
                             </tr>
                         </thead>
                         <tbody>
+
+
+                        @foreach($studentsViewer as $student)
                             
                                 <tr>
-                                    <td>Alisha</td>
+                                    <td>{{$student->firstname}}</td>
                                     <td>100000</td>
-                                    <td>20-02-2024</td>
+                                    <td>{{$student->created_at}}</td>
                                 </tr>
-                            
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

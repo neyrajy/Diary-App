@@ -27,7 +27,7 @@
                     <div class="tab-content" id="adminTabContent">
                         <div class="tab-pane fade show active" id="students" role="tabpanel" aria-labelledby="students-tab">
                             <br><h4>Total Students: {{ $studentsCount }}</h4>
-                            <br><button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addStudentModal">Add Student</button>
+                            <br><button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addStudentModal" onclick="showAddStudentForm()"><a href="/superadmin/register-student">{{__('Add Student')}}</a></button>
                             <table class="table mt-3">
                                 <thead>
                                     <tr>
@@ -103,8 +103,10 @@
     </div>
 </div>
 
+
+
 <!-- Add Student Modal -->
-<div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+<div class="modal" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form action="{{ route('students.store') }}" method="POST">
             @csrf
@@ -159,6 +161,12 @@
         </form>
     </div>
 </div>
+
+<script>
+    function showAddStudentForm(){
+        document.querySelector('.modal-dialog').style.display='block';
+    }
+</script>
 
                     <!-- Add Class Modal -->
                     <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog" aria-labelledby="addClassModalLabel" aria-hidden="true">

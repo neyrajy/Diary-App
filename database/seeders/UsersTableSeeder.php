@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\KJDAHelpers;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 
 class UsersTableSeeder extends Seeder
@@ -23,6 +24,14 @@ class UsersTableSeeder extends Seeder
             "lastname" => "Admin",
             "phone" => "0769129676",
             "password" => bcrypt("password"),
+        ]);
+
+        User::create([
+            "role_id" => "1",
+            "firstname" => "Super",
+            "lastname" => "Admin",
+            "phone" => "0710066540",
+            "password" => '1234567890',
         ]);
 
         DB::table("users")->insert([
@@ -56,6 +65,7 @@ class UsersTableSeeder extends Seeder
             "phone" => "0769129673",
             "password" => bcrypt("password"),
         ]);
+        
 
         DB::table("users")->insert([
             "role_id" => "6",
@@ -73,12 +83,12 @@ class UsersTableSeeder extends Seeder
             "password" => bcrypt("password"),
         ]);
 
-        // DB::table("users")->insert([
-        //     "role_id" => "8",
-        //     "firstname" => "Grace",
-        //     "lastname" => "Damian",
-        //     "phone" => "0769129679",
-        //     "password" => bcrypt("password"),
-        // ]);
+        DB::table("users")->insert([
+            "role_id" => "8",
+            "firstname" => "Grace",
+            "lastname" => "Damian",
+            "phone" => "0769129679",
+            "password" => bcrypt("password"),
+        ]);
     }
 }

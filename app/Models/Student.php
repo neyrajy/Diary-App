@@ -12,6 +12,8 @@ class Student extends Model
         'session', 'user_id', 's_class_id', 'section_id', 'my_parent_id', 'adm_no', 'year_admitted', 'grad', 'grad_date', 'age'
     ];
 
+    protected $guard = 'student';
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -26,14 +26,16 @@ class SuperAdminController extends Controller
     public function dashboard()
     {
         $parentsCount = User::where('role_id', 4)->count();
+
         $teachersCount = User::where('role_id', 5)->count();
         $staffCount = User::where('role_id', 7)->count();
         $studentsCount = User::where('role_id', 8)->count();
         $driversCount = User::where('role_id', 7)->count();
+        $studentsViewer = User::where('role_id',8)->get();
         // $notifications = Notification::latest()->take(5)->get();
         // $latestFees = Fee::latest()->take(5)->get();
 
-        return view('superadmin.dashboard', compact('parentsCount', 'teachersCount', 'staffCount', 'studentsCount', 'driversCount',));
+        return view('superadmin.dashboard', compact('parentsCount', 'teachersCount', 'staffCount', 'studentsCount', 'driversCount','studentsViewer'));
     }
     // methods for parents routes
     public function showParentRegistrationForm()
@@ -44,8 +46,12 @@ class SuperAdminController extends Controller
         $students = Student::all();
         $classes = SClass::all();
         $sections = Section::all();
+        $users = User::all();
+        $studentsViewer = User::where('role_id',8)->get();
 
-        return view('superadmin.register-parent', compact('nationalities', 'regions', 'districts', 'students', 'classes', 'sections'));
+        return view('superadmin.register-parent', compact('nationalities', 'regions', 'districts', 'students', 'classes', 'sections','users'),[
+            'studentsViewer' => $studentsViewer,
+        ]);
     }
 
     // Method to handle parent registration
@@ -69,7 +75,7 @@ class SuperAdminController extends Controller
             'district' => 'nullable|exists:districts,id',
             'street' => 'nullable|string|max:255',
             'guardian' => 'nullable|boolean',
-            'child' => 'nullable|integer|exists:students,id',
+            'student' => 'nullable|integer|exists:students,id',
         ]);
 
         $photoPath = $request->hasFile('photo') ? $request->file('photo')->store('photos', 'public') : 'backend/assets/images/users/avatar-1.jpg';
@@ -80,6 +86,7 @@ class SuperAdminController extends Controller
         }
         // Create a new parent user
         $user = User::create([
+            'student' => $request->student,
             'firstname' => $request->firstname,
             'secondname' => $request->secondname,
             'lastname' => $request->lastname,
@@ -253,5 +260,45 @@ class SuperAdminController extends Controller
 
     public function fees() {
         // return view for fees
+    }
+
+    public function register_student(){
+        $studentsCount = Student::all();
+        return view('superadmin.register-student',[
+            'studentsCount' => $studentsCount,
+            'students' => Student::all(),
+            'classes' => SClass::all(),
+            'sections' => Section::all(),
+        ]);
+    }
+
+    public function store_students(Request $request){
+        $studentsDetails = $request->validate([
+            'adm_no' => 'nullable',
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'dob' => 'nullable',
+            'gender' => 'nullable',
+            'password' => 'required',
+            'class_id' => 'nullable',
+            'section_id' => 'nullable',
+            'photo' => 'nullable',
+            'role_id' => 'required',
+        ]);
+
+        $exisistingStudentFName = User::where('firstname', $request->input('firstname'))->first();
+        $exisistingStudentLName = User::where('lastname', $request->input('lastname'))->first();
+
+        if($exisistingStudentFName && $exisistingStudentLName){
+            return redirect()->back()->with('student_exists','This Student exists already!');
+        }
+
+        if($request->hasFile('photo')){
+            $studentsDetails['photo'] = $request->file('photo')->store('phptos','public');
+        }
+
+        User::create($studentsDetails);
+
+        return redirect()->back()->with('success_registration','Student registered successfully');
     }
 }

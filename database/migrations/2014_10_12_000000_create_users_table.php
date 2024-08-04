@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->unsignedBigInteger('id', true);
+            $table->string('adm_no')->nullable();
+            $table->string('student')->nullable();
+            $table->string('class_id')->nullable();
+            $table->string('section_id')->nullable();
             $table->string('firstname');
             $table->string('secondname')->nullable();
             $table->string('lastname');
@@ -21,11 +25,11 @@ return new class extends Migration
             $table->string('password');
             //$table->bigInteger("role_id")->default(4);
             $table->unsignedBigInteger('role_id')->default(4);
-            $table->string('phone')->unique();
+            $table->string('phone')->unique()->nullable();
             $table->string('phone2')->unique()->nullable();
             $table->string('dob')->nullable();
             $table->string('gender')->nullable();
-            $table->string('photo')->default(KJDAHelpers::getDefaultUserImage());
+            $table->string('photo')->default(KJDAHelpers::getDefaultUserImage())->nullable();
             $table->unsignedInteger('bg_id')->nullable();
             $table->unsignedBigInteger('region_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();

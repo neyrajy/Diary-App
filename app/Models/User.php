@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-    'firstname', 'secondname', 'lastname','email', 'phone', 'phone2', 'dob', 'gender', 'photo', 'bg_id', 'address', 'password', 'nal_id', 'region_id', 'district_id', 'street', 'role_id', 'verified', 'verified_at', 'verified_by', 'guardian', 'email_verified_at'
+    'student','adm_no','section_id' , 'class_id' , 'firstname', 'secondname', 'lastname','email', 'phone', 'phone2', 'dob', 'gender', 'photo', 'bg_id', 'address', 'password', 'nal_id', 'region_id', 'district_id', 'street', 'role_id', 'verified', 'verified_at', 'verified_by', 'guardian', 'email_verified_at'
     ];
 
     /**
@@ -42,6 +42,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
     public function role()
     {

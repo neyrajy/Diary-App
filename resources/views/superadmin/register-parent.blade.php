@@ -208,8 +208,11 @@
                                     <label for="student">{{ __('Student') }}</label>
                                     <select id="student" class="form-control @error('student') is-invalid @enderror" name="student" required>
                                         <option value="">Select Student</option>
-                                        @foreach($students as $student)
-                                            <option value="{{ $student->id }}" {{ old('student') == $student->id ? 'selected' : '' }}>{{ $student->firstname }}</option>
+                                        <!-- <option value="">Chose Option</option> -->
+                                        @foreach($users as $user)
+                                            @if($user->role_id == 8)
+                                            <option value="{{$user->adm_no}}">{{$user->firstname}}, {{$user->adm_no}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @error('student')

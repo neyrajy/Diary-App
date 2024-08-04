@@ -62,6 +62,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/teacher', [App\Http\Controllers\Teacher\TeacherController::class, 'dashboard'])->name('teacher.dashboard');
     Route::get('/driver', [App\Http\Controllers\Driver\DriverController::class, 'dashboard'])->name('driver.dashboard');
     Route::get('/staff', [App\Http\Controllers\Staff\StaffController::class, 'dashboard'])->name('staff.dashboard');
+    Route::get('/activity', [App\http\Controllers\Teacher\TeacherController::class, 'student_activities'])->name('teacher.activity');
+    Route::get('/add-activity/{user}', [App\Http\Controllers\Teacher\TeacherController::class, 'load_to_add_activities'])->name('teacher.add-activity');
+    Route::post('/storeactivities', [App\Http\Controllers\Teacher\TeacherController::class, 'store_activities']);
+    Route::get('/superadmin/register-student', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'register_student']);
+    Route::post('/storestudents', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_students']);
 });
 
 
