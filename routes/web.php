@@ -8,6 +8,10 @@ use App\Http\Controllers\Parent\ParentController;
 use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Driver\DriverController;
 use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\FeesController;
+use App\Http\Controllers\SClassController;
+use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,6 +29,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/get-students', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'getStudentsByClassSection'])->name('get.students');
+
 Route::middleware('auth')->group(function () {
     // Route::get('/api/districts-by-region', [App\Http\Controllers\ApiController::class, 'getDistrictsByRegion'])->name('api.districts.by.region');
     Route::get('/superadmin', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard');
@@ -35,7 +41,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/superadmin/parents/{id}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'updateParent'])->name('superadmin.update-parent');
     Route::delete('/superadmin/parents/{id}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'destroyParent'])->name('superadmin.destroy-parent');
     Route::patch('/superadmin/verify-parent/{id}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'verifyParent'])->name('superadmin.verify-parent');
-
+    Route::resource('classes', App\Http\Controllers\SClassController::class)->names([
+        'index' => 'classes.index', 
+    ]);
+    Route::resource('sections', App\Http\Controllers\SectionController::class)->names([
+        'index' => 'sections.index', 
+    ]);
     Route::get('/superadmin/teachers', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'teachers'])->name('superadmin.teachers');
     // Route::get('/superadmin/teachers', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'parents'])->name('superadmin.parents');
     Route::get('/superadmin/teachers/{id}/edit', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'editTeacher'])->name('superadmin.edit-teacher');
@@ -51,7 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/superadmin/notifications', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'notifications'])->name('superadmin.notifications');
     Route::get('/superadmin/fees', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'fees'])->name('superadmin.fees');
 
-
+    // Routes for fees
+    Route::resource('fees', FeesController::class);
     // Routes for adding classes and sections
     Route::post('/superadmin/classes', [App\Http\Controllers\SClassController::class, 'store'])->name('classes.store');
     Route::post('/superadmin/sections', [App\Http\Controllers\SectionController::class, 'store'])->name('sections.store');
@@ -66,7 +78,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/add-activity/{user}', [App\Http\Controllers\Teacher\TeacherController::class, 'load_to_add_activities'])->name('teacher.add-activity');
     Route::post('/storeactivities', [App\Http\Controllers\Teacher\TeacherController::class, 'store_activities']);
     Route::get('/superadmin/register-student', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'register_student']);
-    Route::post('/storestudents', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_students']);
+    // Route::post('/storestudents', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_students']);
     Route::get('/my-child/{user}', [App\Http\Controllers\Parent\ParentController::class, 'child_activity'])->name('parent.my-child');
 });
 

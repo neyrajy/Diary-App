@@ -27,7 +27,7 @@
                     <div class="tab-content" id="adminTabContent">
                         <div class="tab-pane fade show active" id="students" role="tabpanel" aria-labelledby="students-tab">
                             <br><h4>Total Students: {{ $studentsCount }}</h4>
-                            <br><button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addStudentModal" onclick="showAddStudentForm()"><a href="/superadmin/register-student">{{__('Add Student')}}</a></button>
+                            <br><button> <a href="{{ route('students.create') }}" class="btn btn-kprimary">Add Student</a></button>
                             <table class="table mt-3">
                                 <thead>
                                     <tr>
@@ -45,10 +45,11 @@
                                             <td>{{ $student->id }}</td>
                                             <td>{{ $student->firstname }}</td>
                                             <td>{{ $student->lastname }}</td>
-                                            <td>{{ $classes->find($student->class_id)->name ?? 'N/A' }}</td>
+                                            <td>{{ $classes->find($student->s_class_id)->name ?? 'N/A' }}</td>
                                             <td>{{ $sections->find($student->section_id)->name ?? 'N/A' }}</td>
                                             <td>
-                                                <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="{{ route('students.show', $student->id) }}" class="btn btn-info btn-sm">View</a>
+                                                <a href="{{ route('students.edit', $student->id) }}" class="btn btn-kprimary btn-sm">Edit</a>
                                                 <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline-block;">
                                                     @csrf
                                                     @method('DELETE')
@@ -61,8 +62,7 @@
                             </table>
                         </div>
                         <div class="tab-pane fade" id="classes" role="tabpanel" aria-labelledby="classes-tab">
-                            <h4>Classes</h4>
-                            <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addClassModal">Add Class</button>
+                            <br><button class="btn btn-kprimary mb-3" data-toggle="modal" data-target="#addClassModal">Add Class</button>
                             <table class="table mt-3">
                                 <thead>
                                     <tr>
@@ -79,17 +79,18 @@
                             </table>
                         </div>
                         <div class="tab-pane fade" id="sections" role="tabpanel" aria-labelledby="sections-tab">
-                            <h4>Sections</h4>
-                            <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addSectionModal">Add Section</button>
+                            <br><button class="btn btn-kprimary mb-3" data-toggle="modal" data-target="#addSectionModal">Add Section</button>
                             <table class="table mt-3">
                                 <thead>
                                     <tr>
+                                        <th>Class Name</th>
                                         <th>Section Name</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($sections as $section)
                                         <tr>
+                                            <td>{{ $section->s_class->name }}</td>
                                             <td>{{ $section->name }}</td>
                                         </tr>
                                     @endforeach
@@ -105,62 +106,6 @@
 
 
 
-<!-- Add Student Modal -->
-<div class="modal" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form action="{{ route('students.store') }}" method="POST">
-            @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="firstname">First Name</label>
-                        <input type="text" class="form-control" id="firstname" name="firstname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastname">Last Name</label>
-                        <input type="text" class="form-control" id="lastname" name="lastname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="class_id">Class</label>
-                        <select id="class_id" class="form-control" name="class_id" required>
-                            <option value="">Select Class</option>
-                            @foreach($classes as $class)
-                                <option value="{{ $class->id }}">{{ $class->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="section_id">Section</label>
-                        <select id="section_id" class="form-control" name="section_id" required>
-                            <option value="">Select Section</option>
-                            @foreach($sections as $section)
-                                <option value="{{ $section->id }}">{{ $section->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add Student</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 
 <script>
     function showAddStudentForm(){
@@ -209,13 +154,31 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
+                                            <label for="s_class_id">Class</label>
+                                            <select id="s_class_id" class="form-control" name="s_class_id" required>
+                                                <option value="">Select Class</option>
+                                                @foreach($classes as $class)
+                                                    <option value="{{ $class->id }}" {{ $student->class_id == $class->id ? 'selected' : '' }}>{{ $class->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="teacher_id">Teacher (optional)</label>
+                                            <select name="teacher_id" class="form-control">
+                                                <option value="">None</option>
+                                                @foreach($teachers as $teacher)
+                                                    <option value="{{ $teacher->id }}">{{ $teacher->firstname }} {{ $teacher->lastname }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="section_name">Section Name</label>
                                             <input type="text" class="form-control" id="section_name" name="name" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Add Section</button>
+                                        <button type="submit" class="btn btn-kprimary">Add Section</button>
                                     </div>
                                 </div>
                             </form>
@@ -229,4 +192,4 @@
 </div>
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>

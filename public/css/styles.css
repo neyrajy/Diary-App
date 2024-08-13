@@ -106,14 +106,14 @@ body {
   object-fit: cover;
 }
 .btn-kprimary {
-  color: #fff;
-  background-color: #f1d016;
-  border-color: #f1ce0b;
+  color: #fff !important;
+  background-color: #f1d016 !important;
+  border-color: #f1ce0b !important;
 }
 .btn-kprimary:hover {
-  color: #fff;
-  background-color: #d6b707;
-  border-color: #f1ce0b;
+  color: #fff !important;
+  background-color: #d6b707 !important;
+  border-color: #f1ce0b !important;
 }
 .navbar-dark .navbar-nav .nav-link {
   color: #000;

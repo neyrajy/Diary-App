@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use App\Models\BloodGroups;
+
 use App\Models\Role;
 use App\Models\District;
 use App\Models\Nationality;
@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-    'student','adm_no','section_id' , 'class_id' , 'firstname', 'secondname', 'lastname','email', 'phone', 'phone2', 'dob', 'gender', 'photo', 'bg_id', 'address', 'password', 'nal_id', 'region_id', 'district_id', 'street', 'role_id', 'verified', 'verified_at', 'verified_by', 'guardian', 'email_verified_at'
+        'firstname', 'secondname', 'lastname', 'email', 'phone', 'phone2', 'dob', 'gender', 'photo', 'address', 'password', 'nal_id', 'region_id', 'district_id', 'street', 'role_id', 'verified', 'verified_at', 'verified_by', 'guardian', 'email_verified_at'
     ];
 
     /**
@@ -42,12 +42,13 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
+
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
+
     public function district()
     {
         return $this->belongsTo(District::class);
@@ -62,9 +63,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Nationality::class, 'nal_id');
     }
-
-    public function blood_group()
+    public function students()
     {
-        return $this->belongsTo(BloodGroups::class, 'bg_id');
+        return $this->hasMany(Student::class, 'my_parent_id');
+    }
+    public function sections()
+    {
+        return $this->hasMany(Section::class, 'teacher_id');
     }
 }

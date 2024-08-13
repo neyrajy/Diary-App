@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Helpers\KJDAHelpers;
+
 return new class extends Migration
 {
     /**
@@ -12,25 +13,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('id', true);
-            $table->string('adm_no')->nullable();
-            $table->string('student')->nullable();
-            $table->string('class_id')->nullable();
-            $table->string('section_id')->nullable();
+            $table->id(); 
             $table->string('firstname');
             $table->string('secondname')->nullable();
             $table->string('lastname');
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            //$table->bigInteger("role_id")->default(4);
             $table->unsignedBigInteger('role_id')->default(4);
             $table->string('phone')->unique()->nullable();
             $table->string('phone2')->unique()->nullable();
             $table->string('dob')->nullable();
             $table->string('gender')->nullable();
-            $table->string('photo')->default(KJDAHelpers::getDefaultUserImage())->nullable();
-            $table->unsignedInteger('bg_id')->nullable();
+            $table->string('photo')->nullable(); 
             $table->unsignedBigInteger('region_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();
             $table->unsignedBigInteger('nal_id')->nullable();
@@ -42,9 +37,7 @@ return new class extends Migration
             $table->unsignedBigInteger('verified_by')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            
         });
-        
     }
 
     /**
@@ -55,3 +48,4 @@ return new class extends Migration
         Schema::dropIfExists('users');
     }
 };
+

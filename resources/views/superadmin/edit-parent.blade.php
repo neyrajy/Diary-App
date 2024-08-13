@@ -108,7 +108,7 @@
                                 <label for="address">Address</label>
                                 <textarea id="address" name="address" class="form-control">{{ $parent->address }}</textarea>
                             </div>
-
+<hr><div><h4>Add Student Details</h4></div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <label for="class">{{ __('Select Class') }}</label>
@@ -124,6 +124,7 @@
                                         </span>
                                     @enderror
                                 </div>
+                                
                                 <div class="col-md-4">
                                     <label for="section">{{ __('Select Section') }}</label>
                                     <select id="section" class="form-control @error('section') is-invalid @enderror" name="section" required>
@@ -141,12 +142,9 @@
                                 <div class="col-md-4">
                                     <label for="student">{{ __('Student') }}</label>
                                     <select id="student" class="form-control @error('student') is-invalid @enderror" name="student" required>
-                                        <option value="">Select Student</option>
-                                        <!-- <option value="">Chose Option</option> -->
-                                        @foreach($users as $user)
-                                            @if($user->role_id == 8)
-                                            <option value="{{$user->adm_no}}">{{$user->firstname}}, {{$user->adm_no}}</option>
-                                            @endif
+                                        
+                                        @foreach($students as $student)
+                                        <option value="">Select Student</option>    
                                         @endforeach
                                     </select>
                                     @error('student')
@@ -166,7 +164,31 @@
         </div>
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#class, #section').change(function() {
+            var classId = $('#class').val();
+            var sectionId = $('#section').val();
+            
+            if (classId && sectionId) {
+                $.ajax({
+                    url: '{{ route('get.students') }}',
+                    type: 'GET',
+                    data: { class_id: classId, section_id: sectionId },
+                    success: function(data) {
+                        $('#student').empty().append('<option value="">Select Student</option>');
+                        $.each(data, function(index, student) {
+                            $('#student').append('<option value="' + student.id + '">' + student.firstname + ' ' + student.lastname + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#student').empty().append('<option value="">Select Student</option>');
+            }
+        });
+    });
+</script>
 @endsection
 
 

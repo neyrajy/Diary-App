@@ -3,73 +3,66 @@
 namespace App\Http\Controllers;
 
 use App\Models\Section;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreSectionRequest;
-use App\Http\Requests\UpdateSectionRequest;
+use App\Models\SClass;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class SectionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $sections = Section::with('s_class', 'teacher')->get();
+        return view('sections.index', compact('sections'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
-    }
+        $classes = SClass::all();
+        $teachers = User::where('role_id', 5)->get(); 
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSectionRequest $request)
+        return view('sections.create', compact('classes', 'teachers'));
+        
+    }
+    public function store(Request $request)
     {
         $request->validate([
-            'section_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            's_class_id' => 'required|exists:s_classes,id',
+            'teacher_id' => 'nullable|exists:users,id',
         ]);
 
         Section::create([
-            'name' => $request->section_name,
+            'name' => $request->name,
+            's_class_id' => $request->s_class_id,
+            'teacher_id' => $request->teacher_id,
         ]);
 
-        return redirect()->route('superadmin.students')->with('success', 'Section added successfully.');
+        return redirect()->route('sections.index')->with('success', 'Section created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Section $section)
+    public function edit($id)
     {
-        //
+        $section = Section::findOrFail($id);
+        $classes = SClass::all();
+        $teachers = User::where('role_id', 5)->get(); 
+
+        return view('sections.edit', compact('section', 'classes', 'teachers'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Section $section)
+    public function update(Request $request, Section $section)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            's_class_id' => 'required|exists:s_classes,id',
+            'teacher_id' => 'nullable|exists:users,id',
+        ]);
+        $section->update($request->all());
+        return redirect()->route('sections.index')->with('success', 'Section updated successfully.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSectionRequest $request, Section $section)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Section $section)
     {
-        //
+        $section->delete();
+        return redirect()->route('sections.index')->with('success', 'Section deleted successfully.');
     }
 }

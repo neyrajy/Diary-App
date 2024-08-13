@@ -4,41 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\SClass;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreSClassRequest;
-use App\Http\Requests\UpdateSClassRequest;
+use Illuminate\Http\Request;
 
 class SClassController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-        //
+        $classes = SClass::all();
+        $classesCount = SClass::all()->count();
+        return view('classes.index', compact('classes', 'classesCount'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSClassRequest $request)
-    {
-        $request->validate([
-            'class_name' => 'required|string|max:255',
-        ]);
-
-        SClass::create([
-            'name' => $request->class_name,
-        ]);
-
-        return redirect()->route('superadmin.students')->with('success', 'Class added successfully.');
+        return view('classes.create');
     }
 
     /**
@@ -49,27 +29,28 @@ class SClassController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SClass $sClass)
+    public function store(Request $request)
     {
-        //
+        $request->validate(['name' => 'required|string|max:255']);
+        SClass::create($request->all());
+        return redirect()->route('classes.index')->with('success', 'Class created successfully.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSClassRequest $request, SClass $sClass)
+    public function edit(SClass $class)
     {
-        //
+        return view('classes.edit', compact('class'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SClass $sClass)
+    public function update(Request $request, SClass $class)
     {
-        //
+        $request->validate(['name' => 'required|string|max:255']);
+        $class->update($request->all());
+        return redirect()->route('classes.index')->with('success', 'Class updated successfully.');
+    }
+
+    public function destroy(SClass $class)
+    {
+        $class->delete();
+        return redirect()->route('classes.index')->with('success', 'Class deleted successfully.');
     }
 }

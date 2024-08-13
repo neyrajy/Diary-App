@@ -3,7 +3,7 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\User;
+use App\Models\User;
 //use Eloquent;
 
 class Section extends Model
@@ -13,7 +13,7 @@ class Section extends Model
 
     public function s_class()
     {
-        return $this->belongsTo(SClass::class);
+        return $this->belongsTo(SClass::class, 's_class_id');
     }
 
     public function teacher()
@@ -21,8 +21,9 @@ class Section extends Model
         return $this->belongsTo(User::class, 'teacher_id');
     }
 
-    public function student()
+    public function students()
     {
         return $this->hasMany(Student::class);
     }
+
 }

@@ -10,6 +10,7 @@ use App\Models\Region;
 use App\Models\District;
 use App\Models\Student;
 use App\Models\SClass;
+use App\Models\Fee;
 use App\Models\Section;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,13 +30,13 @@ class SuperAdminController extends Controller
 
         $teachersCount = User::where('role_id', 5)->count();
         $staffCount = User::where('role_id', 7)->count();
-        $studentsCount = User::where('role_id', 8)->count();
         $driversCount = User::where('role_id', 7)->count();
-        $studentsViewer = User::where('role_id',8)->get();
         // $notifications = Notification::latest()->take(5)->get();
-        // $latestFees = Fee::latest()->take(5)->get();
-
-        return view('superadmin.dashboard', compact('parentsCount', 'teachersCount', 'staffCount', 'studentsCount', 'driversCount','studentsViewer'));
+        $studentsCount = Student::count(); 
+        $driversCount = User::where('role_id', 7)->count();
+        $studentsViewer = Student::all(); 
+        $latestFees = Fee::latest()->take(5)->get();
+        return view('superadmin.dashboard', compact('parentsCount', 'teachersCount', 'staffCount', 'studentsCount', 'driversCount','studentsViewer', 'latestFees'));
     }
     // methods for parents routes
     public function showParentRegistrationForm()
@@ -129,16 +130,28 @@ class SuperAdminController extends Controller
     }
     public function editParent($id)
     {
-        // Find the parent record by ID
         $parent = User::where('role_id', 4)->findOrFail($id);
         $nationalities = Nationality::all();
         $regions = Region::all();
         $districts = District::all();
         $classes = SClass::all();
         $sections = Section::all();
-        $users = User::where('role_id',8)->get();
-           
-        return view('superadmin.edit-parent', compact('parent','nationalities', 'regions', 'districts','classes','sections','users'));
+        $students = []; // Initialize empty students array
+
+        return view('superadmin.edit-parent', compact('parent', 'nationalities', 'regions', 'districts', 'classes', 'sections', 'students'));
+    }
+    
+    // Add method to fetch students by class and section
+    public function getStudentsByClassSection(Request $request)
+    {
+        $classId = $request->input('class_id');
+        $sectionId = $request->input('section_id');
+    
+        $students = Student::where('s_class_id', $classId)
+                            ->where('section_id', $sectionId)
+                            ->get();
+    
+        return response()->json($students);
     }
     public function updateParent(Request $request, $id)
     {
@@ -181,12 +194,13 @@ class SuperAdminController extends Controller
         return redirect()->route('superadmin.parents')->with('success', 'Parent deleted successfully.');
     }
     public function students() {
-        $studentsCount = User::where('role_id', 8)->count();
-        $students = User::where('role_id', 8)->get();
+        $studentsCount = Student::count(); 
+        $students = Student::all();
         $classes = SClass::all();
         $sections = Section::all();
-        
-        return view('superadmin.students', compact('studentsCount', 'students', 'classes', 'sections'));
+        $teachers = User::where('role_id', 5)->get(); // Fetching teachers with role_id 5
+
+        return view('superadmin.students', compact('studentsCount', 'students', 'classes', 'sections', 'teachers'));
     }
 
     //Teachers
@@ -262,47 +276,55 @@ class SuperAdminController extends Controller
         // return view for notifications
     }
 
-    public function fees() {
-        // return view for fees
-    }
+    public function fees() 
+    {
+        $fees = Fee::all();
+        return view('superadmin.fees', compact('fees'));
+      }
 
-    public function register_student(){
-        $studentsCount = Student::all();
-        return view('superadmin.register-student',[
-            'studentsCount' => $studentsCount,
-            'students' => Student::all(),
-            'classes' => SClass::all(),
-            'sections' => Section::all(),
-        ]);
-    }
+    // public function register_student(){
+    //     $studentsCount = Student::all();
+    //     return view('superadmin.register-student',[
+    //         'studentsCount' => $studentsCount,
+    //         'students' => Student::all(),
+    //         'classes' => SClass::all(),
+    //         'sections' => Section::all(),
+    //     ]);
+    // }
 
-    public function store_students(Request $request){
-        $studentsDetails = $request->validate([
-            'adm_no' => 'nullable',
-            'firstname' => 'required|max:255',
-            'lastname' => 'required|max:255',
-            'dob' => 'nullable',
-            'gender' => 'nullable',
-            'password' => 'required',
-            'class_id' => 'nullable',
-            'section_id' => 'nullable',
-            'photo' => 'nullable',
-            'role_id' => 'required',
-        ]);
 
-        $exisistingStudentFName = User::where('firstname', $request->input('firstname'))->first();
-        $exisistingStudentLName = User::where('lastname', $request->input('lastname'))->first();
-
-        if($exisistingStudentFName && $exisistingStudentLName){
-            return redirect()->back()->with('student_exists','This Student exists already!');
-        }
-
-        if($request->hasFile('photo')){
-            $studentsDetails['photo'] = $request->file('photo')->store('phptos','public');
-        }
-
-        User::create($studentsDetails);
-
-        return redirect()->back()->with('success_registration','Student registered successfully');
-    }
+    // public function store_students(Request $request){
+    //     if (!Auth::user()->role_id === 1 && !Auth::user()->role_id === 2) {
+    //         return redirect()->route('dashboard')->with('error', 'Unauthorized access');
+    //     }
+    
+    //     $studentsDetails = $request->validate([
+    //         'adm_no' => 'nullable',
+    //         'firstname' => 'required|max:255',
+    //         'lastname' => 'required|max:255',
+    //         'dob' => 'nullable',
+    //         'gender' => 'nullable',
+    //         'password' => 'required',
+    //         'class_id' => 'nullable',
+    //         'section_id' => 'nullable',
+    //         'photo' => 'nullable',
+    //         'role_id' => 'required',
+    //     ]);
+    
+    //     $exisistingStudentFName = User::where('firstname', $request->input('firstname'))->first();
+    //     $exisistingStudentLName = User::where('lastname', $request->input('lastname'))->first();
+    
+    //     if ($exisistingStudentFName && $exisistingStudentLName) {
+    //         return redirect()->back()->with('student_exists', 'This Student exists already!');
+    //     }
+    
+    //     if ($request->hasFile('photo')) {
+    //         $studentsDetails['photo'] = $request->file('photo')->store('photos', 'public');
+    //     }
+    
+    //     User::create($studentsDetails);
+    
+    //     return redirect()->back()->with('success_registration', 'Student registered successfully');
+    // }
+    
 }

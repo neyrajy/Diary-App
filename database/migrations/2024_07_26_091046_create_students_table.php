@@ -12,15 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('s_class_id');
-            $table->unsignedInteger('section_id');
+            $table->id(); 
+            $table->string('firstname');
+            $table->string('secondname')->nullable();
+            $table->string('lastname');
+            $table->unsignedBigInteger('s_class_id');
+            $table->unsignedBigInteger('section_id'); 
             $table->string('adm_no', 30)->unique()->nullable();
-            $table->unsignedInteger('my_parent_id')->nullable();
+            $table->string('photo')->nullable(); 
+            $table->unsignedInteger('bg_id')->nullable();
             $table->string('session');
-            $table->tinyInteger('age')->nullable();
-            $table->string('year_admitted')->nullable();
+            $table->string('age')->nullable();
+            $table->string('admission_date')->nullable();
             $table->tinyInteger('grad')->default(0);
             $table->string('grad_date')->nullable();
             $table->timestamps();
@@ -35,3 +38,4 @@ return new class extends Migration
         Schema::dropIfExists('students');
     }
 };
+

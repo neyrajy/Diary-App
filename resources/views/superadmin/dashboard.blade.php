@@ -85,30 +85,38 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th>S/N.</th>
                                 <th>Student</th>
-                                <th>Amount</th>
+                                <th>Amount Paid</th>
+                                <th>Balance</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
-
-
-                        @foreach($studentsViewer as $student)
-                            
+                            @foreach($studentsViewer as $student)
+                                @php
+                                    $latestFee = $student->fees()->latest()->first();
+                                    $amountPaid = $latestFee ? $latestFee->amount : 0;
+                                    $balance = $latestFee ? $latestFee->balance : 0;
+                                    $date = $latestFee ? $latestFee->created_at->format('Y-m-d') : 'N/A';
+                                @endphp
                                 <tr>
-                                    <td>{{$student->firstname}}</td>
-                                    <td>100000</td>
-                                    <td>{{$student->created_at}}</td>
+                                    <td>{{ $student->id }}</td>
+                                    <td>{{ $student->firstname }} {{ $student->lastname }}</td>
+                                    <td>{{ $amountPaid }}</td>
+                                    <td>{{ $balance }}</td>
+                                    <td>{{ $date }}</td>
                                 </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
+</div>
+
     </div>
 
-<!-- Include any necessary scripts for the calendar -->
+<!-- scripts for the calendar -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />

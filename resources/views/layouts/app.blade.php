@@ -44,6 +44,8 @@
                                     <a href="{{ route('superadmin.teachers') }}"><i class="fas fa-chalkboard-teacher"></i> Teachers</a>
                                     <a href="{{ route('superadmin.staff') }}"><i class="fas fa-users"></i> Staff</a>
                                     <a href="{{ route('superadmin.students') }}"><i class="fas fa-user-graduate"></i> Students</a>
+                                    <a href="{{ route('classes.index') }}"><i class="fas fa-chalkboard-teacher"></i> Classes</a>
+                                    <a href="{{ route('sections.index') }}"><i class="fas fa-chalkboard-teacher"></i> Sections</a>
                                     <a href="{{ route('superadmin.drivers') }}"><i class="fas fa-bus"></i> Drivers</a>
                                     <a href="{{ route('superadmin.events') }}"><i class="fas fa-calendar-alt"></i> Events</a>
                                     <a href="{{ route('superadmin.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>
