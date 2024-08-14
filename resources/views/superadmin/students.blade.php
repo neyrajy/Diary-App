@@ -1,6 +1,6 @@
 @extends('layouts.app')
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 @section('content')
 <div class="row py-3"></div>
 <div class="row mt-4">
