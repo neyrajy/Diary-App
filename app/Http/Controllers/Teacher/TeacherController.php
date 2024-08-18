@@ -28,7 +28,7 @@ class TeacherController extends Controller
             'activities' => Activity::all(),
             'student_activities' => $activities,
             'users' => User::all(),
-        ],compact('nowDate'));
+        ], compact('nowDate'));
     }
 
     public function student_activities(){
