@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->unsignedBigInteger('s_class_id');
             $table->unsignedBigInteger('section_id'); 
-            $table->string('adm_no', 30)->unique()->nullable();
+            $table->string('adm_no', 30)->unique();
             $table->string('photo')->nullable(); 
             $table->unsignedInteger('bg_id')->nullable();
             $table->string('session');

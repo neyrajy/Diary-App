@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+<x-success_registration />
+
 <div class="row py-3"></div>
 <div class="row mt-4">
 <div class="container">
@@ -10,13 +13,17 @@
                 <div class="card-header">{{ __('Edit Student') }}</div>
 
                 <div class="card-body">
-                <form method="POST" action="{{ route('students.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="/storestudents" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="firstname">First Name</label>
                             <input type="text" name="firstname" class="form-control" required>
+                            @error('firstname')
+                            <br>
+                            <span>{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -29,6 +36,10 @@
                     <div class="form-group">
                             <label for="lastname">Last Name</label>
                             <input type="text" name="lastname" class="form-control" required>
+                            @error('lastname')
+                            <br>
+                            <span>{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     </div>

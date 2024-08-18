@@ -106,14 +106,14 @@ body {
   object-fit: cover;
 }
 .btn-kprimary {
-  color: #fff !important;
-  background-color: #f1d016 !important;
-  border-color: #f1ce0b !important;
+  color: #fff;
+  background-color: #f1d016;
+  border-color: #f1ce0b;
 }
 .btn-kprimary:hover {
-  color: #fff !important;
-  background-color: #d6b707 !important;
-  border-color: #f1ce0b !important;
+  color: #fff;
+  background-color: #d6b707;
+  border-color: #f1ce0b;
 }
 .navbar-dark .navbar-nav .nav-link {
   color: #000;
@@ -325,10 +325,50 @@ footer {
   text-align: center;
 }
 
-.md-5-col-mod,.md-poop-susu-col,.md-poop-susu-col,.md-nap-col-5,.md-meal-times-6,.md-dieper-7{
+.md-5-col-mod,.md-poop-susu-col,.md-poop-susu-col,.md-nap-col-5,.md-meal-times-6{
   float: left;
   width: 30%;
   margin-left: 2%;
+}
+
+.md-dieper-7{
+  float: none;
+  width: 98%;
+  margin-top: 5%;
+}
+
+.min-coop-1{
+  float: left;
+  width: 30%;
+  margin-left: 2%;
+}
+.min-coop-2{
+  width: 30%;
+  float: left;
+  margin-left: 2%;
+}
+
+.min-coop-3{
+  float: left;
+  width: 30%;
+  margin-left: 2%;
+}
+
+.row-md7{
+  width: 95%;
+}
+
+.bottom-md7{
+  float: left;
+  width: 49%;
+}
+.bottom-md8{
+  width: 49%;
+  float: right;
+}
+
+.row-md7 textarea{
+  width: 100%;
 }
 
 .card-md-dealer select{
@@ -477,4 +517,73 @@ footer {
 .table img{
   width: 100px;
   height: 70px;
+}
+
+.row-modal,.col-md-6{
+  width: 100%;
+}
+
+.event-callendar-col{
+  width: 100%;
+}
+.event-callendar-col .left-opt-col-5{
+  width: 49%;
+  float: left;
+}
+
+.event-callendar-col .middl-event-col-6{
+  float: right;
+  width: 49%;
+}
+
+.event-callendar-col .right-event-col-7{
+  float: none;
+  width: 100%;
+}
+
+.right-event-col-7 textarea{
+  width: 100%;
+}
+.submit-event-recorder{
+  width: 140px;
+  background-color: #007BFF;
+  border-radius: 4px;
+  padding: 6px;
+  color: #FFFFFF;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+.submit-event-recorder:hover{
+  color: darkblue;
+}
+
+.calendar-col-5 h3,p{
+  padding: 5px;
+}
+
+.data-tr-td{
+  width: 50%;
+}
+
+.viewable-class-holder{
+  position: absolute;
+  width: 50%;
+  display: none;
+  left: 20%;
+  padding: 10px;
+  background-color: #FFFFFF;
+  top: 15%;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.view-btn-eye a:hover{
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.hidden{
+  display: none;
 }

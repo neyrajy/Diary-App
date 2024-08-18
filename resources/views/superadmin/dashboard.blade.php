@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+<x-success_event_sent />
     
     <div class="row py-3">
         <!-- Parents Card -->
@@ -56,8 +58,17 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Events Calendar</h5>
-                    <div id="calendar"></div>
+                    <h5 class="card-title"><strong>{{__('Events Calendar')}}</strong></h5>
+                    <div id="calendar" class="calendar-col-5">
+                        @if(count($events) == 0)
+                        <p>No event today!</p>
+                        @endif
+                        @foreach($events as $event)
+                        <h3><strong>Date:</strong> <span style="color:green;">{{$event->date}}</span></h3>
+                        <h3><strong>Event:</strong> <span style="color:green;">{{$event->event_name}}</span></h3>
+                        <a href="/superadmin/read-more/{{$event->id}}" style="color:darkblue; text-decoration:underline;">&#8594; Read More &#8594;</a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -66,7 +77,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Messages / Notifications</h5>
+                    <h5 class="card-title"><strong>{{__('Messages / Notifications')}}</strong></h5>
                     <ul class="list-group">
                             <li class="list-group-item">messages</li>
                         
@@ -81,42 +92,34 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Latest Fees</h5>
+                    <h5 class="card-title"><strong>{{__('Latest Fees')}}</strong></h5>
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>S/N.</th>
                                 <th>Student</th>
-                                <th>Amount Paid</th>
-                                <th>Balance</th>
+                                <th>Amount</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($studentsViewer as $student)
-                                @php
-                                    $latestFee = $student->fees()->latest()->first();
-                                    $amountPaid = $latestFee ? $latestFee->amount : 0;
-                                    $balance = $latestFee ? $latestFee->balance : 0;
-                                    $date = $latestFee ? $latestFee->created_at->format('Y-m-d') : 'N/A';
-                                @endphp
+
+
+                        @foreach($studentsViewer as $student)
+                            
                                 <tr>
-                                    <td>{{ $student->id }}</td>
-                                    <td>{{ $student->firstname }} {{ $student->lastname }}</td>
-                                    <td>{{ $amountPaid }}</td>
-                                    <td>{{ $balance }}</td>
-                                    <td>{{ $date }}</td>
+                                    <td>{{$student->firstname}}</td>
+                                    <td>100000</td>
+                                    <td>{{$student->created_at}}</td>
                                 </tr>
-                            @endforeach
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-</div>
-
+        </div>
     </div>
 
-<!-- scripts for the calendar -->
+<!-- Include any necessary scripts for the calendar -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />

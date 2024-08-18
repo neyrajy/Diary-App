@@ -11,8 +11,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Parents <span style="margin-top:-20px" class="d-flex justify-content-end"> 
-                    <a class="btn btn-warning btn-sm" href="{{ route('register') }}">Add Parent</a> </span></h5>
+                    <h5 class="card-title">Teachers <span style="margin-top:-20px" class="d-flex justify-content-end"> 
+                    <a class="btn btn-warning btn-sm" href="{{ route('superadmin.register-teacher') }}">Add Teacher</a> </span></h5>
                     <table class="table table-responsive table-striped">
                         <thead>
                             <tr>
@@ -34,10 +34,10 @@
                             <td>{{ $teacher->address }}</td>
                             <td>100000/=</td>
                             <td>
-                                <a href="{{ route('superadmin.edit-teachers', $teacher->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="/superadmin/teachers/edit/{{$teacher->id}}" class="btn btn-primary btn-sm">Edit</a>
                             </td>
                             <td>
-                                <form action="{{ route('superadmin.destroy-teachers', $teacher->id) }}" method="POST">
+                                <form action="/superadmin/teachers/destroy/{{$teacher->id}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button style="background-color:#dc3545" type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -47,7 +47,7 @@
                         @endforeach   
                         </tbody>
                     </table>
-                    <h4>Total Number of Parents: <b>{{ $teachersCount }}</b></h4>
+                    <h4>Total Number of Teachers: <b>{{ $teachersCount }}</b></h4>
                 </div>
             </div>
         </div>

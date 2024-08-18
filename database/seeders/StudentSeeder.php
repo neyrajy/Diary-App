@@ -24,6 +24,7 @@ class StudentSeeder extends Seeder
             'lastname' => 'Damian',
             's_class_id' => $section->s_class_id,
             'section_id' => $section->id,
+            'adm_no' => '21101133370014',
         ]);
     }
 }

@@ -11,12 +11,13 @@ class Activity extends Model
 
     public function scopeFilter($query, array $filters){
         if($filters['search'] ?? false){
-            $query->where('adm_no','like','%'.request('search').'%')
+            $query->where('student_id','like','%'.request('search').'%')
             ->orwhere('date_time','like','%'.request('search').'%');
         }
     }
 
     protected $fillable =[
-        'adm_no','teacher_name','date_time','poop_susu','nap','meals','dieppers','milk_bottle_feed','describe_poop_susu','describe_bootle_feed','describe_nap','describe_meals','describe_dieppers',
+        'student_id','date_time','mood','learning_activities','lessons_learnt','needs_more_time','milk_times','milk_finished','breakfast','breakfast_quantity','breakfast_finished','lunch','lunch_quantity','lunch_finished',
+        'snack','snack_quantity','snack_finished','general_observation','poop','describe_poop','nap','diapers_used','photos','videos','milestones',
     ];
 }

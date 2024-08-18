@@ -38,40 +38,65 @@ class TeacherController extends Controller
             'users' => User::all(),
             'activities' => Activity::all(),
             'studentExistsConuter' => $studentExists,
-            'classes' => SClass::all(),
+            's_classes' => SClass::all(),
             'sections' => Section::all(),
         ]);
     }
 
     public function load_to_add_activities($id){
         return view('teacher.add-activity',[
-            'user' => User::find($id),
+            'student' => Student::find($id),
         ]);
     }
 
     public function store_activities(Request $request){
         $activityDetails = $request->validate([
-            'adm_no' => 'required|max:255',
-            'teacher_name' => 'required|max:255',
-            'date_time' => 'required|max:255',
-            'poop_susu' => 'nullable|max:255',
-            'nap' => 'nullable|max:255',
-            'meals' => 'nullable|max:255',
-            'dieppers' => 'nullable|max:255',
-            'milk_bottle_feed' => 'nullable|max:255',
-            'describe_poop_susu' => 'nullable|max:255',
-            'describe_bootle_feed' => 'nullable|max:255',
-            'describe_nap' => 'nullable|max:255',
-            'describe_meals' =>'nullable|max:255',
-            'describe_dieppers' => 'nullable|max:255',
-            'describe_bootle_feed' => 'nullable|max:255',
+            'student_id' => 'required',
+            'date_time' => 'required',
+            'mood' => 'nullable',
+            'learning_activities' => 'nullable|max:255',
+            'lessons_learnt' => 'nullable|max:255',
+            'needs_more_time' => 'nullable|max:255',
+            'milk_times' => 'nullable',
+            'milk_finished' => 'nullable',
+            'breakfast' => 'nullable',
+            'breakfast_quantity' => 'nullable',
+            'breakfast_finished' => 'nullable',
+            'lunch' => 'nullable',
+            'lunch_quantity' => 'nullable',
+            'lunch_finished' => 'nullable',
+            'snack' => 'nullable',
+            'snack_quantity' => 'nullable',
+            'snack_finished' => 'nullable',
+            'general_observation' => 'nullable|max:255',
+            'poop' => 'nullable',
+            'describe_poop' => 'nullable',
+            'nap' => 'nullable',
+            'diapers_used' => 'nullable',
+            'photos' => 'nullable',
+            'videos' => 'nullable',
+            'milestones' => 'nullable|max:255',
         ]);
 
-        try{
+        if($request->hasFile('photos')){
+            $activityDetails['photos'] = $request->file('photos')->store('photos','public');
+        }
+
+        if($request->hasFile('videos')){
+            $activityDetails['videos'] = $request->file('videos')->store('videos','public');
+        }
+
+        // try{
             Activity::create($activityDetails);
             return redirect()->back()->with('success_post_activity','Activity posted successfully');
-        }catch(\Throwable $e){
-            $e->getMessage();
-        }
+        // }catch(\Throwable $e){
+        //     $e->getMessage();
+        // }
+    }
+
+    public function edit_activity($id){
+        $activity = Activity::find($id);
+        $student = Student::where('id', $activity->student_id)->get();
+        return view('teacher.edit-activity',compact('activity','student'));
     }
 }

@@ -1,25 +1,26 @@
 <?php
 
 namespace App\Http\Controllers\SuperAdmin;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Helpers\KJDAHelpers;
-use App\Models\Nationality;
-use App\Models\Region;
-use App\Models\District;
-use App\Models\Student;
-use App\Models\SClass;
 use App\Models\Fee;
+use App\Models\User;
+use App\Models\Event;
+use App\Models\Region;
+use App\Models\SClass;
 use App\Models\Section;
-use Illuminate\Support\Facades\Auth;
-
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use App\Models\Student;
+use App\Models\District;
 use Illuminate\View\View;
+use App\Models\Nationality;
+use App\Helpers\KJDAHelpers;
+use Illuminate\Http\Request;
+
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 
 class SuperAdminController extends Controller
 {
@@ -31,12 +32,13 @@ class SuperAdminController extends Controller
         $teachersCount = User::where('role_id', 5)->count();
         $staffCount = User::where('role_id', 7)->count();
         $driversCount = User::where('role_id', 7)->count();
+        $events = Event::latest()->paginate(1);
         // $notifications = Notification::latest()->take(5)->get();
         $studentsCount = Student::count(); 
         $driversCount = User::where('role_id', 7)->count();
         $studentsViewer = Student::all(); 
         $latestFees = Fee::latest()->take(5)->get();
-        return view('superadmin.dashboard', compact('parentsCount', 'teachersCount', 'staffCount', 'studentsCount', 'driversCount','studentsViewer', 'latestFees'));
+        return view('superadmin.dashboard', compact('parentsCount', 'teachersCount', 'staffCount', 'studentsCount', 'driversCount','studentsViewer', 'latestFees','events'));
     }
     // methods for parents routes
     public function showParentRegistrationForm()
@@ -269,11 +271,35 @@ class SuperAdminController extends Controller
     }
 
     public function events() {
-        // return view for events
+        
+        return view('superadmin.events');
     }
 
     public function notifications() {
         // return view for notifications
+    }
+
+    public function store_events(Request $request){
+        $eventDetails = $request->validate([
+            'event_name' => 'required',
+            'date' => 'required',
+            'event_description' => 'required',
+            'sender_name' => 'required',
+        ]);
+
+        try{
+            Event::create($eventDetails);
+            return redirect()->back()->with('success_event_sent', 'Event posted successfully!');
+        }catch(\Throwable $e){
+            return $e->getMessage();
+        }
+    }
+
+    public function view_single_event($id){
+        $event = Event::find($id);
+        return view('superadmin.read-more',[
+            'event' => $event,
+        ]);
     }
 
     public function fees() 
@@ -282,49 +308,91 @@ class SuperAdminController extends Controller
         return view('superadmin.fees', compact('fees'));
       }
 
-    // public function register_student(){
-    //     $studentsCount = Student::all();
-    //     return view('superadmin.register-student',[
-    //         'studentsCount' => $studentsCount,
-    //         'students' => Student::all(),
-    //         'classes' => SClass::all(),
-    //         'sections' => Section::all(),
-    //     ]);
-    // }
+    public function register_student(){
+        $studentsCount = Student::all();
+        return view('superadmin.register-student',[
+            'studentsCount' => $studentsCount,
+            'students' => Student::all(),
+            'classes' => SClass::all(),
+            'sections' => Section::all(),
+        ]);
+    }
 
 
-    // public function store_students(Request $request){
-    //     if (!Auth::user()->role_id === 1 && !Auth::user()->role_id === 2) {
-    //         return redirect()->route('dashboard')->with('error', 'Unauthorized access');
-    //     }
+    public function store_students(Request $request){
+
+        if (!Auth::user()->role_id === 1 && !Auth::user()->role_id === 2) {
+            return redirect()->route('dashboard')->with('error', 'Unauthorized access');
+        }
     
-    //     $studentsDetails = $request->validate([
-    //         'adm_no' => 'nullable',
-    //         'firstname' => 'required|max:255',
-    //         'lastname' => 'required|max:255',
-    //         'dob' => 'nullable',
-    //         'gender' => 'nullable',
-    //         'password' => 'required',
-    //         'class_id' => 'nullable',
-    //         'section_id' => 'nullable',
-    //         'photo' => 'nullable',
-    //         'role_id' => 'required',
-    //     ]);
+        $studentsDetails = $request->validate([
+            'firstname' => 'required|max:255',
+            'secondname' => 'nullable|max:255',
+            'lastname' => 'required|max:255',
+            's_class_id' => 'required',
+            'section_id' => 'required',
+            'adm_no' => 'required|max:30',
+            'photo' => 'nullable',
+            'bg_id' => 'nullable',
+            'session' => 'required',
+            'age' => 'nullable',
+            'admission_date' => 'nullable',
+            'grad' => 'required',
+            'grad_date' => 'nullable',
+        ]);
     
-    //     $exisistingStudentFName = User::where('firstname', $request->input('firstname'))->first();
-    //     $exisistingStudentLName = User::where('lastname', $request->input('lastname'))->first();
+        // $exisistingStudentFName = User::where('firstname', $request->input('firstname'))->first();
+        // $exisistingStudentLName = User::where('lastname', $request->input('lastname'))->first();
     
-    //     if ($exisistingStudentFName && $exisistingStudentLName) {
-    //         return redirect()->back()->with('student_exists', 'This Student exists already!');
-    //     }
+        // if ($exisistingStudentFName && $exisistingStudentLName) {
+        //     return redirect()->back()->withErrors('student_exists', 'This Student exists already!')->withInput();
+        // }
     
-    //     if ($request->hasFile('photo')) {
-    //         $studentsDetails['photo'] = $request->file('photo')->store('photos', 'public');
-    //     }
+        if ($request->hasFile('photo')) {
+            $studentsDetails['photo'] = $request->file('photo')->store('photos', 'public');
+        }
     
-    //     User::create($studentsDetails);
+        Student::create($studentsDetails);
     
-    //     return redirect()->back()->with('success_registration', 'Student registered successfully');
-    // }
+        return redirect()->back()->with('success_registration', 'Student registered successfully');
+    }
+
+    public function register_teacher(){
+        return view('/superadmin/register-teacher',[
+            'nationalities' => Nationality::all(),
+            'regions' => Region::all(),
+            'disctricts' => District::all(),
+        ]);
+    }
+
+    public function store_teachers(Request $request){
+        $teachersDetails = $request->validate([
+            'firstname' => 'required',
+            'secondname' => 'nullable',
+            'lastname' => 'required',
+            'phone' => 'required',
+            'phone2' => 'nullable',
+            'nal_id' => 'nullable',
+            'region_id' => 'nullable',
+            'district_id' => 'nullable',
+            'street' => 'nullable',
+            'address' => 'nullable',
+            'password' => 'required|min:8|max:255',
+            'confirm_password' => 'required|min:8|max:255',
+            'guardian' => 'required',
+            'role_id' => 'required', 
+        ]);
+
+        if($teachersDetails['password'] != $teachersDetails['confirm_password']){
+            return redirect()->back()->withErrors('Passwords do not match!')->withInput();
+        }
+
+        try{
+            User::create($teachersDetails);
+            return redirect()->back()->with('success_teacher_reg','Teacher registered successfully!');
+        }catch(\Throwable $e){
+            return $e->getMessage();
+        }
+    }
     
 }

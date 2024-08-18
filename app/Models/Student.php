@@ -43,5 +43,15 @@ class Student extends Model
     {
         return $this->hasMany(Fee::class);
     }
+
+    public static function find($id){
+        $students = self::all();
+
+        foreach($students as $student){
+            if($student['id'] == $id){
+                return $student;
+            }
+        }
+    }
 }
     

@@ -23,33 +23,33 @@
                                 <th>Student Name</th>
                                 <th>Class</th>
                                 <th>Section</th>
-                                <th>Gender</th>
+                                <!-- <th>Gender</th> -->
                                 <!-- <th>Status</th> -->
                                 <th>Action</th>
                             </tr>
-                            @foreach($users as $user)
-                                @if($user->role_id == '8')
+                            @foreach($students as $student)
+                                
                                     <tr class="main-tr-wrapper">
-                                        <td>{{$user->firstname}}</td>
+                                        <td>{{$student->firstname}}</td>
                                         <td>
-                                            @foreach($classes as $class)
-                                            @if($user->class_id == $class->id)
+                                            @foreach($s_classes as $class)
+                                            @if($student->s_class_id == $class->id)
                                             {{$class->name}}
                                             @endif
                                             @endforeach
                                         </td>
                                         <td>
                                         @foreach($sections as $section)
-                                            @if($user->section_id == $section->id)
+                                            @if($student->section_id == $section->id)
                                             {{$section->name}}
                                             @endif
                                             @endforeach
                                         </td>
-                                        <td>{{$user->gender}}</td>
+                                        <!-- <td>{{$student->gender}}</td> -->
                                         <!-- <td>No activity</td> -->
-                                        <td style="text-align:center;"><a href="/add-activity/{{$user->id}}"><i class="fa fa-plus"></i> Add Activity</a></td>
+                                        <td style="text-align:center;"><a href="/add-activity/{{$student->id}}"><i class="fa fa-plus"></i> Add Activity</a></td>
                                     </tr>
-                                @endif
+                               
                             @endforeach
                         </table>                   
                         <!-- <form method="POST" action="{{ route('superadmin.store-parent') }}" enctype="multipart/form-data">

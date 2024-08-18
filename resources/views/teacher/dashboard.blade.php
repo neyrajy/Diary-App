@@ -42,8 +42,10 @@
 
         <table class="md-data-tabler">
             <tr class="head-tr-mod">
+                <th>Id</th>
                 <th>{{ __('Student Name') }}</th>
-                <th>{{ __('Activity') }}</th>
+                <th>{{ __('Activities') }}</th>
+                <th>{{__('Action')}}</th>
             </tr>
             
             @if(count($student_activities) == 0)
@@ -52,36 +54,73 @@
 
 
             @foreach($student_activities as $activity)
-            @if($nowDate == $activity->date_time)
+            @if($nowDate == $activity->created_at->format('Y-m-d'))
                 <tr class="data-tr-mod">
+                    <td>{{$activity->id}}</td>
                     <td>
-                        @foreach($users as $user)
-                            @if($user->id == $activity->student_id)
-                                <h1>{{ $user->firstname }}</h1>
+                        @foreach($students as $student)
+                            @if($student->id == $activity->student_id)
+                                <h1>{{ $student->firstname }}</h1>
                             @endif
                         @endforeach
                     </td>
+                    <td class="data-tr-td">
+                        <button class="view-btn-eye" style="text-align:center; width:100%; background-color:#007BFF; color:#FFFFFF; padding:6px; border:none; cursor:pointer; border-radius:4px;" onclick="showDataDeep(event, $activity->id)">View Activity</button>
+                        <div class="viewable-class-holder" id="viewable-holder-{{$activity->id}}">
+                            @if($activity->mood !='')
+                            <p><strong>Mood:</strong> {{$activity->mood}}</p>
+                            @endif
+                            @if($activity->learning_activities !='')
+                            <p><strong>Learning Activities:</strong> {{$activity->learning_activities}}</p>
+                            @endif
+                            @if($activity->lessons_learnt !='')
+                            <p><strong>Learnt Lessons:</strong> {{$activity->lessons_learnt}}</p>
+                            @endif
+                            @if($activity->needs_more_time !='' && $activity->needs_more_time =='1')
+                            <p><strong>{{__('Student Needs More Time')}}</strong>: Yes</p>
+                            @elseif($activity->needs_more_time =='0')
+                            <p><strong>{{__('Student does not need more time')}}</strong>: No</p>
+                            @endif
+                            @if($activity->milk_times !='')
+                            <p><strong>Milk Time: </strong>{{$activity->milk_times}}</p>
+                            @endif
+                            @if($activity->milk_finished != '')
+                            <p><strong>Milk Finished:</strong> {{$activity->milk_finished}}</p>
+                            @endif
+                            @if($activity->breakfast !='')
+                            <p><strong>Breakfast:</strong> {{$activity->breakfast}}</p>
+                            <p><strong>Breakfast Quantity:</strong> {{$activity->breakfast_quantity}}</p>
+                            <p><strong>Breakfast Finished:</strong> {{$activity->breakfast_finished}}</p>
+                            @endif
+                            @if($activity->lunch !='')
+                            <p><strong>Lunch:</strong> {{$activity->lunch}}</p>
+                            <p><strong>Lunch Quantity:</strong> {{$activity->lunch_quantity}}</p>
+                            <p><strong>Lunch Finished:</strong> {{$activity->lunch_finished}}</p>
+                            @endif
+                            @if($activity->snack != '')
+                            <p><strong>Snacks:</strong> {{$activity->snack}}</p>
+                            <p><strong>Snack Quantity:</strong> {{$activity->snack_quantity}}</p>
+                            <p><strong>Snack Finished:</strong> {{$activity->snack_finished}}</p>
+                            @endif
+                            @if($activity->poop !='')
+                            <p><strong>Poop:</strong> {{$activity->poop}}</p>
+                            <p><strong>Description:</strong> {{$activity->describe_poop}}</p>
+                            <p><strong>Diepers Used:</strong> {{$activity->diapers_used}}</p>
+                            @endif
+                            @if($activity->nap !='')
+                            <p><strong>Nap:</strong> {{$activity->nap}} Time(s)</p>
+                            @endif
+                            @if($activity->milestones !='')
+                            <p><strong>Milestones:</strong> {{$activity->milestones}}</p>
+                            @endif
+                            @if($activity->genaral_observation !='')
+                            <p><strong>General Observation:</strong> {{$activity->genaral_observation}}</p>
+                            @endif
+                        </div>
+                        
+                    </td>
                     <td>
-                        @if($activity->poop_susu != '')
-                            <p>Poop: <span>{{ $activity->poop_susu }}</span>,</p>
-                            <p>Poop Description: <span>{{ $activity->describe_poop_susu }}</span></p><br>
-                        @endif
-                        @if($activity->nap != '')
-                            <p>Nap: <span>{{ $activity->nap }}</span></p>
-                            <p>Nap Description: <span>{{ $activity->describe_nap }}</span></p><br>
-                        @endif
-                        @if($activity->meals != '')
-                            <p>Meals: <span>{{ $activity->meals }}</span></p>
-                            <p>Meals: Description: <span>{{ $activity->describe_meals }}</span></p><br>
-                        @endif
-                        @if($activity->dieppers != '')
-                            <p>Dieppers: <span>{{ $activity->dieppers }}</span></p>
-                            <p>Dieppers Description: <span>{{ $activity->describe_dieppers }}</span></p><br>
-                        @endif
-                        @if($activity->milk_bottle_feed != '')
-                            <p>Bottle Fedd: <span>{{ $activity->milk_bottle_feed }}</span></p>
-                            <p>Bottle Feed Description: <span>{{ $activity->describe_bootle_feed }}</span></p><br>
-                        @endif
+                        <button class="view-btn-eye" style="text-align:center; width:100%; background-color:#007BFF; color:#FFFFFF; padding:6px; border:none; cursor:pointer; border-radius:4px;"><a href="/teacher/edit-activity/{{$activity->id}}">Edit Activity</a></button>
                     </td>
                 </tr>
                 @endif
@@ -89,16 +128,29 @@
         </table>
 
         <script>
-    const currentDate = new Date();
-    
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    
-    const formattedDate = `${year}-${month}-${day}`;
-    
-    document.querySelector('.currentDate').textContent = formattedDate;
-</script>
+            const currentDate = new Date();
+            
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            
+            const formattedDate = `${year}-${month}-${day}`;
+            
+            document.querySelector('.currentDate').textContent = formattedDate;
+        </script>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            window.showDataDeep = function(event, actId){
+                const visibleHid = document.getElementById(`viewable-holder-${actId}`);
+                if (visibleHid.style.display === "none") {
+                    visibleHid.style.display = "block";
+                } else {
+                    visibleHid.style.display = "none";
+                }
+            }
+        });
+        </script>
     </div>
     <center>
         <div class="paginate-builder">
