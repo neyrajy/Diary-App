@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 use App\Models\Fee;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Region;
@@ -12,8 +13,9 @@ use App\Models\District;
 use Illuminate\View\View;
 use App\Models\Nationality;
 use App\Helpers\KJDAHelpers;
-use Illuminate\Http\Request;
 
+use App\Models\Notification;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -51,9 +53,11 @@ class SuperAdminController extends Controller
         $sections = Section::all();
         $users = User::all();
         $studentsViewer = User::where('role_id',8)->get();
+        
 
         return view('superadmin.register-parent', compact('nationalities', 'regions', 'districts', 'students', 'classes', 'sections','users'),[
             'studentsViewer' => $studentsViewer,
+            // 'students' => $students,
         ]);
     }
 
@@ -113,7 +117,8 @@ class SuperAdminController extends Controller
     public function parents() {
         $parentsCount = User::where('role_id', 4)->count();
         $parents = User::where('role_id', 4)->get();
-        return view('superadmin.parents', compact('parentsCount', 'parents'));
+        $students = Student::all();
+        return view('superadmin.parents', compact('parentsCount', 'parents','students'));
     }
     public function verifyParent($id)
     {
@@ -276,7 +281,8 @@ class SuperAdminController extends Controller
     }
 
     public function notifications() {
-        // return view for notifications
+        $roles = Role::all();
+        return view('superadmin.notifications', compact('roles'));
     }
 
     public function store_events(Request $request){
@@ -393,6 +399,18 @@ class SuperAdminController extends Controller
         }catch(\Throwable $e){
             return $e->getMessage();
         }
+    }
+
+    public function store_notifications(Request $request){
+        $notificationDetails = $request->validate([
+            'sender_name' => 'required|max:255',
+            'receiver' => 'required|integer|max:9',
+            'title' => 'required|max:255',
+            'description' => 'required',
+        ]);
+
+        Notification::create($notificationDetails);
+        return redirect()->back()->with('notification_sent','Notification sent successfully!');
     }
     
 }

@@ -30,10 +30,11 @@
                         </thead>
                         <tbody>
                         @foreach($parents as $parent)
-                            @foreach($parent->students as $student)
+                            @foreach($students as $student)
                                 <tr>
                                     <td>{{ $parent->id }}</td>
                                     <td>{{ $parent->firstname }} {{ $parent->lastname }}</td>
+                                    
                                     <td>{{ $student->firstname }} {{ $student->lastname }}</td>
                                     
                                     <td>
@@ -42,8 +43,8 @@
                                             $totalFees = $student->fees->sum('amount');
                                             $balance = $totalFees - $totalPaid;
                                         @endphp
-                                        Amount Paid: {{ $totalPaid }}<br>
-                                        Balance: {{ $balance }}
+                                        Amount Paid: {{ number_format($totalPaid) }}<br>
+                                        Balance: {{ number_format($balance) }}
                                     
                                     </td>
                                     <td>{{ $parent->phone }}</td>

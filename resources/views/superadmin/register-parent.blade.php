@@ -207,13 +207,10 @@
                                 <div class="col-md-4">
                                     <label for="student">{{ __('Student') }}</label>
                                     <select id="student" class="form-control @error('student') is-invalid @enderror" name="student" required>
-                                        <option value="">Select Student</option>
-                                        <!-- <option value="">Chose Option</option> -->
-                                        @foreach($users as $user)
-                                            @if($user->role_id == 8)
-                                            <option value="{{$user->adm_no}}">{{$user->firstname}}, {{$user->adm_no}}</option>
-                                            @endif
-                                        @endforeach
+                                            <option value="">--select--</option>
+                                            @foreach($students as $student)
+                                            <option value="{{$student->id}}">{{$student->firstname}}, {{$student->lastname}}</option>
+                                            @endforeach
                                     </select>
                                     @error('student')
                                         <span class="invalid-feedback" role="alert">
@@ -222,6 +219,7 @@
                                     @enderror
                                 </div>    
                             </div><br>
+                           
                             <div class="row">
                                 
                                 <div class="col-md-6">

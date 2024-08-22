@@ -32,7 +32,7 @@
                             <td>{{ $teacher->firstname }} {{ $teacher->lastname }}</td>
                             <td>{{ $teacher->phone }}</td>
                             <td>{{ $teacher->address }}</td>
-                            <td>100000/=</td>
+                            <td>{{number_format('100000')}}/=</td>
                             <td>
                                 <a href="/superadmin/teachers/edit/{{$teacher->id}}" class="btn btn-primary btn-sm">Edit</a>
                             </td>

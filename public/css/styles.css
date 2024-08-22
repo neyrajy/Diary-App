@@ -518,9 +518,26 @@ footer {
   width: 100px;
   height: 70px;
 }
-
+  
 .row-modal,.col-md-6{
   width: 100%;
+}
+
+.view-notif{
+  float: right;
+  background-color: orange;
+  color: #FFFFFF;
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.view-notif a{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.view-notif a:hover{
+  text-decoration: none;
 }
 
 .event-callendar-col{
@@ -529,6 +546,17 @@ footer {
 .event-callendar-col .left-opt-col-5{
   width: 49%;
   float: left;
+}
+
+.event-callendar-col span{
+  color: red;
+  font-size: 14px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style: italic;
+}
+
+.left-opt-col-5 select{
+  width: 100%;
 }
 
 .event-callendar-col .middl-event-col-6{

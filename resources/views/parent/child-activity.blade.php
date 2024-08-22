@@ -31,29 +31,29 @@
                 </thead>
                 <tbody>
 
-                @foreach($users as $user)
-                @if(Auth::guard('web')->user()->student == $user->adm_no)
+                @foreach($students as $student)
+                @if(Auth::guard('web')->user()->student == $student->id)
                 <tr>
-                    <td><img src="{{asset('storage/' . $user->photo)}}" alt="Photo"></td>
-                    <td>{{$user->adm_no}}</td>
-                    <td>{{$user->firstname}}</td>
-                    <td>100000</td>
+                    <td><img src="{{asset('storage/' . $user->photo)}}" alt="Photo" style="width:80px; height:50px; border-radius:5px;"></td>
+                    <td>{{$student->adm_no}}</td>
+                    <td>{{$student->firstname}}</td>
+                    <td>{{number_format('100000',0)}}/=</td>
                     <td>
                         @foreach($classes as $class)
-                        @if($class->id == $user->class_id)
+                        @if($class->id == $student->s_class_id)
                         {{$class->name}}
                         @endif
                         @endforeach
                     </td>
                     <td>
                     @foreach($sections as $section)
-                        @if($section->id == $user->class_id)
+                        @if($section->id == $student->s_class_id)
                         {{$section->name}}
                         @endif
                         @endforeach
                     </td>
                     <td style="color:#0000FF; text-decoration:underline;">
-                        <a href="/my-child/{{$user->id}}">View Activity</a>
+                        <a href="/my-child/{{$student->id}}">View Activity</a>
                     </td>
                 </tr>
                 @endif

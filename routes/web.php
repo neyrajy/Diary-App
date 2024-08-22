@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/superadmin/events', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'events'])->name('superadmin.events');
     Route::get('/superadmin/notifications', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'notifications'])->name('superadmin.notifications');
     Route::get('/superadmin/fees', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'fees'])->name('superadmin.fees');
+    Route::post('/notifications', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_notifications']);
 
     // Routes for fees
     Route::resource('fees', FeesController::class);
@@ -83,7 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/storeactivities', [App\Http\Controllers\Teacher\TeacherController::class, 'store_activities']);
     Route::get('/superadmin/register-student', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'register_student']);
     Route::post('/storestudents', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_students']);
-    Route::get('/my-child/{user}', [App\Http\Controllers\Parent\ParentController::class, 'child_activity'])->name('parent.my-child');
+    Route::get('/my-child/{student}', [App\Http\Controllers\Parent\ParentController::class, 'child_activity'])->name('parent.my-child');
     Route::get('/teacher/edit-activity/{activity}', [App\Http\Controllers\Teacher\TeacherController::class, 'edit_activity'])->name('teacher.edit-activity');
 });
 

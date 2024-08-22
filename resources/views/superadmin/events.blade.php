@@ -18,16 +18,28 @@
                 <div class="left-opt-col-5">
                     <label for="">Date</label><br>
                     <input type="date" name="date" id="">
+                    @error('date')
+                    <br>
+                    <span>{{__('Date is required!')}}</span>
+                    @enderror
                 </div>
                 <div class="middl-event-col-6">
                     <label for="">Event Name</label><br>
                     <input type="text" name="event_name" id="">
+                    @error('event_name')
+                    <br>
+                    <span>{{__('Event name is required!')}}</span>
+                    @enderror
                 </div><br><br><br><br>
                 <div class="right-event-col-7">
                     <label for="">Event Description</label><br>
                     <textarea name="event_description" id=""></textarea>
+                    @error('event_description')
+                    <br>
+                    <span>{{__('Short desciption about this event!')}}</span>
+                    @enderror
                 </div><br>
-                <button type="submit" class="submit-event-recorder">Submit Event</button>
+                <button type="submit" class="submit-event-recorder" style="background-color:#007BFF;">Submit Event</button>
             </form>
         </div>
     </div>
