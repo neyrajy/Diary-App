@@ -1,26 +1,26 @@
 @extends('layouts.app')
+
 @section('content')
-<div class="row py-3"></div>
-<div class="row mt-4">
-    <div class="col-md-12">
-    <div class="card">
-        <div class="card-header header-elements-inline">
-            <h6 class="card-title">My Child Activity | {{$student->firstname}} | Today <span class="currentDate"></span></h6>
-            
-        </div>
+    
 
-        <div class="card-body">
-            <div class="table datatable-button-html5-columns">
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            document.querySelector('.wrapper-ajax-search').addEventListener('submit', function(event){
+                event.preventDefault();
+                const inoutSearch = document.getElementById('input-search').value;
 
-                @if(count($activities) == 0)
+                if(inoutSearch === ""){
+                    alert("This field can not be empty!");
+                }
+            });
+        });
+    </script>
+<br>
+    <div class="main-display-viewer">
+
+            @if($nowDate == $activity->created_at->format('Y-m-d'))
                 
-                <center><p>No activity for {{$student->firstname}} today!</p></center>
-               
-                @endif
-
-                @foreach($activities as $activity)
-                @if($activity->student_id == $student->id && $activity->created_at->format('Y-m-d') == $nowDate)
-                <div class="viewable-class-holderr" id="viewable-holder-{{$activity->id}}">
+                <div class="viewable-class-holder" id="viewable-holder-{{$activity->id}}">
                     @if($activity->mood !='')
                     <p><strong>Mood:</strong> {{$activity->mood}}</p>
                     @endif
@@ -70,32 +70,18 @@
                     @if($activity->genaral_observation !='')
                     <p><strong>General Observation:</strong> {{$activity->genaral_observation}}</p>
                     @endif
-                    <br>
-                    <button class="comment-activity">My Comment</button>
                 </div>
-                @else
-                <p>No activity today!</p>
                 @endif
-                @endforeach
-        </div>
-
-        </div>
+        <script>
+            const currentDate = new Date();
+            
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            
+            const formattedDate = `${year}-${month}-${day}`;
+            
+            document.querySelector('.currentDate').textContent = formattedDate;
+        </script>
     </div>
-    </div>
-
-    <script>
-    const currentDate = new Date();
-    
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    
-    const formattedDate = `${year}-${month}-${day}`;
-    
-    document.querySelector('.currentDate').textContent = formattedDate;
-</script>
-
-    </div>
-
-
-@endsection
+@stop

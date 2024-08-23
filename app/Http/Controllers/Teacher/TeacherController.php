@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\SClass;
+use App\Models\Message;
 use App\Models\Section;
 use App\Models\Student;
 use App\Models\Activity;
@@ -23,7 +24,7 @@ class TeacherController extends Controller
 
         $activities = Activity::whereDate('date_time', $nowDate)->latest()->filter(request(['search']))->paginate(10);
 
-        $parent = User::where('role_id','==','4')->count();
+        $parent = User::where('role_id', 4)->count();
         
         return view('teacher.dashboard',[
             'students' => Student::all(),
@@ -114,4 +115,33 @@ class TeacherController extends Controller
         $events = Event::latest()->paginate(3);
         return view('teacher.events', compact('events'));
     }
+
+    public function view_activity($id){
+        $nowDate = Carbon::now()->format('Y-m-d');
+        $activity = Activity::find($id);
+        return view('teacher.view-activity', compact('activity','nowDate'));
+    }
+
+    public function notify(){
+        $students = Student::all();
+        return view('teacher.message', compact('students'));
+    }
+
+    public function store_messages(Request $request){
+        $messageComponents = $request->validate([
+            'sender_name' => 'required',
+            'receiver' => 'required',
+            'message_category' => 'required',
+            'message_body' => 'required',
+        ]);
+
+        Message::create($messageComponents);
+
+        return redirect('teacher/view-message')->with('message_stored','Message sent successfuly to' . $messageComponents['receiver']);
+    }
+
+    public function view_messages(){
+        return view('teacher.view-message');
+    }
 }
+

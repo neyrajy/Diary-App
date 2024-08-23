@@ -78,9 +78,14 @@
                                     <a href="{{ route('parent.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>
                                 @elseif(Auth::user()->role_id == 5)
                                     <a href="{{ route('teacher.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                                    <a href="{{ route('teacher.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>
+                                    <a href="{{ route('teacher.notifications') }}"><i class="fas fa-bell"></i> Notification</a>
+                                    <a href="{{ route('teacher.message') }}"><i class="fas fa-comments"></i> Messages</a>
                                     <a href="{{ route('teacher.events') }}"><i class="fas fa-calendar-alt"></i> Events</a>
                                     <a href="{{ route('teacher.students') }}"><i class="fas fa-user-graduate"></i> Students</a>
+                                    <form action="/logout" method="POST">
+                                        @csrf
+                                        <button type="submit" style="color:#FFF;"><i class="fa fa-sign-out"></i> Sign Out</button>
+                                    </form>
                                 @elseif(Auth::user()->role_id == 6)
                                     <a href="{{ route('driver.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                                     <a href="{{ route('driver.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>

@@ -94,6 +94,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/storestudents', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_students']);
     Route::get('/my-child/{student}', [App\Http\Controllers\Parent\ParentController::class, 'child_activity'])->name('parent.my-child');
     Route::get('/teacher/edit-activity/{activity}', [App\Http\Controllers\Teacher\TeacherController::class, 'edit_activity'])->name('teacher.edit-activity');
+    Route::get('/teacher/view-activity/{activity}', [App\Http\Controllers\Teacher\TeacherController::class, 'view_activity'])->name('teacher.view-activity');
+    Route::get('/teacher/message', [App\Http\Controllers\Teacher\TeacherController::class, 'notify'])->name('teacher.message');
+    Route::post('/messages', [App\Http\Controllers\Teacher\TeacherController::class, 'store_messages']);
+    Route::get('/teacher/view-message', [App\Http\Controllers\Teacher\TeacherController::class, 'view_messages'])->name('teacher.view-message');
 });
 
 

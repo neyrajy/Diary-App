@@ -32,8 +32,22 @@
     <br><br><br><br><br><br>
     <form action="/teacher" method="GET" class="wrapper-ajax-search">
         @csrf
-        <input type="text" name="search" id="" placeholder="Search a student ...."><button type="submit">Search</button>
+        <input type="text" name="search" id="input-search" placeholder="Search a student ...."><button type="submit">Search</button>
     </form><br><br>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            document.querySelector('.wrapper-ajax-search').addEventListener('submit', function(event){
+                event.preventDefault();
+                const inoutSearch = document.getElementById('input-search').value;
+
+                if(inoutSearch === ""){
+                    alert("This field can not be empty!");
+                }
+            });
+        });
+    </script>
+
     <div class="main-display-viewer">
         <div class="sub-min-viewer">
             <h1 class="specifier-activ">{{ __('Today') }} <span class="currentDate"></span> | {{ __('Students Activities') }}</h1>
@@ -65,8 +79,8 @@
                         @endforeach
                     </td>
                     <td class="data-tr-td">
-                        <button class="view-btn-eye" style="text-align:center; width:100%; background-color:#007BFF; color:#FFFFFF; padding:6px; border:none; cursor:pointer; border-radius:4px;" onclick="showDataDeep(event, $activity->id)">View Activity</button>
-                        <div class="viewable-class-holder" id="viewable-holder-{{$activity->id}}">
+                        <button class="view-btn-eye"  onclick="showDataDeep(event, $activity->id)" style="text-align:center; width:100%; background-color:#007BFF; color:#FFFFFF; padding:6px; border:none; cursor:pointer; border-radius:4px;"><a href="/teacher/view-activity/{{$activity->id}}"><i class="fa fa-eye"></i> View Activity</a></button>
+                        <!-- <div class="viewable-class-holder" id="viewable-holder-{{$activity->id}}" hidden>
                             @if($activity->mood !='')
                             <p><strong>Mood:</strong> {{$activity->mood}}</p>
                             @endif
@@ -116,16 +130,21 @@
                             @if($activity->genaral_observation !='')
                             <p><strong>General Observation:</strong> {{$activity->genaral_observation}}</p>
                             @endif
-                        </div>
-                        
+                        </div> -->
                     </td>
                     <td>
-                        <button class="view-btn-eye" style="text-align:center; width:100%; background-color:#007BFF; color:#FFFFFF; padding:6px; border:none; cursor:pointer; border-radius:4px;"><a href="/teacher/edit-activity/{{$activity->id}}">Edit Activity</a></button>
+                        <button class="view-btn-eye" style="text-align:center; width:100%; background-color:#007BFF; color:#FFFFFF; padding:6px; border:none; cursor:pointer; border-radius:4px;"><a href="/teacher/edit-activity/{{$activity->id}}"><i class="fa fa-pen"></i> Edit Activity</a></button>
                     </td>
                 </tr>
                 @endif
             @endforeach
         </table>
+
+        <style>
+            .hidden{
+                display:none;
+            }
+        </style>
 
         <script>
             const currentDate = new Date();
@@ -140,16 +159,22 @@
         </script>
 
         <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            window.showDataDeep = function(event, actId){
-                const visibleHid = document.getElementById(`viewable-holder-${actId}`);
-                if (visibleHid.style.display === "none") {
-                    visibleHid.style.display = "block";
-                } else {
-                    visibleHid.style.display = "none";
+            document.addEventListener('DOMContentLoaded', function() {
+                window.showDataDeep = function(event, actId) {
+                    event.preventDefault();
+                    const actbuilder = document.getElementById(`viewable-holder-${actId}`);
+                    if (actbuilder) { 
+                        if (actbuilder.hidden) {
+                            actbuilder.hidden = false; 
+                        } else {
+                            actbuilder.hidden = true; 
+                        }
+                    } else {
+                        console.error('Element not found:', `viewable-holder-${actId}`);
+                    }
                 }
-            }
-        });
+            });
+
         </script>
     </div>
     <center>
