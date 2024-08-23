@@ -17,7 +17,7 @@
                         <div class="left-opt-col-5">
                             <label for="">Receiver</label><br>
                             <select name="receiver" id="">
-                                <option value="">--select recivers--</option>
+                                <option value="">--select receivers--</option>
                                 @foreach($roles as $role)
                                 <option value="{{$role->id}}">{{$role->role_name}}</option>
                                 @endforeach
@@ -43,7 +43,7 @@
                             <span>{{__('Desciption of this notification!')}}</span>
                             @enderror
                         </div><br>
-                        <button type="submit" class="submit-event-recorder" style="background-color:#007BFF;">Send</button> <button class="view-notif"><a href="#">View Notifications</a></button>
+                        <button type="submit" class="submit-event-recorder" style="background-color:#007BFF;">Send</button> <button type="button" class="view-notif" style="color:#FFF; background-color:orange;"><a href="/superadmin/view-nofication">View Notifications</a></button>
                     </form>
                     </div>
                 </div>

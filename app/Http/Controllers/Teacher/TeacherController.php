@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Teacher;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Student;
+use Carbon\Carbon;
+use App\Models\Role;
 use App\Models\User;
-use App\Models\Activity;
+use App\Models\Event;
 use App\Models\SClass;
 use App\Models\Section;
-use Carbon\Carbon;
+use App\Models\Student;
+use App\Models\Activity;
+use App\Models\Notification;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 
 class TeacherController extends Controller
@@ -98,5 +101,17 @@ class TeacherController extends Controller
         $activity = Activity::find($id);
         $student = Student::where('id', $activity->student_id)->get();
         return view('teacher.edit-activity',compact('activity','student'));
+    }
+
+    public function notifications(){
+        $nowDate = Carbon::now()->format('Y-m-d');
+        $notifications = Notification::latest()->paginate(3);
+        $roles = Role::all();
+        return view('teacher.notifications', compact('notifications','roles','nowDate'));
+    }
+
+    public function events(){
+        $events = Event::latest()->paginate(3);
+        return view('teacher.events', compact('events'));
     }
 }

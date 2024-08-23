@@ -412,5 +412,11 @@ class SuperAdminController extends Controller
         Notification::create($notificationDetails);
         return redirect()->back()->with('notification_sent','Notification sent successfully!');
     }
+
+    public function view_notifications(){
+        $notifications = Notification::latest()->paginate(5);
+        $roles = Role::all();
+        return view('superadmin.view-nofication', compact('notifications','roles'));
+    }
     
 }

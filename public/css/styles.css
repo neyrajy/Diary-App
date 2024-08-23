@@ -518,7 +518,7 @@ footer {
   width: 100px;
   height: 70px;
 }
-  
+
 .row-modal,.col-md-6{
   width: 100%;
 }
@@ -589,6 +589,37 @@ footer {
 
 .calendar-col-5 h3,p{
   padding: 5px;
+}
+
+.calendar-col-7{
+  cursor: pointer;
+  padding: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  background-color: #FFF;
+}
+
+.calendar-col-6 h1{
+  padding: 4px;
+}
+
+.calendar-col-6{
+  cursor: pointer;
+  padding: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  background-color: #FFF;
+}
+
+
+.calendar-col-7:hover{
+  border-radius: 4px;
+  background-color: #636262;
+  color: #FFF;
+}
+
+.calendar-col-7 h1{
+  padding: 4px;
 }
 
 .data-tr-td{

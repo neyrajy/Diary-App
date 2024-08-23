@@ -56,6 +56,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/superadmin/read-more/{event}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'view_single_event'])->name('superadmin.read-more');
     Route::post('/superadmin/storeteachers', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_teachers'])->name('superadmin.storeteachers');
     Route::get('/superadmin/register-teacher', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'register_teacher'])->name('superadmin.register-teacher');
+    Route::get('/teacher/notifications', [App\Http\Controllers\Teacher\TeacherController::class, 'notifications'])->name('teacher.notifications');
+    Route::get('/teacher/events', [App\Http\Controllers\Teacher\TeacherController::class, 'events'])->name('teacher.events');
+    Route::get('/teacher/students', [App\Http\Controllers\Teacher\TeacherController::class, 'students'])->name('teacher.students');
     
     
     Route::get('/superadmin/staff', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'staff'])->name('superadmin.staff');
@@ -66,6 +69,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/superadmin/notifications', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'notifications'])->name('superadmin.notifications');
     Route::get('/superadmin/fees', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'fees'])->name('superadmin.fees');
     Route::post('/notifications', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_notifications']);
+    Route::get('/superadmin/view-nofication', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'view_notifications'])->name('superadmin.view-nofication');
+    Route::get('/parent/drivers', [App\Http\Controllers\Parent\ParentController::class, 'driver'])->name('parent.drivers');
+    Route::get('/parent/fees', [App\Http\Controllers\Parent\ParentController::class, 'fees'])->name('parent.fees');
+    Route::get('/parent/events', [App\Http\Controllers\Parent\ParentController::class, 'events'])->name('parent.events');
+    Route::get('/parent/notifications', [App\Http\Controllers\Parent\ParentController::class, 'notifications'])->name('parent.notifications');
 
     // Routes for fees
     Route::resource('fees', FeesController::class);
