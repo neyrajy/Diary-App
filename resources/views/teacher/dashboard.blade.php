@@ -140,6 +140,10 @@
             @endforeach
         </table>
 
+        <div class="paginate-builder">
+            {{$student_activities->links()}}
+        </div>
+
         <style>
             .hidden{
                 display:none;

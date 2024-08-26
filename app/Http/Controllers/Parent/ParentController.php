@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Region;
 use App\Models\SClass;
+use App\Models\Message;
 use App\Models\Section;
 use App\Models\Student;
 use App\Models\Activity;
@@ -58,5 +59,13 @@ class ParentController extends Controller
         return view('parent.events',[
             'events' => Event::latest()->paginate(5),
         ]);
+    }
+
+    public function parent_message(){
+        $childIds = Message::select('receiver')->groupBy('receiver')->pluck('receiver');
+        $parents = User::where('role_id', 4)->get();
+        $nowDate = Carbon::now()->format('Y-m-d');
+        $messages = Message::latest()->paginate(5);
+        return view('parent/messages', compact('messages','nowDate','parents'));
     }
 }

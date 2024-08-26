@@ -67,8 +67,8 @@
                     @if($activity->milestones !='')
                     <p><strong>Milestones:</strong> {{$activity->milestones}}</p>
                     @endif
-                    @if($activity->genaral_observation !='')
-                    <p><strong>General Observation:</strong> {{$activity->genaral_observation}}</p>
+                    @if($activity->general_observation !='')
+                    <p><strong>General Observation:</strong> {{$activity->general_observation}}</p>
                     @endif
                 </div>
                 @endif

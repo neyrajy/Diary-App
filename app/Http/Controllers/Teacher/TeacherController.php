@@ -22,7 +22,7 @@ class TeacherController extends Controller
     {
         $nowDate = Carbon::now()->format('Y-m-d');
 
-        $activities = Activity::whereDate('date_time', $nowDate)->latest()->filter(request(['search']))->paginate(10);
+        $activities = Activity::whereDate('date_time', $nowDate)->filter(request(['search']))->paginate(10);
 
         $parent = User::where('role_id', 4)->count();
         
@@ -32,7 +32,7 @@ class TeacherController extends Controller
             'activities' => Activity::all(),
             'student_activities' => $activities,
             'users' => User::all(),
-        ], compact('nowDate'));
+        ], compact('nowDate','activities'));
     }
 
     public function student_activities(){

@@ -75,6 +75,7 @@
                                     <a href="{{ route('parent.drivers') }}"><i class="fas fa-bus"></i> Drivers</a>
                                     <a href="{{ route('parent.fees') }}"><i class="fas fa-dollar-sign"></i> Fees</a>
                                     <a href="{{ route('parent.events') }}"><i class="fas fa-calendar-alt"></i> Events</a>
+                                    <a href="{{ route('parent.messages') }}"><i class="fa fa-comments"></i> Messages</a>
                                     <a href="{{ route('parent.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>
                                 @elseif(Auth::user()->role_id == 5)
                                     <a href="{{ route('teacher.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
