@@ -83,7 +83,7 @@
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                    <button type="submit" class="btn btn-primary">Add Student</button>
+                    <button type="submit" class="btn btn-primary" style="background-color:#0000FF;">Add Student</button>
                 </div>
             </div>
         </form>

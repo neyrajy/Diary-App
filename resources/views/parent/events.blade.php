@@ -12,7 +12,7 @@
             @if(count($events) == 0)
             <p>No event scheduled yet!</p>
             @endif
-            <h5 class="card-title">Events Calendar</h5>
+            <!-- <h5 class="card-title">Events Calendar</h5> -->
             @foreach($events as $event)
             <div id="calendar" class="calendar-col-6">
             <h1><strong>Date:</strong> <span style="color:green;">{{$event->date}}</span></h1>

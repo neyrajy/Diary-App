@@ -26,27 +26,32 @@
                                 <th>Verified</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($parents as $parent)
-                            @foreach($students as $student)
                                 <tr>
-                                    <td>{{ $parent->id }}</td>
-                                    <td>{{ $parent->firstname }} {{ $parent->lastname }}</td>
-                                    
-                                    <td>{{ $student->firstname }} {{ $student->lastname }}</td>
-                                    
+                                    <td>{{$parent->id}}</td>
+                                    <td>{{$parent->firstname}}</td>
                                     <td>
-                                        @php
-                                            $totalPaid = $student->fees->sum('amount_paid');
-                                            $totalFees = $student->fees->sum('amount');
-                                            $balance = $totalFees - $totalPaid;
-                                        @endphp
-                                        Amount Paid: {{ number_format($totalPaid) }}<br>
-                                        Balance: {{ number_format($balance) }}
+                                    @foreach($students as $student)
+                                    @if($student->id == $parent->student)
                                     
+                                        {{$student->firstname}}
+
+                                    
+                                    @else
+                                        
+                                    @endif
+
+                                    @if($student->id == $parent->student2)
+                                         & {{$student->firstname}}
+                                    @endif
+                                    
+                                    @endforeach
                                     </td>
+                                    <td>{{number_format('1000000',2)}}/=</td>
                                     <td>{{ $parent->phone }}</td>
                                     <td>{{ $parent->address }}</td>
                                     <td>
@@ -71,12 +76,12 @@
                                             <button style="background-color:#dc3545;" type="submit" class="btn btn-danger btn-sm">Delete</button>
                                         </form>
                                     </td>
+                                    <td style="text-align:center; color:#0000FF; text-decoration:none;"><a href="/superadmin/view-parent/{{$parent->id}}"><i class="fa fa-eye"></i></a></td>
                                 </tr>
-                            @endforeach
                         @endforeach   
                         </tbody>
                     </table>
-                    <h4>Total Number of Parents: <b>{{ $parentsCount }}</b></h4>
+                    <h4>Total Number of Parents: <b>{{ $parentsCount }}</b></h4> <div class="paginate-builder">{{$parents->links()}}</div>
                 </div>
             </div>
         </div>

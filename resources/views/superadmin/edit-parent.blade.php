@@ -139,23 +139,29 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="student">{{ __('Student') }}</label>
-                                    <select id="student" class="form-control @error('student') is-invalid @enderror" name="student" required>
+                                <br><br><br><br>
+                                <div class="row" style="float:left; margin-left:0%;">
+                                    <div class="col-md-5">
+                                        <label for="student">{{ __('Student') }}</label>
+                                        <select id="student" class="form-control @error('student') is-invalid @enderror" name="student" required>
+                                                <option value="">--select--</option>
+                                                @foreach($students as $student)
+                                                <option value="{{$student->id}}">{{$student->firstname}}, {{$student->lastname}}</option>
+                                                @endforeach
+                                        </select>
+                                        @error('student')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                         
-                                        @foreach($students as $student)
-                                        <option value="">Select Student</option>    
-                                        @endforeach
-                                    </select>
-                                    @error('student')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>    
+                                    </div>  
+                                </div>
                             </div><br>
+                            <button type="button" class="button-btn" onclick="addSelector()" style="color:#0000FF; border:none;"><i class="fa fa-plus"></i> Add Kid / Student</button>  
+                            <br><br>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Update Parent</button>
+                                <button type="submit" class="btn btn-primary" style="background-color:#0000FF;">Update Parent</button>
                             </div>
                         </div>
                     </form>
@@ -187,6 +193,33 @@
                 $('#student').empty().append('<option value="">Select Student</option>');
             }
         });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        window.addSelector = function(){
+            const appendChild = document.createElement('div');
+            appendChild.innerHTML = `
+            <div class="col-md-5" style="float:left; margin-left:0%;">
+            <br>
+                <label for="student">{{ __('Student') }}</label>
+                <select class="form-control @error('student') is-invalid @enderror" name="student2" required>
+                    <option value="">--select--</option>
+                    @foreach($students as $student)
+                    <option value="{{ $student->id }}">{{ $student->firstname }}, {{ $student->lastname }}</option>
+                    @endforeach
+                </select>
+                @error('student')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+                </div>
+                <br>
+            `;
+            document.querySelector('.col-md-5').appendChild(appendChild);
+        }
     });
 </script>
 @endsection

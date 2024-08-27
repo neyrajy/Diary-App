@@ -124,7 +124,7 @@
                         <input type="checkbox" name="grad" value="1">
                     </div>
                     
-                    <button type="submit" class="btn btn-kprimary" style="background-color:background-color: #d6b707; color:#FFFFFF;">Register Student</button>
+                    <button type="submit" class="btn btn-kprimary" style="background-color #0000FF;">Register Student</button>
                 </form>
             </div>
             </div>

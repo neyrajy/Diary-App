@@ -112,6 +112,28 @@
                                     @enderror
                                 </div>
                             </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nal_id">Assign Class</label>
+                                    <select id="class_name" name="class_name" class="form-control">
+                                        <option value="" disabled selected>Assign Class</option>
+                                        @foreach($classes as $class)
+                                        <option value="{{$class->id}}">{{$class->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nal_id">Assign Section</label>
+                                    <select id="section_name" name="section_name" class="form-control">
+                                        <option value="" disabled selected>Assign Section</option>
+                                        @foreach($sections as $section)
+                                        <option value="{{$section->id}}">{{$section->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div> 
                         <div class="row">
                             <div class="col-md-12">
@@ -122,7 +144,7 @@
                             <label for="">Guardian</label>
                             <input type="checkbox" name="guardian" id="" value="1"><br>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Register Teacher</button>
+                                <button type="submit" class="btn btn-primary" style="background-color:#0000FF;">Register Teacher</button>
                             </div>
                         </div>
                     </form>

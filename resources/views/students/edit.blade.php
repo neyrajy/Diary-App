@@ -115,7 +115,7 @@
                         <input type="checkbox" id="grad" name="grad" value="1" {{ $student->grad ? 'checked' : '' }}>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Update Student</button>
+                    <button type="submit" class="btn btn-primary" style="background-color:#0000FF;">Update Student</button>
                 </form>
             </div>
         </div>

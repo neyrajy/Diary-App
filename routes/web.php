@@ -41,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/superadmin/parents/{id}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'updateParent'])->name('superadmin.update-parent');
     Route::delete('/superadmin/parents/{id}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'destroyParent'])->name('superadmin.destroy-parent');
     Route::patch('/superadmin/verify-parent/{id}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'verifyParent'])->name('superadmin.verify-parent');
+    Route::get('/superadmin/view-parent/{parent}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'view_parent'])->name('superadmin.view-parent');
+    Route::get('/superadmin/users', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'all_users'])->name('superadmin.users');
+    Route::put('/users/edit/{user}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'edit_user_role']);
     Route::resource('classes', App\Http\Controllers\SClassController::class)->names([
         'index' => 'classes.index', 
     ]);

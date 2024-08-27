@@ -83,7 +83,9 @@ class SuperAdminController extends Controller
             'street' => 'nullable|string|max:255',
             'guardian' => 'nullable|boolean',
             'student' => 'nullable|integer',
+            'student2' => 'nullable|integer',
         ]);
+        
 
         $photoPath = $request->hasFile('photo') ? $request->file('photo')->store('photos', 'public') : 'backend/assets/images/users/avatar-1.jpg';
         // if ($request->child) {
@@ -93,6 +95,7 @@ class SuperAdminController extends Controller
         // }
         // Create a new parent user
         $user = User::create([
+            'student2' => $request->student2,
             'student' => $request->student,
             'firstname' => $request->firstname,
             'secondname' => $request->secondname,
@@ -116,7 +119,7 @@ class SuperAdminController extends Controller
     }
     public function parents() {
         $parentsCount = User::where('role_id', 4)->count();
-        $parents = User::where('role_id', 4)->get();
+        $parents = User::where('role_id', 4)->filter(request(['search']))->paginate(10);
         $students = Student::all();
         return view('superadmin.parents', compact('parentsCount', 'parents','students'));
     }
@@ -143,7 +146,7 @@ class SuperAdminController extends Controller
         $districts = District::all();
         $classes = SClass::all();
         $sections = Section::all();
-        $students = []; // Initialize empty students array
+        $students = Student::all();
 
         return view('superadmin.edit-parent', compact('parent', 'nationalities', 'regions', 'districts', 'classes', 'sections', 'students'));
     }
@@ -177,6 +180,7 @@ class SuperAdminController extends Controller
             'class' => 'nullable',
             'section' => 'nullable',
             'student' => 'nullable',
+            'student2' => 'nullable',
             'role_id' => 'required',
         ]);
 
@@ -368,6 +372,8 @@ class SuperAdminController extends Controller
             'nationalities' => Nationality::all(),
             'regions' => Region::all(),
             'disctricts' => District::all(),
+            'classes' => SClass::all(),
+            'sections' => Section::all(),
         ]);
     }
 
@@ -387,6 +393,8 @@ class SuperAdminController extends Controller
             'confirm_password' => 'required|min:8|max:255',
             'guardian' => 'required',
             'role_id' => 'required', 
+            'section_name' => 'required',
+            'class_name' => 'required',
         ]);
 
         if($teachersDetails['password'] != $teachersDetails['confirm_password']){
@@ -419,4 +427,24 @@ class SuperAdminController extends Controller
         return view('superadmin.view-nofication', compact('notifications','roles'));
     }
     
+    public function view_parent($id){
+        $students = Student::all();
+        $parent = User::where('role_id', 4)->find($id);
+        return view('superadmin/view-parent', compact('parent','students'));
+    }
+
+    public function all_users(){
+        $roles = Role::all();
+        $users = User::where('role_id' , '!=', 1)->paginate(10);
+        $usersCounter = User::where('role_id' , '!=', 1)->count();
+        return view('superadmin/users', compact('users','usersCounter','roles'));
+    }
+
+    public function edit_user_role(Request $request, User $user){
+        $userRole = $request->validate([
+            'role_id' => 'required',
+        ]);
+        $user->update($userRole);
+        return redirect()->back();
+    }
 }

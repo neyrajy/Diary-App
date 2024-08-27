@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id(); 
             $table->string('student')->nullable();
+            $table->string('student2')->nullable();
             $table->string('firstname');
             $table->string('secondname')->nullable();
             $table->string('lastname');
@@ -36,6 +37,8 @@ return new class extends Migration
             $table->boolean('guardian')->default(false); 
             $table->timestamp('verified_at')->nullable(); 
             $table->unsignedBigInteger('verified_by')->nullable();
+            $table->string('class_name')->nullable();
+            $table->string('section_name')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -34,7 +34,32 @@
                 @foreach($students as $student)
                 @if(Auth::guard('web')->user()->student == $student->id)
                 <tr>
-                    <td><img src="{{asset('storage/' . $user->photo)}}" alt="Photo" style="width:80px; height:50px; border-radius:5px;"></td>
+                    <td><img src="{{asset('storage/' . $student->photo)}}" alt="Photo" style="width:80px; height:50px; border-radius:5px;"></td>
+                    <td>{{$student->adm_no}}</td>
+                    <td>{{$student->firstname}}</td>
+                    <td>{{number_format('100000',0)}}/=</td>
+                    <td>
+                        @foreach($classes as $class)
+                        @if($class->id == $student->s_class_id)
+                        {{$class->name}}
+                        @endif
+                        @endforeach
+                    </td>
+                    <td>
+                    @foreach($sections as $section)
+                        @if($section->id == $student->s_class_id)
+                        {{$section->name}}
+                        @endif
+                        @endforeach
+                    </td>
+                    <td style="color:#0000FF; text-decoration:underline;">
+                        <a href="/my-child/{{$student->id}}">View Activity</a>
+                    </td>
+                </tr>
+                @endif
+                @if(Auth::guard('web')->user()->student2 == $student->id)
+                <tr>
+                <td><img src="{{asset('storage/' . $student->photo)}}" alt="Photo" style="width:80px; height:50px; border-radius:5px;"></td>
                     <td>{{$student->adm_no}}</td>
                     <td>{{$student->firstname}}</td>
                     <td>{{number_format('100000',0)}}/=</td>

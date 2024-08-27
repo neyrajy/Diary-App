@@ -204,24 +204,30 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="student">{{ __('Student') }}</label>
-                                    <select id="student" class="form-control @error('student') is-invalid @enderror" name="student" required>
-                                            <option value="">--select--</option>
-                                            @foreach($students as $student)
-                                            <option value="{{$student->id}}">{{$student->firstname}}, {{$student->lastname}}</option>
-                                            @endforeach
-                                    </select>
-                                    @error('student')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>    
-                            </div><br>
-                           
-                            <div class="row">
+<br><br><br><br>
+                                <div class="row" style="float:left; margin-left:0%;">
+                                    <div class="col-md-5">
+                                        <label for="student">{{ __('Student') }}</label>
+                                        <select id="student" class="form-control @error('student') is-invalid @enderror" name="student" required>
+                                                <option value="">--select--</option>
+                                                @foreach($students as $student)
+                                                <option value="{{$student->id}}">{{$student->firstname}}, {{$student->lastname}}</option>
+                                                @endforeach
+                                        </select>
+                                        @error('student')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                        
+                                    </div>  
+                                </div>
                                 
+                            <br>
+                           
+                            <button type="button" class="button-btn" onclick="addSelector()" style="color:#0000FF; border:none;"><i class="fa fa-plus"></i> Add Kid / Student</button>  
+                            <br><br><br>
+                            <div class="row">   
                                 <div class="col-md-6">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="is_guardian" id="is_guardian" {{ old('is_guardian') ? 'checked' : '' }}>
@@ -230,7 +236,7 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div><br>
+                            </div><br><br>
                             <div class="row">
                                 <div class="col-md-6">
                                     <button type="submit" style="background-color:#07025d;" class="btn btn-primary">{{ __('Register') }}</button>
@@ -238,6 +244,32 @@
                             </div><br>
                         </form>
                     </div>
+                    <script>
+                                document.addEventListener('DOMContentLoaded', function(){
+                                    window.addSelector = function(){
+                                        const appendChild = document.createElement('div');
+                                        appendChild.innerHTML = `
+                                        <div class="col-md-5" style="float:left; margin-left:0%;">
+                                        <br>
+                                            <label for="student">{{ __('Student') }}</label>
+                                            <select class="form-control @error('student') is-invalid @enderror" name="student2" required>
+                                                <option value="">--select--</option>
+                                                @foreach($students as $student)
+                                                <option value="{{ $student->id }}">{{ $student->firstname }}, {{ $student->lastname }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('student')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                            </div>
+                                            <br>
+                                        `;
+                                        document.querySelector('.col-md-5').appendChild(appendChild);
+                                    }
+                                });
+                            </script>
                 </div>
             </div>
         </div>
