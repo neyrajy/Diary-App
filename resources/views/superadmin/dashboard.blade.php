@@ -104,11 +104,15 @@
 
 
                         @foreach($studentsViewer as $student)
+                        @foreach($latestFees as $fee)
+                        @if($fee->student_id == $student->id)
                             <tr>
                                 <td>{{$student->firstname}}</td>
-                                <td>100000</td>
-                                <td>{{$student->created_at}}</td>
+                                <td>Tsh {{number_format($fee->amount,2)}}</td>
+                                <td>{{$fee->paid_date}}</td>
                             </tr>
+                            @endif
+                            @endforeach
                         @endforeach
                         </tbody>
                     </table>

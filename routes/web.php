@@ -9,7 +9,7 @@ use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Driver\DriverController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\FeesController;
+// use App\Http\Controllers\FeesController;
 use App\Http\Controllers\SClassController;
 use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
@@ -78,7 +78,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/parent/events', [App\Http\Controllers\Parent\ParentController::class, 'events'])->name('parent.events');
     Route::get('/parent/notifications', [App\Http\Controllers\Parent\ParentController::class, 'notifications'])->name('parent.notifications');
     Route::get('/parent/messages', [App\Http\Controllers\Parent\ParentController::class, 'parent_message'])->name('parent.messages');
-    Route::post('/schoolfees', [App\Http\Controllers\FeesController::class, 'post_fees']);
+    Route::post('/schoolfees', [App\Http\Controllers\Parent\ParentController::class, 'post_fees']);
+    Route::put('/fees/edit/{fee}', [App\Http\Controllers\Parent\ParentController::class, 'edit_fee']);
 
     // Routes for fees
     // Route::resource('fees', FeesController::class);

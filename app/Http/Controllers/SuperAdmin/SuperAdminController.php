@@ -29,6 +29,7 @@ class SuperAdminController extends Controller
     //Parents
     public function dashboard()
     {
+        $latestFees = Fee::all();
         $parentsCount = User::where('role_id', 4)->count();
 
         $teachersCount = User::where('role_id', 5)->count();
@@ -39,7 +40,7 @@ class SuperAdminController extends Controller
         $studentsCount = Student::count(); 
         $driversCount = User::where('role_id', 7)->count();
         $studentsViewer = Student::all(); 
-        $latestFees = Fee::latest()->take(5)->get();
+        // $latestFees = Fee::latest()->take(5)->get();
         return view('superadmin.dashboard', compact('parentsCount', 'teachersCount', 'staffCount', 'studentsCount', 'driversCount','studentsViewer', 'latestFees','events'));
     }
     // methods for parents routes
@@ -118,10 +119,11 @@ class SuperAdminController extends Controller
         return redirect()->route('superadmin.parents')->with('success', 'Parent registered successfully.');
     }
     public function parents() {
+        $fees = Fee::all();
         $parentsCount = User::where('role_id', 4)->count();
         $parents = User::where('role_id', 4)->filter(request(['search']))->paginate(10);
         $students = Student::all();
-        return view('superadmin.parents', compact('parentsCount', 'parents','students'));
+        return view('superadmin.parents', compact('parentsCount', 'parents','students','fees'));
     }
     public function verifyParent($id)
     {

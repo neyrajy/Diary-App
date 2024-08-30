@@ -75,4 +75,38 @@ class ParentController extends Controller
         $students = Student::all();
         return view('parent.fees', compact('students','nowDate'));
     }
+
+    public function post_fees(Request $request){
+        $feesDetails = $request->validate([
+            'student_id' => 'required|integer',
+            'type' => 'required|string',
+            'receipt' => 'nullable|image|max:2048',
+            'amount' => 'required',
+            // 'status' => 'required|string',
+            'due_date' => 'nullable',
+            'paid_date' => 'nullable',
+            'description' => 'required|string|max:255',
+        ]);
+
+        if($request->hasFile('receipt')){
+            $feesDetails['receipt'] = $request->file('receipt')->store('receipts','public');
+        }
+
+        Fee::create($feesDetails);
+
+        // dd($request->all());
+
+        return redirect()->back()->with('success_uploads','Posted successfully');
+    }
+
+    public function edit_fee(Request $request, Fee $fee){
+        $statusDetails = $request->validate([
+            'status' => 'required',
+            'description' => 'required',
+        ]);
+
+        $fee->update($statusDetails);
+
+        return redirect()->back()->with('status_updated','Payment details updated!');
+    }
 }

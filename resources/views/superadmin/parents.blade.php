@@ -51,7 +51,13 @@
                                     
                                     @endforeach
                                     </td>
-                                    <td>{{number_format('1000000',2)}}/=</td>
+                                    <td>
+                                       @foreach($fees as $fee)
+                                       @if($parent->student == $fee->student_id)
+                                       <span>Tsh{{number_format($fee->amount,2)}}</span>
+                                       @endif
+                                       @endforeach
+                                    </td>
                                     <td>{{ $parent->phone }}</td>
                                     <td>{{ $parent->address }}</td>
                                     <td>

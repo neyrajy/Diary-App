@@ -12,10 +12,10 @@ class FeesController extends Controller
         $feesDetails = $request->validate([
             'student_id' => 'required|integer',
             'type' => 'required|string',
-            'receipt' => 'required|image|max:2048',
+            'receipt' => 'nullable|image|max:2048',
             'status' => 'required|string',
-            'due_date' => 'required',
-            'paid_date' => 'required',
+            'due_date' => 'nullable',
+            'paid_date' => 'nullable',
             'description' => 'required|string|max:255',
         ]);
 

@@ -815,6 +815,110 @@ footer {
   box-shadow: none;
 }
 
+.image-payment-viewer{
+  position: absolute;
+  top: -5%;
+  left: 10%;
+  background-color: #FFF;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  width: 80%;
+  cursor: pointer;
+  height: 500px;
+}
+
+.image-payment-viewer embed{
+  width: 100%;
+  height: 420px;
+}
+
+.closeImage{
+  float: right;
+  font-size: 20px;
+  border: none;
+  box-shadow: 0 0 4px rgba(0,0,0,0.4);
+  background-color: #FFF;
+  width: 40px;
+  color: red;
+}
+
+.closeImage:focus{
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+.image-payment-viewer h1{
+  float: left;
+  padding: 6px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.edit-btn-fx{
+  border: none;
+}
+
+.edit-btn-fx:focus{
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.edit-form-pointer{
+  position: absolute;
+  top: 25%;
+  border-radius: 4px;
+  width: 40%;
+  left: 25%;
+  background-color: #FFF;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  padding: 6px;
+}
+
+.edit-form-pointer label{
+  float: left;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+}
+
+.edit-form-pointer input,select{
+  width: 100%;
+  border-radius: 4px;
+}
+
+.edit-form-pointer .submit-btn-bt{
+  float: left;
+  padding: 6px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  width: 120px;
+  background-color: #007BFF;
+  border-radius: 4px;
+  color: #FFF;
+}
+
+.closePopUp{
+  float: right;
+  padding: 6px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  width: 120px;
+  border-radius: 4px;
+  color: red;
+}
+
+.closePopUp:focus{
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+
+
+
 .hidden{
   display: none;
 }
