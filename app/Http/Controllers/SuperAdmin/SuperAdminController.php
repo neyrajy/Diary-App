@@ -314,7 +314,7 @@ class SuperAdminController extends Controller
 
     public function fees() 
     {
-        $fees = Fee::all();
+        $fees = Fee::latest()->paginate(10);
         return view('superadmin.fees', compact('fees'));
       }
 

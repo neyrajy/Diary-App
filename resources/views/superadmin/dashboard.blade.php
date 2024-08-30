@@ -78,9 +78,8 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"><strong>{{__('Messages / Notifications')}}</strong></h5>
-                    <ul class="list-group">
-                            <li class="list-group-item">messages</li>
-                        
+                    <ul class="list-group"> 
+                        <li class="list-group-item"><a href="{{ route('superadmin.view-nofication') }}"><i class="fa fa-eye"></i> View Notifications</a></li>
                     </ul>
                 </div>
             </div>
@@ -105,12 +104,11 @@
 
 
                         @foreach($studentsViewer as $student)
-                            
-                                <tr>
-                                    <td>{{$student->firstname}}</td>
-                                    <td>100000</td>
-                                    <td>{{$student->created_at}}</td>
-                                </tr>
+                            <tr>
+                                <td>{{$student->firstname}}</td>
+                                <td>100000</td>
+                                <td>{{$student->created_at}}</td>
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>

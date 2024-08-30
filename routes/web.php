@@ -78,9 +78,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/parent/events', [App\Http\Controllers\Parent\ParentController::class, 'events'])->name('parent.events');
     Route::get('/parent/notifications', [App\Http\Controllers\Parent\ParentController::class, 'notifications'])->name('parent.notifications');
     Route::get('/parent/messages', [App\Http\Controllers\Parent\ParentController::class, 'parent_message'])->name('parent.messages');
+    Route::post('/schoolfees', [App\Http\Controllers\FeesController::class, 'post_fees']);
 
     // Routes for fees
-    Route::resource('fees', FeesController::class);
+    // Route::resource('fees', FeesController::class);
     // Routes for adding classes and sections
     Route::post('/superadmin/classes', [App\Http\Controllers\SClassController::class, 'store'])->name('classes.store');
     Route::post('/superadmin/sections', [App\Http\Controllers\SectionController::class, 'store'])->name('sections.store');

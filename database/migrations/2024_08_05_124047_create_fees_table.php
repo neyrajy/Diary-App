@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('amount', 8, 2); // The fee amount
             $table->enum('status', ['paid', 'unpaid', 'pending'])->default('unpaid'); // The status of the fee
             $table->date('due_date'); // The due date for the fee payment
+            $table->string('receipt');
             $table->date('paid_date')->nullable(); // The date the fee was paid
             $table->string('description')->nullable(); // Optional description for the fee
             $table->timestamps();

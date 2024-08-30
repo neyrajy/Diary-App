@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             @if($student->photo)
-                                <img class="rounded-circle" style="height: 150px; width: 150px;" src="{{ asset($student->photo) }}" alt="Student Photo" />
+                                <img class="rounded-circle" style="height: 150px; width: 150px;" src="{{ asset('storage/' . $student->photo) }}" alt="Student Photo" />
                                 <strong>{{ $student->firstname }} {{ $student->secondname ?? 'N/A' }} {{ $student->lastname }}</strong>
                                 <p><strong>Admission Number:</strong> {{ $student->adm_no ?? 'N/A' }}</p>
                             @else

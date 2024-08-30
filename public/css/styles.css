@@ -799,6 +799,22 @@ footer {
 }
 
 
+.btn-submit-mid{
+  float: left;
+  background-color: #d1b506;
+  color: #FFF;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: none;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.btn-submit-mid:focus{
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
 .hidden{
   display: none;
 }

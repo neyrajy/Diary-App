@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Parent;
 
 use Carbon\Carbon;
+use App\Models\Fee;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Event;
@@ -35,7 +36,7 @@ class ParentController extends Controller
         $classes = SClass::all();
         $sections = Section::all();
         // $notifications = Notification::latest()->take(5)->get();
-        // $latestFees = Fee::latest()->take(5)->get();
+        $latestFees = Fee::latest()->take(5)->get();
 
         return view('parent.dashboard', compact('parents', 'teachers', 'staff', 'drivers', 'user','users','classes','sections','students'));
     }
@@ -67,5 +68,11 @@ class ParentController extends Controller
         $nowDate = Carbon::now()->format('Y-m-d');
         $messages = Message::latest()->paginate(5);
         return view('parent/messages', compact('messages','nowDate','parents'));
+    }
+
+    public function fees(){
+        $nowDate = Carbon::now()->format('Y-m-d');
+        $students = Student::all();
+        return view('parent.fees', compact('students','nowDate'));
     }
 }
