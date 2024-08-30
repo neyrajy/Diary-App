@@ -119,7 +119,7 @@ class SuperAdminController extends Controller
         return redirect()->route('superadmin.parents')->with('success', 'Parent registered successfully.');
     }
     public function parents() {
-        $fees = Fee::all();
+        $fees = Fee::latest()->get();
         $parentsCount = User::where('role_id', 4)->count();
         $parents = User::where('role_id', 4)->filter(request(['search']))->paginate(10);
         $students = Student::all();
