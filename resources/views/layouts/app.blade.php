@@ -84,6 +84,7 @@
                                     <a href="{{ route('teacher.message') }}"><i class="fas fa-comments"></i> Messages</a>
                                     <a href="{{ route('teacher.events') }}"><i class="fas fa-calendar-alt"></i> Events</a>
                                     <a href="{{ route('teacher.students') }}"><i class="fas fa-user-graduate"></i> Students</a>
+                                    <a href="{{ route('teacher.attendance') }}"><i class="fas fa-user-check"></i> Attendance</a>
                                     <form action="/logout" method="POST">
                                         @csrf
                                         <button type="submit" style="color:#FFF;"><i class="fa fa-sign-out"></i> Sign Out</button>

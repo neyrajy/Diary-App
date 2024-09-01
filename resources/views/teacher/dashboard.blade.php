@@ -73,7 +73,7 @@
                     <td>{{$activity->id}}</td>
                     <td>
                         @foreach($students as $student)
-                            @if($student->id == $activity->student_id)
+                            @if($student->id == $activity->student_id && Auth::guard('web')->user()->class_name == $student->s_class_id)
                                 <h1>{{ $student->firstname }}</h1>
                             @endif
                         @endforeach

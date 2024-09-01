@@ -70,7 +70,7 @@
                                 <div class="form-group">
                                     <label for="region_id">Region</label>
                                     <select id="region_id" name="region_id" class="form-control">
-                                        <option value="">Select Region</option>
+                                        <option value="{{$teacher->region_id}}">Select Region</option>
                                         @foreach($regions as $region)
                                             <option value="{{ $region->id }}" {{ $teacher->region_id == $region->id ? 'selected' : '' }}>
                                                 {{ $region->name }}
@@ -85,7 +85,7 @@
                                 <div class="form-group">
                                     <label for="district_id">District</label>
                                     <select id="district_id" name="district_id" class="form-control">
-                                        <option value="">Select District</option>
+                                        <option value="{{$teacher->district_id}}">Select District</option>
                                         @foreach($districts as $district)
                                             <option value="{{ $district->id }}" {{ $teacher->district_id == $region->id ? 'selected' : '' }}>
                                                 {{ $district->name }}
@@ -100,6 +100,30 @@
                                     <input type="text" id="street" name="street" class="form-control" value="{{ $teacher->street }}">
                                 </div>
                             </div> 
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nal_id">Assign Class</label>
+                                    <select id="class_name" name="class_name" class="form-control">
+                                        <option value="{{$teacher->class_name}}" disabled selected>Assign Class</option>
+                                        @foreach($classes as $class)
+                                        <option value="{{$class->id}}">{{$class->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nal_id">Assign Section</label>
+                                    <select id="section_name" name="section_name" class="form-control">
+                                        <option value="{{$teacher->section_name}}" disabled selected>Assign Section</option>
+                                        @foreach($sections as $section)
+                                        <option value="{{$section->id}}">{{$section->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            
                         </div> 
                         <div class="row">
                             <div class="col-md-12">
@@ -108,7 +132,7 @@
                                 <textarea id="address" name="address" class="form-control">{{ $teacher->address }}</textarea>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Update Teacher</button>
+                                <button type="submit" class="btn btn-primary" style="background-color:#007BFF;">Update Teacher</button>
                             </div>
                         </div>
                     </form>

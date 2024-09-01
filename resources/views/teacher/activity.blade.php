@@ -28,6 +28,7 @@
                                 <th>Action</th>
                             </tr>
                             @foreach($students as $student)
+                            @if(Auth::guard('web')->user()->class_name == $student->s_class_id)
                                 
                                     <tr class="main-tr-wrapper">
                                         <td>{{$student->firstname}}</td>
@@ -49,6 +50,8 @@
                                         <!-- <td>No activity</td> -->
                                         <td style="text-align:center;"><a href="/add-activity/{{$student->id}}"><i class="fa fa-plus"></i> Add Activity</a></td>
                                     </tr>
+
+                                    @endif
                                
                             @endforeach
                         </table>                   

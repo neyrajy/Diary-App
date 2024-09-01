@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/superadmin/teachers', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'teachers'])->name('superadmin.teachers');
     Route::get('/superadmin/parents', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'parents'])->name('superadmin.parents');
     Route::get('/superadmin/teachers/edit/{teacher}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'editTeacher'])->name('superadmin.edit-teacher');
-    Route::put('/superadmin/teachers/{id}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'updateTeacher'])->name('superadmin.update-teacher');
+    Route::put('/superadmin/teachers/{teacher}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'updateTeacher'])->name('superadmin.update-teacher');
     Route::delete('/superadmin/teachers/destroy/{teacher}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'destroyTeacher'])->name('superadmin.destroy-teacher');
     Route::post('/events', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_events']);
     Route::get('/superadmin/read-more/{event}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'view_single_event'])->name('superadmin.read-more');
@@ -62,6 +62,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/teacher/notifications', [App\Http\Controllers\Teacher\TeacherController::class, 'notifications'])->name('teacher.notifications');
     Route::get('/teacher/events', [App\Http\Controllers\Teacher\TeacherController::class, 'events'])->name('teacher.events');
     Route::get('/teacher/students', [App\Http\Controllers\Teacher\TeacherController::class, 'students'])->name('teacher.students');
+    Route::get('/teacher/attendance', [App\Http\Controllers\Teacher\TeacherController::class, 'attendance'])->name('teacher.attendance');
+    Route::post('/attendances', [App\Http\Controllers\Teacher\TeacherController::class, 'attendance_post']);
+    Route::get('/teacher/viw-attendance', [App\Http\Controllers\Teacher\TeacherController::class, 'view_attendance'])->name('teacher.viw-attendance');
     
     
     Route::get('/superadmin/staff', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'staff'])->name('superadmin.staff');

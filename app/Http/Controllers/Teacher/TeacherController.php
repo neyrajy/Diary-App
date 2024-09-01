@@ -11,6 +11,7 @@ use App\Models\Message;
 use App\Models\Section;
 use App\Models\Student;
 use App\Models\Activity;
+use App\Models\Attendance;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -142,6 +143,45 @@ class TeacherController extends Controller
 
     public function view_messages(){
         return view('teacher.view-message');
+    }
+
+    public function attendance(){
+        $students = Student::all();
+        $nowDate = Carbon::now()->format('Y-m-d');
+        return view('teacher.attendance',compact('nowDate','students'));
+    }
+
+    public function attendance_post(Request $request)
+    {
+        $attendanceDetails = $request->validate([
+            'teacher_id.*' => 'nullable',
+            'student_name.*' => 'required|string|max:255',
+            'present.*' => 'nullable|integer',
+            'absent.*' => 'nullable|integer',
+        ]);
+
+        $teacherId = $attendanceDetails['teacher_id'] ?? null;
+        $studentName = $attendanceDetails['student_name'] ?? [];
+        $present = $attendanceDetails['present'] ?? [];
+        $absent = $attendanceDetails['absent'] ?? [];
+
+        foreach ($studentName as $index => $name) {
+            Attendance::create([
+                'teacher_id' => $teacherId[$index] ?? null,
+                'student_name' => $name,
+                'present' => $present[$index] ?? 0,
+                'absent' => $absent[$index] ?? 0,
+            ]);
+        }
+
+        return redirect('/teacher/viw-attendance')->with('attendance_sent', 'Attendance submitted successfully');
+    }
+
+
+    public function view_attendance(){
+        $nowDate = Carbon::now()->format('Y-m-d');
+        $attendances = Attendance::whereDate('created_at', $nowDate)->get();
+        return view('teacher.viw-attendance', compact('attendances','nowDate'));
     }
 }
 

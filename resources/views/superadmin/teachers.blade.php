@@ -20,7 +20,9 @@
                                 <th>Teacher's Name</th>
                                 <th>Mobile Phone</th>
                                 <th>Address</th>
-                                <th>Fee Paid (TZS)</th>
+                                <th>Class</th>
+                                <th>Section</th>
+                                <!-- <th>Fee Paid (TZS)</th> -->
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -32,7 +34,21 @@
                             <td>{{ $teacher->firstname }} {{ $teacher->lastname }}</td>
                             <td>{{ $teacher->phone }}</td>
                             <td>{{ $teacher->address }}</td>
-                            <td>{{number_format('100000')}}/=</td>
+                            <td>
+                            @foreach($classes as $class)
+                            @if($teacher->class_name == $class->id)
+                            {{$class->name}}
+                            @endif
+                            @endforeach
+                            </td>
+                            <td>
+                            @foreach($sections as $section)
+                            @if($teacher->section_name == $section->id)
+                            {{$section->name}}
+                            @endif
+                            @endforeach
+                            </td>
+                            <!-- <td>{{number_format('100000')}}/=</td> -->
                             <td>
                                 <a href="/superadmin/teachers/edit/{{$teacher->id}}" class="btn btn-primary btn-sm">Edit</a>
                             </td>

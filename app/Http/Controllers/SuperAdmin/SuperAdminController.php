@@ -220,7 +220,9 @@ class SuperAdminController extends Controller
     public function teachers() {
         $teachersCount = User::where('role_id', 5)->count();
         $teachers = User::where('role_id', 5)->get();
-        return view('superadmin.teachers', compact('teachersCount', 'teachers'));
+        $sections = Section::all();
+        $classes = SClass::all();
+        return view('superadmin.teachers', compact('teachersCount', 'teachers','sections','classes'));
     }
     public function editTeacher($id)
     {
@@ -229,13 +231,16 @@ class SuperAdminController extends Controller
         $nationalities = Nationality::all();
         $regions = Region::all();
         $districts = District::all();
+
+        $sections = Section::all();
+        $classes = SClass::all();
            
-        return view('superadmin.edit-teacher', compact('teacher','nationalities', 'regions', 'districts'));
+        return view('superadmin.edit-teacher', compact('classes','sections','teacher','nationalities', 'regions', 'districts'));
     }
-    public function updateTeacher(Request $request, $id)
+    public function updateTeacher(Request $request, User $teacher)
     {
         // Validate incoming request data
-        $request->validate([
+        $teacherDetails = $request->validate([
             'firstname' => 'required|string|max:255',
             'secondname' => 'nullable|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -246,19 +251,26 @@ class SuperAdminController extends Controller
             'nal_id' => 'nullable|exists:nationalities,id',
             'region_id' => 'nullable|exists:regions,id',
             'district_id' => 'nullable|exists:districts,id',
+            'section_name' => 'nullable',
+            'class_name' => 'nullable',
         ]);
 
+        $teacher->update($teacherDetails);
+
+        // dd($request->all());
+
         // Find the teacher record by ID
-        $parent = User::findOrFail($id);
+        // $parent = User::findOrFail($id);
 
         // Update the teacher record with validated data
        
-        $parent->update($request->only([
-            'firstname', 'lastname', 'phone', 'phone2', 'address', 'street', 
-            'nal_id', 'region_id', 'district_id'
-        ]));
-        return redirect()->route('superadmin.teachers')
-            ->with('success', 'Teacher updated successfully.');
+        // $parent->update($request->only([
+        //     'firstname', 'lastname', 'phone', 'phone2', 'address', 'street', 
+        //     'nal_id', 'region_id', 'district_id'
+        // ]));
+
+        return redirect()->route('superadmin.teachers')->with('success', 'Teacher updated successfully.');
+            
     }
     public function destroyTeacher($id)
     {
