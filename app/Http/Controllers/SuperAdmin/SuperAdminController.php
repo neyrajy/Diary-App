@@ -365,12 +365,11 @@ class SuperAdminController extends Controller
             'grad_date' => 'nullable',
         ]);
     
-        // $exisistingStudentFName = User::where('firstname', $request->input('firstname'))->first();
-        // $exisistingStudentLName = User::where('lastname', $request->input('lastname'))->first();
+        $exisistingStudent = Student::where('adm_no', $request->input('adm_no'))->first();
     
-        // if ($exisistingStudentFName && $exisistingStudentLName) {
-        //     return redirect()->back()->withErrors('student_exists', 'This Student exists already!')->withInput();
-        // }
+        if ($exisistingStudent) {
+            return redirect()->back()->withErrors('student_exists', 'This Student exists already!')->withInput();
+        }
     
         if ($request->hasFile('photo')) {
             $studentsDetails['photo'] = $request->file('photo')->store('photos', 'public');
