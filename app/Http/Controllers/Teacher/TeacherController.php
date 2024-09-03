@@ -183,5 +183,10 @@ class TeacherController extends Controller
         $attendances = Attendance::whereDate('created_at', $nowDate)->get();
         return view('teacher.viw-attendance', compact('attendances','nowDate'));
     }
+
+    public function students(){
+        $students = Student::orderBy('id','asc')->get();
+        return view('teacher.students', compact('students'));
+    }
 }
 

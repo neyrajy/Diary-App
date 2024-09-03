@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
         ]);
         
         DB::table("users")->insert([
-            "role_id" => "2",
+            "role_id" => "2",   
             "firstname" => "School",
             "lastname" => "Admin",
             "phone" => "0769129670",
