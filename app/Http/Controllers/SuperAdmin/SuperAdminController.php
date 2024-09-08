@@ -285,12 +285,20 @@ class SuperAdminController extends Controller
     }
 
     public function staff() {
-        // return view for staff
+        $nationalities = Nationality::all();
+        $regions = Region::all();
+        $districts = District::all();
+        $staffs = User::where('role_id', 7)->orderBy('id','asc')->paginate(10);
+        return view('superadmin.staff', compact('staffs','nationalities','regions','districts'));
     }
 
 
     public function drivers() {
-        // return view for drivers
+        $nationalities = Nationality::all();
+        $regions = Region::all();
+        $districts = District::all();
+        $drivers = User::where('role_id', 6)->orderBy('id','asc')->paginate(10);
+        return view('superadmin.drivers', compact('nationalities','regions','districts','drivers'));
     }
 
     public function events() {
@@ -458,6 +466,102 @@ class SuperAdminController extends Controller
             'role_id' => 'required',
         ]);
         $user->update($userRole);
+        return redirect()->back();
+    }
+
+    public function store_staffs(Request $request){
+        $staffDetails = $request->validate([
+            'role_id' => 'required',
+            'firstname' => 'required',
+            'secondname' => 'nullable',
+            'lastname' => 'required',
+            'email' => 'nullable',
+            'phone' => 'required|max:13',
+            'password' => 'required|min:8',
+            'dob' => 'nullable',
+            'photo' => 'nullable|image|max:2048',
+            'gender' => 'nullable',
+            'nal_id' => 'nullable',
+            'region_id' => 'nullable',
+            'district_id' => 'nullable',
+            'street' => 'nullable',
+            'address' => 'nullable',
+        ]);
+
+        if($request->hasFile('photo')){
+            $staffDetails['photo'] = $request->file('photo')->store('staffs','public');
+        }
+        
+        $exisistingStaff = User::where('phone', $request->input('phone'))->first();
+        if($exisistingStaff){
+            return redirect()->back()->withInput('Account exists!')->inputError();
+        }
+
+        User::create($staffDetails);
+        // dd($request->all());
+        return redirect()->back();
+    }
+
+    public function delete_staff(Request $request, User $staff){
+        $staff->delete();
+        return redirect()->back();
+    }
+
+    public function edit_staff(Request $request, User $staff){
+        $staffData = $request->validate([
+            'role_id' => 'required',
+            'firstname' => 'required',
+            'secondname' => 'nullable',
+            'lastname' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'password' => 'required',
+            'dob' => 'required',
+            'photo' => 'required',
+            'gender' => 'required',
+            'nal_id' => 'required',
+            'region_id' => 'required',
+            'district_id' => 'required',
+            'street' => 'required',
+            'address' => 'required',
+        ]);
+
+        $staff->update($staffData);
+
+        return redirect()->back();
+    }
+
+    public function store_driver(Request $request){
+        $driverDetails = $request->validate([
+            'role_id' => 'required',
+            'firstname' => 'required',
+            'secondname' => 'nullable',
+            'lastname' => 'required',
+            'email' => 'nullable',
+            'phone' => 'required|max:13',
+            'password' => 'required|min:8',
+            'dob' => 'nullable',
+            'photo' => 'nullable|image|max:2048',
+            'gender' => 'nullable',
+            'nal_id' => 'nullable',
+            'region_id' => 'nullable',
+            'district_id' => 'nullable',
+            'street' => 'nullable',
+            'address' => 'nullable',
+        ]);
+
+        if($request->hasFile('photo')){
+            $driverDetails['photo'] = $request->file('photo')->store('drivers','public');
+        }
+
+        $exisistingDriver = User::where('phone', $request->input('phone'))->first();
+
+        if($exisistingDriver){
+            return redirect()->back()->with('msg_io','Account exists!');
+        }
+
+        User::create($driverDetails);
+
         return redirect()->back();
     }
 }

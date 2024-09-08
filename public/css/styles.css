@@ -973,6 +973,152 @@ footer {
   border: none;
 }
 
+@keyframes FadeInward{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+.staff-reg-ed,.staff-reg-edit{
+  animation: FadeInward 1.2s forwards;
+  width: 100%;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  background-color: #FFF;
+  padding: 6px;
+}
+
+.first-input-holder section{
+  display: inline-block;
+  width: 30%;
+  margin-left: 2%;
+}
+
+.second-input-holder section{
+  display: inline-block;
+  width: 30%;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+
+.third-input-holder section{
+  display: inline-block;
+  width: 30%;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+
+.fourth-input-holder section{
+  display: inline-block;
+  width: 30%;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+
+.fifth-input-holder section{
+  display: inline-block;
+  width: 45%;
+  margin-top: 2%;
+  margin-left: 2.5%;
+}
+
+.add-staff-btn{
+  margin-left: 2%;
+  padding: 6px;
+  width: 120px;
+  color: #FFF;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.add-staff-btn:focus{
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.close-btn{
+  float: right;
+  margin-right: 2%;
+  width: 60px;
+  padding: 6px;
+  color: #FFF;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.close-btn:focus{
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.td-tr-link a{
+  padding: 6px;
+  margin-left: 1%;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1.2px solid rgb(204, 225, 244);
+}
+
+.delete-staff{
+  position: absolute;
+  width: 40%;
+  left: 25%;
+  top: 20%;
+  background-color: #FFF;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.delete-staff p{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15px;
+  text-align: center;
+}
+
+.sbt-btn{
+  float: left;
+  margin-left: 5%;
+  color: red;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  padding: 6px;
+}
+
+.sbt-btn:focus{
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.close-btn-clo{
+  float: right;
+  margin-left: 5%;
+  color: maroon;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  padding: 6px;
+}
+
+.close-btn-clo:focus{
+   outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+
 .hidden{
   display: none;
 }

@@ -17,7 +17,7 @@
                     <table class="table table-responsive table-striped">
                         <tr>
                             <th>S/N</th>
-                            <th>Photo</th>
+                            <th>Photo</th>  
                             <th>Names</th>
                             <th>Adm No</th>
                             <th>Age</th>

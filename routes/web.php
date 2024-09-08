@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/teacher/viw-attendance', [App\Http\Controllers\Teacher\TeacherController::class, 'view_attendance'])->name('teacher.viw-attendance');
     
     
+    Route::post('/drivers', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_driver']);
     Route::get('/superadmin/staff', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'staff'])->name('superadmin.staff');
     Route::get('/superadmin/students', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'students'])->name('superadmin.students');
     Route::resource('students', App\Http\Controllers\StudentController::class);
@@ -83,10 +84,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/parent/messages', [App\Http\Controllers\Parent\ParentController::class, 'parent_message'])->name('parent.messages');
     Route::post('/schoolfees', [App\Http\Controllers\Parent\ParentController::class, 'post_fees']);
     Route::put('/fees/edit/{fee}', [App\Http\Controllers\Parent\ParentController::class, 'edit_fee']);
-
+    Route::post('/staffs' , [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_staffs']);
+    Route::delete('/staff/delete/{staff}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'delete_staff']);
+    Route::put('/staffs/edit/{staff}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'edit_staff']);
+    Route::get('/staff/notifications', [App\Http\Controllers\Staff\StaffController::class, 'notifications'])->name('staff.notifications');
+    Route::get('/staff/events', [App\Http\Controllers\Staff\StaffController::class, 'events'])->name('staff.events');
+    Route::get('/staff/view-nofication', [App\Http\Controllers\Staff\StaffController::class, 'view_notifications'])->name('staff.view-nofication');
+    Route::get('/staff/read-more/{event}', [App\Http\Controllers\Staff\StaffController::class, 'read_more_event'])->name('staff.read-more');
     // Routes for fees
     // Route::resource('fees', FeesController::class);
     // Routes for adding classes and sections
+    
+    Route::get('/driver/notifications', [App\Http\Controllers\Driver\DriverController::class, 'notifications'])->name('driver.notifications');
+    Route::get('/driver/events', [App\Http\Controllers\Driver\DriverController::class, 'events'])->name('driver.events');
+    Route::get('/driver/students', [App\Http\Controllers\Driver\DriverController::class, 'students'])->name('driver.students');
+    Route::get('/driver/view-nofication', [App\Http\Controllers\Driver\DriverController::class, 'view_notifications'])->name('driver.view-nofication');
+    Route::get('/driver/read-more/{event}', [App\Http\Controllers\Driver\DriverController::class, 'read_more']);
+
     Route::post('/superadmin/classes', [App\Http\Controllers\SClassController::class, 'store'])->name('classes.store');
     Route::post('/superadmin/sections', [App\Http\Controllers\SectionController::class, 'store'])->name('sections.store');
 
