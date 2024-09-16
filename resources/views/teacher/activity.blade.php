@@ -5,9 +5,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header"><h1>{{ __('Add Student Activity') }}</h1> 
-                    <form action="/teacher/activity" method="GET" class="search-wrapp">
+                    <form action="/activity" method="GET" class="search-wrapp">
                         <input type="text" name="search" id="" placeholder="Enter student name . . .">
-                        <button type="submit" class="submit-act-btn"><i class="fa fa-search"></i> <span>Search</span></button>
+                        <button type="submit" class="submit-act-btn" style="background-color:#007BFF;"><i class="fa fa-search"></i> <span>Search</span></button>
                     </form>
                     </div>
 
@@ -54,7 +54,11 @@
                                     @endif
                                
                             @endforeach
-                        </table>                   
+                        </table>   
+                        
+                        @if(count($students) == 0)
+                        <p>No student found!</p>
+                        @endif
                         <!-- <form method="POST" action="{{ route('superadmin.store-parent') }}" enctype="multipart/form-data">
 
                         </form> -->

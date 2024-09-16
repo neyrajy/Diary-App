@@ -121,6 +121,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/teacher/message', [App\Http\Controllers\Teacher\TeacherController::class, 'notify'])->name('teacher.message');
     Route::post('/messages', [App\Http\Controllers\Teacher\TeacherController::class, 'store_messages']);
     Route::get('/teacher/view-message', [App\Http\Controllers\Teacher\TeacherController::class, 'view_messages'])->name('teacher.view-message');
+    Route::put('//edit/activity/{activity_edit', [App\Http\Controllers\Teacher\TeacherController::class, 'edit_post_activity']);
+    Route::get('/teacher/parents', [App\Http\Controllers\Teacher\TeacherController::class, 'parents'])->name('teacher.parents');
+    Route::get('/teacher/drivers', [App\Http\Controllers\Teacher\TeacherController::class, 'drivers'])->name('teacher.drivers');
 });
 
 

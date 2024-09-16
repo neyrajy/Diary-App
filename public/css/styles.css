@@ -999,6 +999,18 @@ footer {
   margin-left: 2%;
 }
 
+button:focus{
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.search-btn:focus{
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
 .second-input-holder section{
   display: inline-block;
   width: 30%;

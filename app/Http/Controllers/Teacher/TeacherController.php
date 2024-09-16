@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Teacher;
 
 use Carbon\Carbon;
+use App\Models\Fee;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Region;
 use App\Models\SClass;
 use App\Models\Message;
 use App\Models\Section;
 use App\Models\Student;
 use App\Models\Activity;
+use App\Models\District;
 use App\Models\Attendance;
+use App\Models\Nationality;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -39,7 +43,7 @@ class TeacherController extends Controller
     public function student_activities(){
         $studentExists = User::where('role_id','==','8')->count();
         return view('teacher.activity',[
-            'students' => Student::all(),
+            'students' => Student::orderBy('id','asc')->filter(request(['search']))->paginate(10),
             'users' => User::all(),
             'activities' => Activity::all(),
             'studentExistsConuter' => $studentExists,
@@ -102,7 +106,7 @@ class TeacherController extends Controller
     public function edit_activity($id){
         $activity = Activity::find($id);
         $student = Student::where('id', $activity->student_id)->get();
-        return view('teacher.edit-activity',compact('activity','student'));
+        return view('teacher.edit-activity', compact('activity','student'));
     }
 
     public function notifications(){
@@ -187,6 +191,56 @@ class TeacherController extends Controller
     public function students(){
         $students = Student::orderBy('id','asc')->get();
         return view('teacher.students', compact('students'));
+    }
+
+    public function edit_post_activity(Request $request, Activity $activity){
+        $postedActivity = $request->validate([
+            'student_id' => 'required',
+            'date_time' => 'required',
+            'mood' => 'nullable',
+            'learning_activities' => 'nullable|max:255',
+            'lessons_learnt' => 'nullable|max:255',
+            'needs_more_time' => 'nullable|max:255',
+            'milk_times' => 'nullable',
+            'milk_finished' => 'nullable',
+            'breakfast' => 'nullable',
+            'breakfast_quantity' => 'nullable',
+            'breakfast_finished' => 'nullable',
+            'lunch' => 'nullable',
+            'lunch_quantity' => 'nullable',
+            'lunch_finished' => 'nullable',
+            'snack' => 'nullable',
+            'snack_quantity' => 'nullable',
+            'snack_finished' => 'nullable',
+            'general_observation' => 'nullable|max:255',
+            'poop' => 'nullable',
+            'describe_poop' => 'nullable',
+            'nap' => 'nullable',
+            'diapers_used' => 'nullable',
+            'photos' => 'nullable',
+            'videos' => 'nullable',
+            'milestones' => 'nullable|max:255',
+        ]);
+
+        $activity->update($postedActivity);
+
+        return redirect()->back();
+    }
+
+    public function parents(){
+        $fees = Fee::latest()->get();
+        $parentsCount = User::where('role_id', 4)->count();
+        $parents = User::where('role_id', 4)->filter(request(['search']))->paginate(10);
+        $students = Student::all();
+        return view('teacher.parents', compact('parentsCount', 'parents','students','fees'));
+    }
+
+    public function drivers(){
+        $nationalities = Nationality::all();
+        $regions = Region::all();
+        $districts = District::all();
+        $drivers = User::where('role_id', 6)->orderBy('id','asc')->paginate(10);
+        return view('teacher.drivers', compact('nationalities','regions','districts','drivers'));
     }
 }
 

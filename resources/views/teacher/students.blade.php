@@ -11,13 +11,13 @@
                     <h5 class="card-title">
                         My Students / {{Auth::guard('web')->user()->lastname}}
                         <span style="margin-top:-20px" class="d-flex justify-content-end">
-                            <a class="btn btn-warning btn-sm" href="{{ route('superadmin.parents') }}"><span>&#8592;</span> Back</a>
+                            <a class="btn btn-warning btn-sm" href="{{ route('teacher.dashboard') }}"><span>&#8592;</span> Back</a>
                         </span>
                     </h5>
                     <table class="table table-responsive table-striped">
                         <tr>
                             <th>S/N</th>
-                            <th>Photo</th>  
+                            <th>Photo</th> 
                             <th>Names</th>
                             <th>Adm No</th>
                             <th>Age</th>

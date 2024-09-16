@@ -9,6 +9,12 @@ class Student extends Model
 {
     
     use HasFactory;
+
+    public function scopeFilter($query, array $filters){
+        if($filters['search'] ?? false){
+            $query->where('firstname','like','%' . request('search') . '%');
+        }
+    }
     
     protected $fillable = [
         'firstname', 'secondname', 'lastname', 'session', 'photo', 's_class_id', 'section_id', 'adm_no', 'admission_date', 'grad', 'grad_date', 'age', 'bg_id'

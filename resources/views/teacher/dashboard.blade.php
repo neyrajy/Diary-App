@@ -7,14 +7,14 @@
                 <div class="card-body">
                     <h5 class="card-title">Parents</h5>
                     <p class="card-text">{{ $parentCounter }}</p>
-                    <a href="{{ route('superadmin.parents') }}" class="btn btn-light">View All</a>
+                    <a href="/teacher/parents" class="btn btn-light">View All</a>
                 </div>
             </div>
             <div class="card-wrapper text-white bg-danger" id="card-wrapper-ajax">
                 <div class="card-body">
                     <h5 class="card-title">Students</h5>
                     <p class="card-text">{{ count($students) }}</p>
-                    <a href="{{ route('superadmin.students') }}" class="btn btn-light">View All</a>
+                    <a href="/teacher/students" class="btn btn-light">View All</a>
                 </div>
             </div>
             <div class="col-md-ajax">
@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Student Activities</h5>
                         <p class="card-text">{{ count($activities) }}</p>
-                        <a href="{{ route('superadmin.drivers') }}" class="btn btn-light">View All</a>
+                        <a href="/teacher/drivers" class="btn btn-light">View All</a>
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
     <br><br><br><br><br><br>
     <form action="/teacher" method="GET" class="wrapper-ajax-search">
         @csrf
-        <input type="text" name="search" id="input-search" placeholder="Search a student ...."><button type="submit">Search</button>
+        <input type="text" name="search" id="input-search" placeholder="Search a student ...."><button type="submit" class="search-btn">Search</button>
     </form><br><br>
 
     <script>
