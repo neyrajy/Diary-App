@@ -53,14 +53,14 @@
                                     <a href="{{ route('superadmin.fees') }}"><i class="fas fa-dollar-sign"></i> Fees</a>
                                 @elseif(Auth::user()->role_id == 2)
                                     <a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                                    <a href="{{ route('superadmin.parents') }}"><i class="fas fa-user-friends"></i> Parents</a>
-                                    <a href="{{ route('superadmin.teachers') }}"><i class="fas fa-chalkboard-teacher"></i> Teachers</a>
-                                    <a href="{{ route('superadmin.staff') }}"><i class="fas fa-users"></i> Staff</a>
-                                    <a href="{{ route('superadmin.students') }}"><i class="fas fa-user-graduate"></i> Students</a>
-                                    <a href="{{ route('superadmin.drivers') }}"><i class="fas fa-bus"></i> Drivers</a>
-                                    <a href="{{ route('superadmin.events') }}"><i class="fas fa-calendar-alt"></i> Events</a>
-                                    <a href="{{ route('superadmin.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>
-                                    <a href="{{ route('superadmin.fees') }}"><i class="fas fa-dollar-sign"></i> Fees</a>
+                                    <a href="{{ route('admin.parents') }}"><i class="fas fa-user-friends"></i> Parents</a>
+                                    <a href="{{ route('admin.teachers') }}"><i class="fas fa-chalkboard-teacher"></i> Teachers</a>
+                                    <a href="{{ route('admin.staff') }}"><i class="fas fa-users"></i> Staff</a>
+                                    <a href="{{ route('admin.students') }}"><i class="fas fa-user-graduate"></i> Students</a>
+                                    <a href="{{ route('admin.drivers') }}"><i class="fas fa-bus"></i> Drivers</a>
+                                    <a href="{{ route('admin.events') }}"><i class="fas fa-calendar-alt"></i> Events</a>
+                                    <a href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>
+                                    <a href="{{ route('admin.fees') }}"><i class="fas fa-dollar-sign"></i> Fees</a>
                                 @elseif(Auth::user()->role_id == 3)
                                     <a href="{{ route('manager.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                                     <a href="{{ route('manager.parents') }}"><i class="fas fa-user-friends"></i> Parents</a>

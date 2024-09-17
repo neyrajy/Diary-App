@@ -105,6 +105,34 @@ Route::middleware('auth')->group(function () {
     Route::post('/superadmin/sections', [App\Http\Controllers\SectionController::class, 'store'])->name('sections.store');
 
     Route::get('/admin', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/parents', [App\Http\Controllers\Admin\AdminController::class, 'parents'])->name('admin.parents');
+    Route::get('/admin/teachers', [App\Http\Controllers\Admin\AdminController::class, 'teachers'])->name('admin.teachers');
+    Route::get('/admin/staff', [App\Http\Controllers\Admin\AdminController::class, 'staff'])->name('admin.staff');
+    Route::get('/admin/students', [App\Http\Controllers\Admin\AdminController::class, 'students'])->name('admin.students');
+    Route::get('/admin/drivers', [App\Http\Controllers\Admin\AdminController::class, 'drivers'])->name('admin.drivers');
+    Route::get('/admin/events', [App\Http\Controllers\Admin\AdminController::class, 'events'])->name('admin.events');
+    Route::get('/admin/notifications', [App\Http\Controllers\Admin\AdminController::class, 'notifications'])->name('admin.notifications');
+    Route::get('/admin/fees', [App\Http\Controllers\Admin\AdminController::class, 'fees'])->name('admin.fees');
+    Route::get('/admin/view-nofication', [App\Http\Controllers\Admin\AdminController::class, 'view_notifications'])->name('admin.view-nofication');
+    Route::get('/admin/register-teacher', [App\Http\Controllers\Admin\AdminController::class, 'register_teacher'])->name('admin.register-teacher');
+    Route::get('/admin/parents/{id}/edit', [App\Http\Controllers\Admin\AdminController::class, 'editParent'])->name('admin.edit-parent');
+    Route::delete('/admin/parents/{id}', [App\Http\Controllers\Admin\AdminController::class, 'destroyParent'])->name('admin.destroy-parent');
+    Route::put('/admin/parents/{id}', [App\Http\Controllers\Admin\AdminController::class, 'updateParent'])->name('admin.update-parent');
+    Route::post('/admin/storeteachers', [App\Http\Controllers\Admin\AdminController::class, 'store_teachers'])->name('admin.storeteachers');
+    Route::get('/admin/teachers/edit/{teacher}', [App\Http\Controllers\Admin\AdminController::class, 'editTeacher'])->name('admin.edit-teacher');
+    Route::put('/admin/teachers/{teacher}', [App\Http\Controllers\Admin\AdminController::class, 'updateTeacher'])->name('admin.update-teacher');
+    Route::get('/admin/read-more/{event}', [App\Http\Controllers\Admin\AdminController::class, 'view_single_event'])->name('admin.read-more');
+    Route::post('/drivers', [App\Http\Controllers\Admin\AdminController::class, 'store_driver']);
+    Route::patch('/admin/verify-parent/{id}', [App\Http\Controllers\Admin\AdminController::class, 'verifyParent'])->name('admin.verify-parent');
+    Route::delete('/admin/teachers/destroy/{teacher}', [App\Http\Controllers\Admin\AdminController::class, 'destroyTeacher'])->name('admin.destroy-teacher');
+    Route::delete('/staff/delete/{staff}', [App\Http\Controllers\Admin\AdminController::class, 'delete_staff']);
+    Route::put('/staffs/edit/{staff}', [App\Http\Controllers\Admin\AdminController::class, 'edit_staff']);
+
+
+
+
+
+
     Route::get('/manager', [App\Http\Controllers\Manager\ManagerController::class, 'dashboard'])->name('manager.dashboard');
     Route::get('/parent', [App\Http\Controllers\Parent\ParentController::class, 'dashboard'])->name('parent.dashboard');
     Route::get('/teacher', [App\Http\Controllers\Teacher\TeacherController::class, 'dashboard'])->name('teacher.dashboard');

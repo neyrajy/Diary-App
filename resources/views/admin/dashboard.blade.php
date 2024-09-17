@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Parents</h5>
                     <p class="card-text">{{ $parentsCount }}</p>
-                    <a href="{{ route('superadmin.parents') }}" class="btn btn-light">View All</a>
+                    <a href="{{ route('admin.parents') }}" class="btn btn-light">View All</a>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Teachers</h5>
                     <p class="card-text">{{ $teachersCount }}</p>
-                    <a href="{{ route('superadmin.teachers') }}" class="btn btn-light">View All</a>
+                    <a href="{{ route('admin.teachers') }}" class="btn btn-light">View All</a>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Students</h5>
                     <p class="card-text">{{ $studentsCount }}</p>
-                    <a href="{{ route('superadmin.students') }}" class="btn btn-light">View All</a>
+                    <a href="{{ route('admin.students') }}" class="btn btn-light">View All</a>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Employees</h5>
                     <p class="card-text">{{ $driversCount + $staffCount }}</p>
-                    <a href="{{ route('superadmin.drivers') }}" class="btn btn-light">View All</a>
+                    <a href="{{ route('admin.drivers') }}" class="btn btn-light">View All</a>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                         @foreach($events as $event)
                         <h3><strong>Date:</strong> <span style="color:green;">{{$event->date}}</span></h3>
                         <h3><strong>Event:</strong> <span style="color:green;">{{$event->event_name}}</span></h3>
-                        <a href="/superadmin/read-more/{{$event->id}}" style="color:darkblue; text-decoration:underline;">&#8594; Read More &#8594;</a>
+                        <a href="/admin/read-more/{{$event->id}}" style="color:darkblue; text-decoration:underline;">&#8594; Read More &#8594;</a>
                         @endforeach
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><strong>{{__('Messages / Notifications')}}</strong></h5>
                     <ul class="list-group"> 
-                        <li class="list-group-item"><a href="{{ route('superadmin.view-nofication') }}"><i class="fa fa-eye"></i> View Notifications</a></li>
+                        <li class="list-group-item"><a href="{{ route('admin.view-nofication') }}"><i class="fa fa-eye"></i> View Notifications</a></li>
                     </ul>
                 </div>
             </div>
