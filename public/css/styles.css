@@ -982,7 +982,7 @@ footer {
   }
 }
 
-.staff-reg-ed,.staff-reg-edit{
+.staff-reg-ed,.staff-reg-edit,.route-edit-form,.car-edit-act{
   animation: FadeInward 1.2s forwards;
   width: 100%;
   position: absolute;
@@ -993,10 +993,91 @@ footer {
   padding: 6px;
 }
 
+.firsty-input-holder section{
+  display: inline;
+  width: 48%;
+  float: left;
+  margin-left: 1.5%;
+}
+
+.firsty-input-holder section input{
+  width: 100%;
+}
+
+.head-reference{
+  padding: 10px;
+  margin-left: 0.5%;
+  text-transform: uppercase;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+}
+
+.edit-btn-link,.delete-btn-link{
+  padding: 6px;
+}
+
+.edit-btn-link{
+  color: #0000FF;
+}
+
+.delete-btn-link{
+  color: red;
+}
+
+.delete-btn-link:hover{
+  color: red;
+}
 .first-input-holder section{
   display: inline-block;
   width: 30%;
   margin-left: 2%;
+}
+
+.delete-form-route{
+  position: absolute;
+  left: 30%;
+  width: 50%;
+  padding: 10px;
+  top: 0%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  background-color: #FFF;
+}
+
+@keyframes redAlert {
+  to{
+    visibility: hidden;
+  }
+}
+
+.delete-form-route h1{
+  animation: redAlert 1.2s steps(5, start) infinite;
+  padding: 6px;
+  color: red;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+}
+
+.delete-form-route button:focus{
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.submit-btn-frm{
+  float: left;
+  text-transform: uppercase;
+  padding: 6px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+}
+
+.close-btn-frm{
+  color: red;
+  padding: 6px;
+  float: right;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
 }
 
 button:focus{
@@ -1031,6 +1112,7 @@ button:focus{
   margin-top: 2%;
   margin-left: 2%;
 }
+
 
 .fifth-input-holder section{
   display: inline-block;

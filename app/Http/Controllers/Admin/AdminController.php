@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Car;
 use App\Models\Fee;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Route;
 use App\Models\Region;
 use App\Models\SClass;
 use App\Models\Section;
@@ -556,5 +558,18 @@ class AdminController extends Controller
         User::create($driverDetails);
 
         return redirect()->back();
+    }
+    
+    public function cars(){
+        $carDriver = User::where('role_id', 6)->select('id')->orderBy('id','asc')->get();
+        $cars = Car::where('driverid','!=', $carDriver)->get();
+        $drivers = User::where('role_id', 6)->get();
+        $routes = Route::all();
+        return view('admin.cars', compact('drivers','cars','routes'));
+    }
+
+    public function routes(){
+        $routes = Route::all();
+        return view('admin.routes', compact('routes'));
     }
 }

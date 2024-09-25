@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Driver;
 
+use App\Models\Car;
 use App\Models\Event;
+use App\Models\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -10,8 +12,10 @@ class DriverController extends Controller
 {
     public function dashboard()
     {
+        $routes = Route::all();
+        $cars = Car::all();
         $events = Event::all();
-        return view('driver.dashboard', compact('events'));
+        return view('driver.dashboard', compact('events','cars','routes'));
     }
 
     public function view_notifications(){

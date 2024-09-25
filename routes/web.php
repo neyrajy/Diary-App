@@ -44,6 +44,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/superadmin/view-parent/{parent}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'view_parent'])->name('superadmin.view-parent');
     Route::get('/superadmin/users', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'all_users'])->name('superadmin.users');
     Route::put('/users/edit/{user}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'edit_user_role']);
+    Route::get('/superadmin/cars', [App\Http\Controllers\superadmin\SuperAdminController::class, 'cars'])->name('superadmin.cars');
+    Route::get('/superadmin/routes', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'routes'])->name('superadmin.routes');
+    Route::post('/storeroutes', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'storeroutes']);
+    Route::put('/edit/route/{route}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'edit_route']);
+    Route::delete('/delete/route/{route}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'delete_route']);
+    Route::post('/storecars', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'store_cars']);
+    Route::put('/edit/car/{car}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'edit_car']);
+    Route::delete('/delete/car/{car}', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'delete_car']);
     Route::resource('classes', App\Http\Controllers\SClassController::class)->names([
         'index' => 'classes.index', 
     ]);
@@ -127,7 +135,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/teachers/destroy/{teacher}', [App\Http\Controllers\Admin\AdminController::class, 'destroyTeacher'])->name('admin.destroy-teacher');
     Route::delete('/staff/delete/{staff}', [App\Http\Controllers\Admin\AdminController::class, 'delete_staff']);
     Route::put('/staffs/edit/{staff}', [App\Http\Controllers\Admin\AdminController::class, 'edit_staff']);
-
+    Route::get('/admin/cars', [App\Http\Controllers\Admin\AdminController::class, 'cars'])->name('admin.cars');
+    Route::get('/admin/routes', [App\Http\Controllers\Admin\AdminController::class, 'routes'])->name('admin.routes');
 
 
 
@@ -152,6 +161,23 @@ Route::middleware('auth')->group(function () {
     Route::put('//edit/activity/{activity_edit', [App\Http\Controllers\Teacher\TeacherController::class, 'edit_post_activity']);
     Route::get('/teacher/parents', [App\Http\Controllers\Teacher\TeacherController::class, 'parents'])->name('teacher.parents');
     Route::get('/teacher/drivers', [App\Http\Controllers\Teacher\TeacherController::class, 'drivers'])->name('teacher.drivers');
+
+    Route::get('/manager/parents', [App\Http\Controllers\Manager\ManagerController::class, 'parents'])->name('manager.parents');
+    Route::get('/manager/teachers', [App\Http\Controllers\Manager\ManagerController::class, 'teachers'])->name('manager.teachers');
+    Route::get('/manager/staff', [App\Http\Controllers\Manager\ManagerController::class, 'staff'])->name('manager.staff');
+    Route::get('/manager/students', [App\Http\Controllers\Manager\ManagerController::class, 'students'])->name('manager.students');
+    Route::get('/manager/drivers', [App\Http\Controllers\Manager\ManagerController::class, 'drivers'])->name('manager.drivers');
+    Route::get('/manager/events', [App\Http\Controllers\Manager\ManagerController::class, 'events'])->name('manager.events');
+    Route::get('/manager/notifications', [App\Http\Controllers\Manager\ManagerController::class, 'notifications'])->name('manager.notifications');
+    Route::get('/manager/fees', [App\Http\Controllers\Manager\ManagerController::class, 'fees'])->name('manager.fees');
+    Route::get('/manager/view-nofication', [App\Http\Controllers\Manager\ManagerController::class, 'view_notofications'])->name('manager.view-nofication');
+
+
+
+
+
+
+
 });
 
 

@@ -1,21 +1,24 @@
 <?php
 
 namespace App\Http\Controllers\SuperAdmin;
+use App\Models\Car;
 use App\Models\Fee;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Route;
 use App\Models\Region;
 use App\Models\SClass;
 use App\Models\Section;
 use App\Models\Student;
 use App\Models\District;
 use Illuminate\View\View;
+
 use App\Models\Nationality;
 use App\Helpers\KJDAHelpers;
-
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +26,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
+use SebastianBergmann\CodeCoverage\Driver\Driver;
 
 class SuperAdminController extends Controller
 {
@@ -562,6 +566,101 @@ class SuperAdminController extends Controller
 
         User::create($driverDetails);
 
+        return redirect()->back();
+    }
+
+    public function cars(){
+        $carDriver = User::where('role_id', 6)->select('id')->orderBy('id','asc')->get();
+        $cars = Car::where('driverid','!=', $carDriver)->get();
+        $drivers = User::where('role_id', 6)->get();
+        $routes = Route::all();
+        return view('superadmin.cars', compact('drivers','cars','routes'));
+    }
+
+    public function routes(){
+        $routes = Route::all();
+        return view('superadmin.routes', compact('routes'));
+    }
+
+    public function storeroutes(Request $request){
+        $routeDetails = $request->validate([
+            'from' => 'required',
+            'to' => ['required', Rule::unique('routes','to')],
+        ]);
+
+        $fromData = Route::where('to', $routeDetails['to'])->first();
+
+        if($routeDetails['from'] == $routeDetails['to']){
+            return redirect()->back();
+        }
+
+        if($fromData){
+            return redirect()->back()->with('message_exists','Route already exists!');
+        }
+
+        Route::create($routeDetails);
+
+        return redirect()->back();
+    }
+
+    public function edit_route(Request $request, Route $route){
+        $routeEditDetails = $request->validate([
+            'from' => 'required',
+            'to' => 'required',
+        ]);
+
+        $route->update($routeEditDetails);
+
+        return redirect()->back();
+    }
+
+    public function delete_route(Request $request, Route $route){
+        $route->delete();
+        return redirect()->back();
+    }
+
+    public function store_cars(Request $request){
+        $carDetails = $request->validate([
+            'carnumber' => ['required', Rule::unique('cars','carnumber')],
+            'carname' => 'required',
+            'driverid' => ['required', Rule::unique('cars','driverid')],
+            'route' => ['required', Rule::unique('cars','route')],
+        ]);
+
+        $existingCar = Car::where('carnumber', $request->input('carnumber'))->first();
+
+        if($existingCar){
+            return redirect()->back()->with('car_exists_flash','This car exists!');
+        }
+
+        $existingRoute = Car::where('route', $request->input('route'))->first();
+
+        if($existingRoute){
+            return redirect()->back()->with('route_exists','This route is already assigned to someone!');
+        }
+
+        Car::create($carDetails);
+
+        // dd($request->all());
+
+        return redirect()->back();
+    }
+    
+    public function edit_car(Request $request, Car $car){
+        $carDetails = $request->validate([
+            'carnumber' => 'required',
+            'carname' => 'required',
+            'driverid' => 'required',
+            'route' => 'required',
+        ]);
+
+        $car->update($carDetails);
+
+        return redirect()->back();
+    }
+
+    public function delete_car(Request $request, Car $car){
+        $car->delete();
         return redirect()->back();
     }
 }

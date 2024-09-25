@@ -41,7 +41,46 @@
                 </div>
             </div>
         </div>
+        
     </div>
         </div>
+        <br>
+        <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">My Assigned Route & Car</h5>
+                    <div id="calendar">
+                        <table class="table table-responsive table-striped">
+                            <tr>
+                                <th>Car Name</th>
+                                <th>Car Number</th>
+                                <th>Route Name</th>
+                                <th>Route On Map</th>
+                            </tr>
+                            @foreach($cars as $car)
+                            @if(Auth::guard('web')->user()->id == $car->driverid)
+                            <tr>
+                                <td>{{$car->carname}}</td>
+                                <td>{{$car->carnumber}}</td>
+                                <td>
+                                    @foreach($routes as $route)
+                                    @if($route->id == $car->route)
+                                    From {{$route->from}} to {{$route->to}}
+                                    @endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach($routes as $route)
+                                    @if($route->id == $car->route)
+                                    <a href="https://www.google.com/maps/dir/?api=1&origin={{$route->from}}&destination={{$route->to}}" target="_blank"><i class="fa fa-eye" style="color:#0000FF;"></i> View</a>
+                                    @endif
+                                    @endforeach
+                                </td>
+                            </tr>
+                            @endif
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
     </div>
 @stop
