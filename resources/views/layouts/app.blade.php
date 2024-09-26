@@ -74,7 +74,7 @@
                                     <a href="{{ route('manager.drivers') }}"><i class="fas fa-bus"></i> Drivers</a>
                                     <a href="{{ route('manager.events') }}"><i class="fas fa-calendar-alt"></i> Events</a>
                                     <a href="{{ route('manager.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>
-                                    <a href="{{ route('manager.fees') }}"><i class="fas fa-dollar-sign"></i> Fees</a>
+                                    <!-- <a href="{{ route('manager.fees') }}"><i class="fas fa-dollar-sign"></i> Fees</a> -->
                                 @elseif(Auth::user()->role_id == 4)
                                     <a href="{{ route('parent.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                                     <a href="{{ route('parent.drivers') }}"><i class="fas fa-bus"></i> Drivers</a>

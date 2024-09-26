@@ -21,15 +21,19 @@
                             <th>Staff Name</th>
                             <th>Phone</th>
                             <th>Address</th>
+                            <th>Salary</th>
+                            <th>Contract Type</th>
                             <th>Action</th>
                         </tr>
                         @foreach($staffs as $staff)
                         <tr>
                             <td>{{$staff->id}}</td>
-                            <td><img src="{{$staff->photo ? asset('storage/' . $staff->photo) : asset('assets/images/profile.png')}}" alt="Profile" style="width:80px; height:50px;"></td>
+                            <td><img src="{{$staff->photo ? asset('storage/' . $staff->photo) : asset('assets/images/profile.png')}}" alt="Profile" style="width:60px; height:40px;"></td>
                             <td>{{$staff->firstname}} {{$staff->lastname}}</td>
                             <td>{{$staff->phone}}</td>
                             <td>{{$staff->address}}</td>
+                            <td>Tsh {{number_format($staff->salary,2)}}</td>
+                            <td>{{$staff->employment_type}}</td>
                             <td class="td-tr-link">
                                 <!-- <a href="#"><i class="fa fa-eye"></i></a> -->
                                 <a href="#" style="color:green;" onclick="showEditDialog(event, {{$staff->id}})"><i class="fa fa-edit"></i></a>
@@ -104,7 +108,7 @@
                                             <section>
                                                 <label for="">Region</label><br>
                                                 <select name="region_id" id="">
-                                                    <option value="{{$staff->region_id}}">--select region--</option>
+                                                    <option value="{{$staff->region_id}}" selected disabled>--select region--</option>
                                                     @foreach($regions as $region)
                                                     <option value="{{$region->region_id}}">{{$region->name}}</option>
                                                     @endforeach
@@ -113,18 +117,30 @@
                                             <section>
                                                 <label for="">District</label><br>
                                                 <select name="district_id" id="">
-                                                    <option value="{{$staff->district_id}}">--select gender--</option>
+                                                    <option value="{{$staff->district_id}}" selected disabled>--select gender--</option>
                                                     @foreach($districts as $district)
                                                     <option value="{{$district->district_id}}">{{$district->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </section>
-                                        </div>
-                                        <div class="fifth-input-holder">
+                                            <section>
+                                                <label for="">Employment Type</label><br>
+                                                <select name="employment_type" id="">
+                                                    <option value="{{$staff->employment_type}}" selected disabled>--select option--</option>
+                                                    <option value="Full Time">Full Time</option>
+                                                    <option value="Part Time">Part Time</option>
+                                                </select>
+                                            </section>
+                                            <section>
+                                                <label for="">Salary (TSH)</label><br>
+                                                <input type="number" name="salary" id=""  value="{{$staff->salary}}" placeholder="Employee salary">
+                                            </section>
                                             <section>
                                                 <label for="">Street</label><br>
                                                 <input type="text" name="street" id="" value="{{$staff->street}}">
                                             </section>
+                                        </div>
+                                        <div class="fifth-input-holder">
                                             <section>
                                                 <label for="">Address</label><br>
                                                 <input type="text" name="address" id="" value="{{$staff->address}}">
@@ -217,12 +233,24 @@
                                         @endforeach
                                     </select>
                                 </section>
-                            </div>
-                            <div class="fifth-input-holder">
+                                <section>
+                                    <label for="">Employment Type</label><br>
+                                    <select name="employment_type" id="">
+                                        <option value="" selected disabled>--select option--</option>
+                                        <option value="Full Time">Full Time</option>
+                                        <option value="Part Time">Part Time</option>
+                                    </select>
+                                </section>
+                                <section>
+                                    <label for="">Salary (TSH)</label><br>
+                                    <input type="number" name="salary" id=""  value="{{old('salary')}}" placeholder="Employee salary">
+                                </section>
                                 <section>
                                     <label for="">Street</label><br>
                                     <input type="text" name="street" id="" value="{{old('street')}}">
                                 </section>
+                            </div>
+                            <div class="fifth-input-holder">
                                 <section>
                                     <label for="">Address</label><br>
                                     <input type="text" name="address" id="" value="{{old('address')}}">

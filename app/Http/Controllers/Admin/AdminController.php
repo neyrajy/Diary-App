@@ -464,6 +464,8 @@ class AdminController extends Controller
 
     public function store_staffs(Request $request){
         $staffDetails = $request->validate([
+            'salary' => 'nullable',
+            'employment_type' => 'nullable|string:255',
             'role_id' => 'required',
             'firstname' => 'required',
             'secondname' => 'nullable',
@@ -502,6 +504,8 @@ class AdminController extends Controller
 
     public function edit_staff(Request $request, User $staff){
         $staffData = $request->validate([
+            'salary' => 'required',
+            'employment_type' => 'required',
             'role_id' => 'required',
             'firstname' => 'required',
             'secondname' => 'nullable',
@@ -528,6 +532,8 @@ class AdminController extends Controller
 
     public function store_driver(Request $request){
         $driverDetails = $request->validate([
+            'salary' => 'nullable',
+            'employment_type' => 'nullable|string:255',
             'role_id' => 'required',
             'firstname' => 'required',
             'secondname' => 'nullable',

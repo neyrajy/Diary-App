@@ -171,12 +171,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/manager/notifications', [App\Http\Controllers\Manager\ManagerController::class, 'notifications'])->name('manager.notifications');
     Route::get('/manager/fees', [App\Http\Controllers\Manager\ManagerController::class, 'fees'])->name('manager.fees');
     Route::get('/manager/view-nofication', [App\Http\Controllers\Manager\ManagerController::class, 'view_notofications'])->name('manager.view-nofication');
-
-
-
-
-
-
+    Route::get('/manager/register-teacher', [App\Http\Controllers\Manager\ManagerController::class, 'register_teacher'])->name('manager.register-teacher');
+    Route::get('/manager/teachers-edit/{teacher}', [App\Http\Controllers\Manager\ManagerController::class, 'edit_teacher'])->name('manager.teachers-edit');
+    Route::delete('/manager/teachers/destroy/{teacher}', [App\Http\Controllers\Manager\ManagerController::class, 'delete_teacher']);
+    Route::put('/manager.update-teacher/{teacher}', [App\Http\Controllers\Manager\ManagerController::class, 'update_teacher'])->name('manager.update-teacher');
+    Route::get('/manager/view-nofication', [App\Http\Controllers\Manager\ManagerController::class, 'view_notifications'])->name('manager.view-nofication');
+    Route::post('/storeDrivers', [App\Http\Controllers\Manager\ManagerController::class, 'store_drivers']);
+    Route::put('/drivers/edit/{driver}', [App\Http\Controllers\Manager\ManagerController::class, 'update_driver']);
 
 });
 

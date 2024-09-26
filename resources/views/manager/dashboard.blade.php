@@ -81,17 +81,25 @@
                             <tr>
                                 <th>S/N</th>
                                 <th>Employee Name</th>
+                                <th>Role</th>
                                 <th>Contract Type</th>
                                 <th>Salary</th>
                                 <th>Reg Date</th>
-                                <th>Action</th>
+                                <!-- <th>Action</th> -->
                             </tr>
                             @foreach($employees as $employee)
                             <tr>
                               <td>{{$employee->id}}</td>
                               <td>{{$employee->firstname}} {{$employee->lastname}}</td>
-                              <td>Full Time</td>
-                              <td>Tsh {{number_format(1000000,2)}}</td>
+                              <td>
+                                @foreach($roles as $role)
+                                @if($role->id == $employee->role_id)
+                                {{$role->role_name}}
+                                @endif
+                                @endforeach
+                              </td>
+                              <td>{{$employee->employment_type}}</td>
+                              <td>Tsh {{number_format($employee->salary,2)}}</td>
                               <td>{{$employee->created_at}}</td>
                               <td>
                                  <a href="#" class="edit-btn-link" onclick="showEditRoute(event, {{$employee->id}})"><i class="fa fa-edit"></i></a>
@@ -104,13 +112,20 @@
                             <tr>
                               <td>{{$staff->id}}</td>
                               <td>{{$staff->firstname}} {{$staff->lastname}}</td>
-                              <td>Part Time</td>
-                              <td>Tsh {{number_format(1500000,2)}}</td>
-                              <td>{{$staff->created_at}}</td>
                               <td>
+                                @foreach($roles as $role)
+                                @if($role->id == $staff->role_id)
+                                {{$role->role_name}}
+                                @endif
+                                @endforeach
+                              </td>
+                              <td>{{$staff->employment_type}}</td>
+                              <td>Tsh {{number_format($staff->salary,2)}}</td>
+                              <td>{{$staff->created_at}}</td>
+                              <!-- <td>
                                  <a href="#" class="edit-btn-link" onclick="showEditRoute(event, {{$staff->id}})"><i class="fa fa-edit"></i></a>
                                  <a href="#" class="delete-btn-link" onclick="showDeleteForm(event, {{$staff->id}})"><i class="fa fa-trash"></i></a>
-                              </td>
+                              </td> -->
                             </tr>
                             @endforeach
                         </thead>

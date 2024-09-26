@@ -39,6 +39,8 @@ return new class extends Migration
             $table->unsignedBigInteger('verified_by')->nullable();
             $table->string('class_name')->nullable();
             $table->string('section_name')->nullable();
+            $table->string('salary')->nullable();
+            $table->string('employment_type')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

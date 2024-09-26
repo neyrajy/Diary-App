@@ -21,6 +21,8 @@
                             <th>Driver Name</th>
                             <th>Phone</th>
                             <th>Address</th>
+                            <th>Salary</th>
+                            <th>Contract Type</th>
                             <th>Action</th>
                         </tr>
                         @foreach($drivers as $driver)
@@ -30,6 +32,8 @@
                             <td>{{$driver->firstname}} {{$driver->lastname}}</td>
                             <td>{{$driver->phone}}</td>
                             <td>{{$driver->address}}</td>
+                            <td>Tsh {{number_format($driver->salary,2)}}</td>
+                            <td>{{$driver->employment_type}}</td>
                             <td class="td-tr-link">
                                 <!-- <a href="#"><i class="fa fa-eye"></i></a> -->
                                 <a href="#" style="color:green;" onclick="showEditDialog(event, {{$driver->id}})"><i class="fa fa-edit"></i></a>
@@ -92,44 +96,56 @@
                                             </section>
                                         </div>
                                         <div class="fourth-input-holder">
-                                            <section>
-                                                <label for="">Nationality</label><br>
-                                                <select name="nal_id" id="">
-                                                    <option value="{{$driver->nal_id}}" selected disabled>--select region--</option>
-                                                    @foreach($nationalities as $nationality)
-                                                    <option value="{{$nationality->nal_id}}">{{$nationality->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </section>
-                                            <section>
-                                                <label for="">Region</label><br>
-                                                <select name="region_id" id="">
-                                                    <option value="{{$driver->region_id}}" selected disabled>--select region--</option>
-                                                    @foreach($regions as $region)
-                                                    <option value="{{$region->region_id}}">{{$region->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </section>
-                                            <section>
-                                                <label for="">District</label><br>
-                                                <select name="district_id" id="">
-                                                    <option value="{{$driver->district_id}}" selected disabled>--select gender--</option>
-                                                    @foreach($districts as $district)
-                                                    <option value="{{$district->district_id}}">{{$district->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </section>
-                                        </div>
-                                        <div class="fifth-input-holder">
-                                            <section>
-                                                <label for="">Street</label><br>
-                                                <input type="text" name="street" id="" value="{{$driver->street}}">
-                                            </section>
-                                            <section>
-                                                <label for="">Address</label><br>
-                                                <input type="text" name="address" id="" value="{{$driver->address}}">
-                                            </section>
-                                        </div><br>
+                                        <section>
+                                            <label for="">Nationality</label><br>
+                                            <select name="nal_id" id="">
+                                                <option value="{{$nationality->nal_id}}">--select region--</option>
+                                                @foreach($nationalities as $nationality)
+                                                <option value="{{$driver->nal_id}}">{{$nationality->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </section>
+                                        <section>
+                                            <label for="">Region</label><br>
+                                            <select name="region_id" id="">
+                                                <option value="{{$driver->region_id}}" selected disabled>--select region--</option>
+                                                @foreach($regions as $region)
+                                                <option value="{{$region->region_id}}">{{$region->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </section>
+                                        <section>
+                                            <label for="">District</label><br>
+                                            <select name="district_id" id="">
+                                                <option value="{{$driver->district_id}}" selected disabled>--select gender--</option>
+                                                @foreach($districts as $district)
+                                                <option value="{{$district->district_id}}">{{$district->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </section>
+                                        <section>
+                                            <label for="">Employment Type</label><br>
+                                            <select name="employment_type" id="">
+                                                <option value="{{$driver->employment_type}}" selected disabled>--select option--</option>
+                                                <option value="Full Time">Full Time</option>
+                                                <option value="Part Time">Part Time</option>
+                                            </select>
+                                        </section>
+                                        <section>
+                                            <label for="">Salary (TSH)</label><br>
+                                            <input type="number" name="salary" id=""  value="{{$driver->salary}}" placeholder="Employee salary">
+                                        </section>
+                                        <section>
+                                            <label for="">Street</label><br>
+                                            <input type="text" name="street" id="" value="{{$driver->street}}">
+                                        </section>
+                                    </div>
+                                    <div class="fifth-input-holder">
+                                        <section>
+                                            <label for="">Address</label><br>
+                                            <input type="text" name="address" id="" value="{{$driver->address}}">
+                                        </section>
+                                    </div><br>
                                         <button type="submit" class="add-staff-btn" style="background-color: #007BFF;">Edit Driver</button>
                                         <button type="button" class="close-btn" style="background-color: red;" onclick="hideEditForm(event, {{$driver->id}})">&times;</button>
                                 </form>
@@ -217,12 +233,24 @@
                                         @endforeach
                                     </select>
                                 </section>
-                            </div>
-                            <div class="fifth-input-holder">
+                                <section>
+                                    <label for="">Employment Type</label><br>
+                                    <select name="employment_type" id="">
+                                        <option value="" selected disabled>--select option--</option>
+                                        <option value="Full Time">Full Time</option>
+                                        <option value="Part Time">Part Time</option>
+                                    </select>
+                                </section>
+                                <section>
+                                    <label for="">Salary (TSH)</label><br>
+                                    <input type="number" name="salary" id=""  value="{{old('salary')}}" placeholder="Employee salary">
+                                </section>
                                 <section>
                                     <label for="">Street</label><br>
                                     <input type="text" name="street" id="" value="{{old('street')}}">
                                 </section>
+                            </div>
+                            <div class="fifth-input-holder">
                                 <section>
                                     <label for="">Address</label><br>
                                     <input type="text" name="address" id="" value="{{old('address')}}">

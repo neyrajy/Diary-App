@@ -156,7 +156,7 @@
                         @endforeach
                     </table>
 
-                    <form action="/drivers" method="POST" class="staff-reg-ed hidden" enctype="multipart/form-data">
+                    <form action="/storeDrivers" method="POST" class="staff-reg-ed hidden" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="role_id" id="" value="6">
                             <div class="first-input-holder">
