@@ -37,7 +37,13 @@
                     <td><img src="{{asset('storage/' . $student->photo)}}" alt="Photo" style="width:80px; height:50px; border-radius:5px;"></td>
                     <td>{{$student->adm_no}}</td>
                     <td>{{$student->firstname}}</td>
-                    <td>{{number_format('100000',0)}}/=</td>
+                    <td>
+                        @foreach($fees as $fee)
+                        @if(Auth::guard('web')->user()->student == $fee->student_id)
+                        Tsh {{number_format($fee->amount, 2)}}
+                        @endif
+                        @endforeach
+                    </td>
                     <td>
                         @foreach($classes as $class)
                         @if($class->id == $student->s_class_id)

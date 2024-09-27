@@ -25,6 +25,7 @@ class ParentController extends Controller
 {
     public function dashboard()
     {
+        $fees = Fee::all();
         $users = User::all();
         $user = Auth::user();
         $students = Student::all();
@@ -38,7 +39,7 @@ class ParentController extends Controller
         // $notifications = Notification::latest()->take(5)->get();
         $latestFees = Fee::latest()->take(5)->get();
 
-        return view('parent.dashboard', compact('parents', 'teachers', 'staff', 'drivers', 'user','users','classes','sections','students'));
+        return view('parent.dashboard', compact('parents', 'teachers', 'staff', 'drivers', 'user','users','classes','sections','students','fees'));
     }
 
     public function child_activity($id){

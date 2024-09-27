@@ -112,6 +112,18 @@
                     <x-responsive-nav-link :href="route('parent.dashboard')" :active="request()->routeIs('parent.dashboard')">
                         {{ __('Dashboard') }}
                     </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('parent.fees')" :active="request()->routeIs('parent.fees')">
+                        {{ __('Fees') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('parent.events')" :active="request()->routeIs('parent.events')">
+                        {{ __('Events') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('parent.messages')" :active="request()->routeIs('parent.messages')">
+                        {{ __('Messages') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('parent.notifications')" :active="request()->routeIs('parent.notifications')">
+                        {{ __('Notifications') }}
+                    </x-responsive-nav-link>
                 @elseif(Auth::user()->role_id == 5)
                     <x-responsive-nav-link :href="route('teacher.dashboard')" :active="request()->routeIs('teacher.dashboard')">
                         {{ __('Dashboard') }}

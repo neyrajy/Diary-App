@@ -1212,7 +1212,41 @@ button:focus{
   box-shadow: none;
 }
 
+/* .pt-2{
+  background-color: #07025d;
+  position: absolute;
+  left: 0%;
+  width: 98%;
+  color: #FFF;
+}
+
+.pt-2 a{
+  color: #FFF;
+  background-color: inherit;
+} */
+
 
 .hidden{
   display: none;
 }
+
+
+
+/* @media(max-width: 768px){
+  .row,.col-md-12,.card{
+    width: 100%;
+  }
+  
+  .card-body{
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+  .col-md-2{
+    display: none;
+  }
+
+  .card-body table{
+    width: 100%;
+  }
+} */
