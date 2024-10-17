@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('status')->nullable(); // The status of the fee
             $table->date('due_date'); // The due date for the fee payment
             $table->string('receipt');
+            $table->decimal('total_fee', 10, 2); 
+            $table->decimal('paid_amount', 10, 2)->default(0);
             $table->date('paid_date')->nullable(); // The date the fee was paid
             $table->string('description')->nullable(); // Optional description for the fee
             $table->timestamps();

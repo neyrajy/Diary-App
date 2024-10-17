@@ -21,8 +21,7 @@
                             <label for="firstname">First Name</label>
                             <input type="text" name="firstname" class="form-control" required>
                             @error('firstname')
-                            <br>
-                            <span>{{ $message }}</span>
+                            <span id="error-code">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -30,6 +29,9 @@
                         <div class="form-group">
                             <label for="secondname">Second Name</label>
                             <input type="text" name="secondname" class="form-control">
+                            @error('secondname')
+                            <span id="error-code">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -37,8 +39,7 @@
                             <label for="lastname">Last Name</label>
                             <input type="text" name="lastname" class="form-control" required>
                             @error('lastname')
-                            <br>
-                            <span>{{ $message }}</span>
+                            <span id="error-code">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -82,6 +83,9 @@
                         <div class="form-group">
                         <label for="adm_no">Admission Number</label>
                         <input type="text" name="adm_no" class="form-control">
+                        @error('adm_no')
+                        <span id="error-code">{{ $message }}</span>
+                        @enderror
                         </div>
                     </div>
                     </div>
@@ -124,7 +128,7 @@
                         <input type="checkbox" name="grad" value="1">
                     </div>
                     
-                    <button type="submit" class="btn btn-kprimary" style="background-color #0000FF;">Register Student</button>
+                    <button type="submit" class="submit-btn" style="background-color: #0000FF;">Register Student</button>
                 </form>
             </div>
             </div>

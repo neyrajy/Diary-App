@@ -51,7 +51,7 @@
                                     <a href="{{ route('superadmin.events') }}"><i class="fas fa-calendar-alt"></i> Events</a>
                                     <a href="{{ route('superadmin.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>
                                     <a href="{{ route('superadmin.fees') }}"><i class="fas fa-dollar-sign"></i> Fees</a>
-                                    <a href="{{ route('superadmin.cars') }}"> <i class="fa fa-bus"></i> Cars</a>
+                                    <a href="{{ route('superadmin.cars') }}"> <i class="fa fa-bus"></i> Bus</a>
                                     <a href="{{ route('superadmin.routes') }}"><i class="fa fa-map-marker"></i> Routes</a>
                                 @elseif(Auth::user()->role_id == 2)
                                     <a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
@@ -63,7 +63,7 @@
                                     <a href="{{ route('admin.events') }}"><i class="fas fa-calendar-alt"></i> Events</a>
                                     <a href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>
                                     <a href="{{ route('admin.fees') }}"><i class="fas fa-dollar-sign"></i> Fees</a>
-                                    <a href="{{ route('admin.cars') }}"> <i class="fa fa-bus"></i> Cars</a>
+                                    <a href="{{ route('admin.cars') }}"> <i class="fa fa-bus"></i> Bus</a>
                                     <a href="{{ route('admin.routes') }}"><i class="fa fa-map-marker"></i> Routes</a>
                                 @elseif(Auth::user()->role_id == 3)
                                     <a href="{{ route('manager.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
@@ -89,10 +89,7 @@
                                     <a href="{{ route('teacher.events') }}"><i class="fas fa-calendar-alt"></i> Events</a>
                                     <a href="{{ route('teacher.students') }}"><i class="fas fa-user-graduate"></i> Students</a>
                                     <a href="{{ route('teacher.attendance') }}"><i class="fas fa-user-check"></i> Attendance</a>
-                                    <form action="/logout" method="POST">
-                                        @csrf
-                                        <button type="submit" style="color:#FFF;"><i class="fa fa-sign-out"></i> Sign Out</button>
-                                    </form>
+                                    <a href="{{ route('teacher.my_activities') }}"><i class="fa fa-list"></i> My Activities</a>
                                 @elseif(Auth::user()->role_id == 6)
                                     <a href="{{ route('driver.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                                     <a href="#"><i class="fas fa-bell"></i> Notifications</a>

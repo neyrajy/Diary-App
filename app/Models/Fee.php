@@ -19,6 +19,8 @@ class Fee extends Model
         'paid_date',
         'description',
         'receipt',
+        'total_fee',
+        'paid_amount',
     ];    
 
     public function student()

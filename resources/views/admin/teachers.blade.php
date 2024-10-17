@@ -22,7 +22,7 @@
                                 <th>Address</th>
                                 <th>Class</th>
                                 <th>Section</th>
-                                <!-- <th>Fee Paid (TZS)</th> -->
+                                <th>Tasks</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -47,6 +47,9 @@
                             {{$section->name}}
                             @endif
                             @endforeach
+                            </td>
+                            <td>
+                                <a href="/admin/teachers-activities/{{$teacher->id}}" class="btn btn-primary btn-sm" style="background-color:green; width: 50px;"><i class="fa fa-eye"></i></a>
                             </td>
                             <!-- <td>{{number_format('100000')}}/=</td> -->
                             <td>

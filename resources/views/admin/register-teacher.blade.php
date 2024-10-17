@@ -21,18 +21,27 @@
                                     <label for="firstname">First Name</label>
                                     <input type="hidden" name="role_id" id="" value="5">
                                     <input type="text" id="firstname" name="firstname" class="form-control">
+                                    @error('firstname')
+                                    <span id="error-code">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="secondname">Second Name</label>
                                     <input type="text" id="secondname" name="secondname" class="form-control">
+                                    @error('secondname')
+                                    <span id="error-code">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="lastname">Last Name</label>
                                     <input type="text" id="lastname" name="lastname" class="form-control">
+                                    @error('lastname')
+                                    <span id="error-code">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>  
                         </div>
@@ -41,12 +50,18 @@
                                 <div class="form-group">
                                     <label for="phone">Phone 1</label>
                                     <input type="text" id="phone" name="phone" class="form-control">
+                                    @error('phone')
+                                    <span id="error-code">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="phone">Phone 2</label>
                                     <input type="text" id="phone2" name="phone2" class="form-control">
+                                    @error('phone2')
+                                    <span id="error-code">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -90,6 +105,9 @@
                                 <div class="form-group">
                                     <label for="street">Street Location </label>
                                     <input type="text" id="street" name="street" class="form-control">
+                                    @error('street')
+                                    <span id="error-code">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div> 
                             <div class="col-md-6">
@@ -98,7 +116,7 @@
                                     <input type="password" id="password" name="password" class="form-control">
                                     @error('password')
                                     <br>
-                                    <span>{{$message}}</span>
+                                    <span id="error-code">{{$message}}</span>
                                     @enderror
                                 </div>
                             </div> 
@@ -108,7 +126,7 @@
                                     <input type="password" id="confirm_password" name="confirm_password" class="form-control">
                                     @error('confirm_password')
                                     <br>
-                                    <span>{{$message}}</span>
+                                    <span id="error-code">{{$message}}</span>
                                     @enderror
                                 </div>
                             </div> 

@@ -21,7 +21,7 @@
     <!-- Tab content -->
     <div class="tab-content mt-3" id="studentTabContent">
         <!-- Student Profile Tab -->
-        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="card">
                 <div class="card-header">Student Profile</div>
                 <div class="card-body">
@@ -52,8 +52,20 @@
             </div>
         </div>
 
+        <style>
+            .tab-panel{
+                display:none;
+            }
+            #profile{
+                display:block;
+            }
+            .tab-paneel{
+                display:none;
+            }
+        </style>
+
         <!-- Daily Activities Tab -->
-        <div class="tab-pane fade" id="activities" role="tabpanel" aria-labelledby="activities-tab">
+        <div class="tab-panel" id="activities" role="tabpanel" aria-labelledby="activities-tab">
             <div class="card">
                 <div class="card-header">Daily Activities</div>
                 <div class="card-body">
@@ -107,7 +119,7 @@
                                 <p><strong>Description of Poop:</strong> {{ $activities->describe_poop }}</p>
                             </div>
                             <div class="col-md-4">
-                                <p><strong>Nap:</strong> {{ $activities->nap }}</p>
+                                <p><strong>Nap:</strong> {{ $activities->nap }} Times</p>
                                 <p><strong>Diapers Used (Baby Class only):</strong> {{ $activities->diapers_used ?? 'N/A' }}</p>
                             </div>
                         </div>
@@ -142,7 +154,7 @@
         </div>
 
         <!-- Fees Tab -->
-        <div class="tab-pane fade" id="fees" role="tabpanel" aria-labelledby="fees-tab">
+        <div class="tab-paneel" id="fees" role="tabpanel" aria-labelledby="fees-tab">
             <div class="card">
                 <div class="card-header">Fees Information</div>
                 <div class="card-body">
@@ -171,6 +183,34 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("activities-tab").addEventListener('click', function(event){
+        event.preventDefault();
+        const activitiesClass = document.querySelector('.tab-panel');
+        activitiesClass.style.display='block';
+        document.getElementById("profile").style.display='none';
+        const feeView = document.querySelector('.tab-paneel');
+        feeView.style.display='none';
+    });
+
+    document.getElementById("profile-tab").addEventListener('click', function(event){
+        event.preventDefault();
+        const activitiesClass = document.querySelector('.tab-panel');
+        activitiesClass.style.display='none';
+        document.getElementById("profile").style.display='block';
+        const feeView = document.querySelector('.tab-paneel');
+        feeView.style.display='none';
+    });
+    document.getElementById("fees-tab").addEventListener('click', function(event){
+        event.preventDefault();
+        const feeView = document.querySelector('.tab-paneel');
+        feeView.style.display='block';
+        document.getElementById("profile").style.display='none';
+        const activitiesClass = document.querySelector('.tab-panel');
+        activitiesClass.style.display='none';
+    })
+</script>
 @endsection
 
 <!-- Ensure scripts are loaded in the correct order -->

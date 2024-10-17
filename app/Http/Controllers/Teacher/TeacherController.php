@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teacher;
 use Carbon\Carbon;
 use App\Models\Fee;
 use App\Models\Role;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Region;
@@ -19,6 +20,7 @@ use App\Models\Nationality;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 
 class TeacherController extends Controller
@@ -29,6 +31,8 @@ class TeacherController extends Controller
 
         $activities = Activity::whereDate('date_time', $nowDate)->filter(request(['search']))->paginate(10);
 
+        $activityCounter = Activity::whereDate('date_time', $nowDate)->count();
+
         $parent = User::where('role_id', 4)->count();
         
         return view('teacher.dashboard',[
@@ -37,7 +41,7 @@ class TeacherController extends Controller
             'activities' => Activity::all(),
             'student_activities' => $activities,
             'users' => User::all(),
-        ], compact('nowDate','activities'));
+        ], compact('nowDate','activities','activityCounter'));
     }
 
     public function student_activities(){
@@ -242,5 +246,26 @@ class TeacherController extends Controller
         $drivers = User::where('role_id', 6)->orderBy('id','asc')->paginate(10);
         return view('teacher.drivers', compact('nationalities','regions','districts','drivers'));
     }
-}
 
+    public function my_activities(){
+        $tasks = Task::where('teacher_id', Auth::guard()->user()->id)->orderBy('id','desc')->get();
+        return view('teacher.my_activities', compact('tasks'));
+    }
+
+    public function store_tasks(Request $request){
+        $taskDetails = $request->validate([
+            'teacher_id' => 'required|integer',
+            'lesson_title' => 'required',
+            'objectives' => 'required',
+            'materials_needed' => 'required',
+            'class' => 'required|integer',
+            'section' => 'required|integer',
+        ]);
+
+        Task::create($taskDetails);
+
+        // dd($request->all());
+
+        return redirect()->back();
+    }
+}

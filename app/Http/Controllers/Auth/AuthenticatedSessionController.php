@@ -55,10 +55,12 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('driver.dashboard');
         } elseif ($user->role_id == 7) {
             return redirect()->route('staff.dashboard');
+        }else{
+            return redirect()->back()->with('error_message_out','Icorrect username or password!');
         }
     
         // Default redirection if no role matches
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // return redirect()->intended(RouteServiceProvider::HOME);
     }
     /**
      * Destroy an authenticated session.

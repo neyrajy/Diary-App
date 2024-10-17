@@ -72,13 +72,13 @@ class SuperAdminController extends Controller
     {
         // Validate incoming request data
         $request->validate([
-            'firstname' => 'required|string|max:255',
-            'secondname' => 'nullable|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'email' => 'nullable|string|email|max:255|unique:users',
-            'phone' => 'required|string|max:11|unique:users',
+            'firstname' => 'required|string|max:255|min:3',
+            'secondname' => 'nullable|string|max:255|min:3',
+            'lastname' => 'required|string|max:255|min:3',
+            'email' => 'nullable|string|email|max:255|unique:users|min:5',
+            'phone' => 'required|string|max:13|min:10|unique:users',
             'password' => 'required|string|confirmed|min:8',
-            'phone2' => 'nullable|string|max:13|unique:users',
+            'phone2' => 'nullable|string|max:13|min:10|unique:users',
             'gender' => 'nullable|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'address' => 'nullable|string|max:255',
@@ -117,7 +117,7 @@ class SuperAdminController extends Controller
             'district' => $request->district,
             'street' => $request->street,
             'guardian' => $request->guardian ?? false,
-            'role_id' => 4, // 4 is the role_id for parents
+            'role_id' => 4,
             'verified' => true,
         ]);
         return redirect()->route('superadmin.parents')->with('success', 'Parent registered successfully.');
@@ -362,12 +362,12 @@ class SuperAdminController extends Controller
         }
     
         $studentsDetails = $request->validate([
-            'firstname' => 'required|max:255',
-            'secondname' => 'nullable|max:255',
-            'lastname' => 'required|max:255',
-            's_class_id' => 'required',
-            'section_id' => 'required',
-            'adm_no' => 'required|max:30',
+            'firstname' => 'required|max:255|min:3',
+            'secondname' => 'nullable|max:255|min:3',
+            'lastname' => 'required|max:255|min:3',
+            's_class_id' => 'required|integer',
+            'section_id' => 'required|integer',
+            'adm_no' => 'required|max:10|min:10',
             'photo' => 'nullable',
             'bg_id' => 'nullable',
             'session' => 'required',
@@ -668,5 +668,9 @@ class SuperAdminController extends Controller
     public function delete_car(Request $request, Car $car){
         $car->delete();
         return redirect()->back();
+    }
+
+    public function homepage(){
+        return view('homepage');
     }
 }

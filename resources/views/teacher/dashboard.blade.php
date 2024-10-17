@@ -50,12 +50,12 @@
 
     <div class="main-display-viewer">
         <div class="sub-min-viewer">
-            <h1 class="specifier-activ">{{ __('Today') }} <span class="currentDate"></span> | {{ __('Students Activities') }}</h1>
+            <h1 class="specifier-activ">{{ __('Today') }} <span class="currentDate"></span> | {{ $activityCounter }} {{ __('Students Activities') }}</h1>
             <a href="/activity" class="show-form-activ" style="text-decoration:none;"><i class="fa fa-plus"></i> {{ __('Add Activity') }}</a><br>
         </div>
 
-        <table class="md-data-tabler">
-            <tr class="head-tr-mod">
+        <table class="table table-responsive table-striped">
+            <tr class="tr-th">
                 <th>Id</th>
                 <th>{{ __('Student Name') }}</th>
                 <th>{{ __('Activities') }}</th>
@@ -66,10 +66,9 @@
             <p>No activity today</p>
             @endif
 
-
             @foreach($student_activities as $activity)
             @if($nowDate == $activity->created_at->format('Y-m-d'))
-                <tr class="data-tr-mod">
+                <tr class="tr-td">
                     <td>{{$activity->id}}</td>
                     <td>
                         @foreach($students as $student)

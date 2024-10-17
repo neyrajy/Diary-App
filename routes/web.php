@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/get-students', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'getStudentsByClassSection'])->name('get.students');
 
 Route::middleware('auth')->group(function () {
@@ -137,7 +138,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/staffs/edit/{staff}', [App\Http\Controllers\Admin\AdminController::class, 'edit_staff']);
     Route::get('/admin/cars', [App\Http\Controllers\Admin\AdminController::class, 'cars'])->name('admin.cars');
     Route::get('/admin/routes', [App\Http\Controllers\Admin\AdminController::class, 'routes'])->name('admin.routes');
-
+    Route::get('/admin/teachers-activities/{teacher}', [App\Http\Controllers\Admin\AdminController::class, 'teacher_activities'])->name('admin.teachers-activities');
 
 
 
@@ -161,6 +162,8 @@ Route::middleware('auth')->group(function () {
     Route::put('//edit/activity/{activity_edit', [App\Http\Controllers\Teacher\TeacherController::class, 'edit_post_activity']);
     Route::get('/teacher/parents', [App\Http\Controllers\Teacher\TeacherController::class, 'parents'])->name('teacher.parents');
     Route::get('/teacher/drivers', [App\Http\Controllers\Teacher\TeacherController::class, 'drivers'])->name('teacher.drivers');
+    Route::get('/teacher/my_activities', [App\Http\Controllers\Teacher\TeacherController::class, 'my_activities'])->name('teacher.my_activities');
+    Route::post('/add/tasks', [App\Http\Controllers\Teacher\TeacherController::class, 'store_tasks'])->name('add.tasks');
 
     Route::get('/manager/parents', [App\Http\Controllers\Manager\ManagerController::class, 'parents'])->name('manager.parents');
     Route::get('/manager/teachers', [App\Http\Controllers\Manager\ManagerController::class, 'teachers'])->name('manager.teachers');

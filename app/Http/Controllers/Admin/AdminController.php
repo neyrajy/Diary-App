@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Car;
 use App\Models\Fee;
 use App\Models\Role;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Route;
@@ -17,6 +19,7 @@ use App\Models\Nationality;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -393,16 +396,16 @@ class AdminController extends Controller
 
     public function store_teachers(Request $request){
         $teachersDetails = $request->validate([
-            'firstname' => 'required',
-            'secondname' => 'nullable',
-            'lastname' => 'required',
-            'phone' => 'required',
-            'phone2' => 'nullable',
-            'nal_id' => 'nullable',
-            'region_id' => 'nullable',
-            'district_id' => 'nullable',
-            'street' => 'nullable',
-            'address' => 'nullable',
+            'firstname' => 'required|max:255|min:3',
+            'secondname' => 'nullable|max:255|min:3',
+            'lastname' => 'required|max:255|min:3',
+            'phone' => 'required|max:13|min:10',
+            'phone2' => 'nullable|max:13|min:10',
+            'nal_id' => 'nullable|integer',
+            'region_id' => 'nullable|integer',
+            'district_id' => 'nullable|integer',
+            'street' => 'nullable|string|max:255|min:3',
+            'address' => 'nullable|max:255|min:3',
             'password' => 'required|min:8|max:255',
             'confirm_password' => 'required|min:8|max:255',
             'guardian' => 'required',
@@ -577,5 +580,26 @@ class AdminController extends Controller
     public function routes(){
         $routes = Route::all();
         return view('admin.routes', compact('routes'));
+    }
+
+    public function teacher_activities(Request $request, $id){
+
+        $sections = Section::all();
+
+        $classes = SClass::all();
+
+        $todayDate = Carbon::now()->format('Y-m-d');
+        $tasks = Task::filter(request(['search']))->get();
+
+        if($request->has(['fromDate','toDate']) && $request->fromDate != "" && $request->toDate != ""){
+            $searchFrom = $request->fromDate;
+            $searchTo = $request->toDate;
+
+            $tasks = Task::whereBetween('created_at', [$searchFrom,$searchTo])->get();
+        }
+
+        $teacher = User::find($id);
+
+        return view('admin.teachers-activities', compact('teacher','tasks','todayDate','sections','classes'));
     }
 }
