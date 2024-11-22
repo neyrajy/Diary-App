@@ -36,8 +36,9 @@ class FeesController extends Controller
     }    
     public function index()
     {
+        $students = Student::all();
         $fees = Fee::with(['student', 'feeType'])->get();
-        return view('admin.fees.index', compact('fees'));
+        return view('admin.fees.index', compact('fees','students'));
     }
 
     public function create()
@@ -48,11 +49,19 @@ class FeesController extends Controller
         $students = Student::all();
         return view('admin.fees.create', compact('feeTypes','classes', 'sections', 'students' ));
     }
-    public function show($id)
+    // public function show($id)
+    // {
+    //     $fee = Fee::findOrFail($id);
+    //     return view('admin.fees.show', compact('fee'));
+    // }
+
+    public function showSingle($id)
     {
-        $fee = Fee::findOrFail($id); // Adjust model name and logic as per your app
-        return view('admin.fees.show', compact('fee'));
+        $fees = Fee::where('student_id', $id)->get();
+        $student = Student::findOrFail($id);
+        return view('admin.fees.show', compact('student','fees'));
     }
+
     public function edit($id)
     {
         $fee = Fee::findOrFail($id);

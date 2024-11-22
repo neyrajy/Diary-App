@@ -136,6 +136,8 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('fee-types', FeeTypeController::class)->except(['show']);
         Route::resource('fees', FeesController::class);
+
+        Route::get('/student-fees/{student}', [FeesController::class, 'showSingle']);
 });
     
     Route::get('/admin/view-nofication', [App\Http\Controllers\Admin\AdminController::class, 'view_notifications'])->name('admin.view-nofication');

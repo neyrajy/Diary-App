@@ -5,7 +5,7 @@
     <a class="btn btn-warning btn-sm" href="{{ route('admin.fee-types.create') }}">Add Fee Type</a>&nbsp; &nbsp;     
     <a class="btn btn-warning btn-sm" href="{{ route('admin.fees.create') }}">Add Fee for Student</a> </span></h5>
           
-    <table class="table">
+    <!-- <table class="table">
     <thead>
         <tr>
             <td>#</td>
@@ -49,6 +49,27 @@
                         </button>
                     </form>
                 </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table> -->
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Student Name</th>
+            <th>Adm No</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($students as $student)
+            <tr>
+               <td>{{ $loop->iteration }}</td>
+               <td>{{ $student->firstname }} {{ $student->lastname }}</td>
+               <td> {{ $student->adm_no }}</td>
+               <td><a href="/admin/student-fees/{{ $student->id }}"><i class="fa fa-eye"></i> View</a></td>
             </tr>
         @endforeach
     </tbody>

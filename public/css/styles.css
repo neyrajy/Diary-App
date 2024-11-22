@@ -1,4 +1,17 @@
 /* Custom styles for the daycare theme */
+
+#main-ajax-wrapper{
+  display: inline-block !important;
+  width: 45% !important;
+}
+
+
+
+
+
+
+
+
 body {
   background-color: #fff;
   color: #333;
