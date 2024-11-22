@@ -322,13 +322,13 @@ class ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
-            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
+            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
+            1 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
         ),
         'Spatie\\Ignition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/ignition/src',
-            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
+            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
+            1 => __DIR__ . '/..' . '/spatie/ignition/src',
         ),
         'Spatie\\FlareClient\\' => 
         array (
@@ -364,8 +364,8 @@ class ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -546,14 +546,32 @@ class ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'N' => 
+        array (
+            'Numbers' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear/numbers_words',
+            ),
+        ),
+        'M' => 
+        array (
+            'Math_' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear/math_biginteger',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Helpers\\KJDAHelpers' => __DIR__ . '/../..' . '/app/Helpers/KJDAHelpers.php',
         'App\\Helpers\\Mk' => __DIR__ . '/../..' . '/app/Helpers/Mk.php',
         'App\\Helpers\\Pay' => __DIR__ . '/../..' . '/app/Helpers/Pay.php',
-        'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\Admin\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AdminController.php',
+        'App\\Http\\Controllers\\Admin\\FeeTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/FeeTypeController.php',
+        'App\\Http\\Controllers\\Admin\\FeesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/FeesController.php',
         'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
         'App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/EmailVerificationNotificationController.php',
@@ -571,6 +589,7 @@ class ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\SClassController' => __DIR__ . '/../..' . '/app/Http/Controllers/SClassController.php',
         'App\\Http\\Controllers\\SchoolController' => __DIR__ . '/../..' . '/app/Http/Controllers/SchoolController.php',
+        'App\\Http\\Controllers\\SchoolFeeSettingsController' => __DIR__ . '/../..' . '/app/Http/Controllers/SchoolFeeSettingsController.php',
         'App\\Http\\Controllers\\SectionController' => __DIR__ . '/../..' . '/app/Http/Controllers/SectionController.php',
         'App\\Http\\Controllers\\Staff\\StaffController' => __DIR__ . '/../..' . '/app/Http/Controllers/Staff/StaffController.php',
         'App\\Http\\Controllers\\StudentController' => __DIR__ . '/../..' . '/app/Http/Controllers/StudentController.php',
@@ -604,17 +623,24 @@ class ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010
         'App\\Http\\Requests\\UpdateSectionRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateSectionRequest.php',
         'App\\Http\\Requests\\UpdateStudentRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateStudentRequest.php',
         'App\\Models\\Activity' => __DIR__ . '/../..' . '/app/Models/Activity.php',
+        'App\\Models\\Attendance' => __DIR__ . '/../..' . '/app/Models/Attendance.php',
         'App\\Models\\BloodGroups' => __DIR__ . '/../..' . '/app/Models/BloodGroups.php',
+        'App\\Models\\Car' => __DIR__ . '/../..' . '/app/Models/Car.php',
         'App\\Models\\District' => __DIR__ . '/../..' . '/app/Models/District.php',
         'App\\Models\\Event' => __DIR__ . '/../..' . '/app/Models/Event.php',
         'App\\Models\\Fee' => __DIR__ . '/../..' . '/app/Models/Fee.php',
+        'App\\Models\\FeeType' => __DIR__ . '/../..' . '/app/Models/FeeType.php',
+        'App\\Models\\Message' => __DIR__ . '/../..' . '/app/Models/Message.php',
         'App\\Models\\Nationality' => __DIR__ . '/../..' . '/app/Models/Nationality.php',
+        'App\\Models\\Notification' => __DIR__ . '/../..' . '/app/Models/Notification.php',
         'App\\Models\\Region' => __DIR__ . '/../..' . '/app/Models/Region.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
+        'App\\Models\\Route' => __DIR__ . '/../..' . '/app/Models/Route.php',
         'App\\Models\\SClass' => __DIR__ . '/../..' . '/app/Models/SClass.php',
         'App\\Models\\School' => __DIR__ . '/../..' . '/app/Models/School.php',
         'App\\Models\\Section' => __DIR__ . '/../..' . '/app/Models/Section.php',
         'App\\Models\\Student' => __DIR__ . '/../..' . '/app/Models/Student.php',
+        'App\\Models\\Task' => __DIR__ . '/../..' . '/app/Models/Task.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Notifications\\ParentVerified' => __DIR__ . '/../..' . '/app/Notifications/ParentVerified.php',
         'App\\Policies\\SClassPolicy' => __DIR__ . '/../..' . '/app/Policies/SClassPolicy.php',
@@ -3558,6 +3584,7 @@ class ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010
         'Livewire\\WithPagination' => __DIR__ . '/..' . '/livewire/livewire/src/WithPagination.php',
         'Livewire\\WithoutUrlPagination' => __DIR__ . '/..' . '/livewire/livewire/src/WithoutUrlPagination.php',
         'Livewire\\Wrapped' => __DIR__ . '/..' . '/livewire/livewire/src/Wrapped.php',
+        'Math_BigInteger' => __DIR__ . '/..' . '/pear/math_biginteger/Math/BigInteger.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
@@ -3831,6 +3858,43 @@ class ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010
         'Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'Numbers_Words' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words.php',
+        'Numbers_Words_Exception' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Exception.php',
+        'Numbers_Words_Locale_az' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/az.php',
+        'Numbers_Words_Locale_bg' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/bg.php',
+        'Numbers_Words_Locale_cs' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/cs.php',
+        'Numbers_Words_Locale_de' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/de.php',
+        'Numbers_Words_Locale_dk' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/dk.php',
+        'Numbers_Words_Locale_en_100' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/en/100.php',
+        'Numbers_Words_Locale_en_GB' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/en/GB.php',
+        'Numbers_Words_Locale_en_IN' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/en/IN.php',
+        'Numbers_Words_Locale_en_US' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/en/US.php',
+        'Numbers_Words_Locale_es' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/es.php',
+        'Numbers_Words_Locale_es_AR' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/es/AR.php',
+        'Numbers_Words_Locale_es_MX' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/es/MX.php',
+        'Numbers_Words_Locale_es_VE' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/es/VE.php',
+        'Numbers_Words_Locale_et' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/et.php',
+        'Numbers_Words_Locale_fr' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/fr.php',
+        'Numbers_Words_Locale_fr_BE' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/fr/BE.php',
+        'Numbers_Words_Locale_he' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/he.php',
+        'Numbers_Words_Locale_hu_HU' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/hu/HU.php',
+        'Numbers_Words_Locale_id' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/id.php',
+        'Numbers_Words_Locale_it_IT' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/it/IT.php',
+        'Numbers_Words_Locale_lt' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/lt.php',
+        'Numbers_Words_Locale_lv' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/lv.php',
+        'Numbers_Words_Locale_nl' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/nl.php',
+        'Numbers_Words_Locale_pl' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/pl.php',
+        'Numbers_Words_Locale_pt_BR' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/pt/BR.php',
+        'Numbers_Words_Locale_ro_RO' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/ro/RO.php',
+        'Numbers_Words_Locale_ru' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/ru.php',
+        'Numbers_Words_Locale_sv' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/sv.php',
+        'Numbers_Words_Locale_tr_TR' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/tr/TR.php',
+        'Numbers_Words_Locale_ua' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/ua.php',
+        'Numbers_Words_Locale_zh_CH' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/zh/CH.php',
+        'Numbers_Words_Locale_zh_HK' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/zh/HK.php',
+        'Numbers_Words_Locale_zh_HKFN' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/zh/HKFN.php',
+        'Numbers_Words_Locale_zh_TW' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/zh/TW.php',
+        'Numbers_Words_Locale_zh_YE' => __DIR__ . '/..' . '/pear/numbers_words/Numbers/Words/Locale/zh/YE.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\Commands\\TestCommand' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/Commands/TestCommand.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php',
@@ -6951,6 +7015,7 @@ class ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit6923111e5a0d030ebb2241f89b0c5010::$classMap;
 
         }, null, ClassLoader::class);

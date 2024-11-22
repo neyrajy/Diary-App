@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use App\Models\BloodGroups;
+use App\Models\Fee;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,6 +10,7 @@ class Student extends Model
 {
     
     use HasFactory;
+    protected $table = 'students';
 
     public function scopeFilter($query, array $filters){
         if($filters['search'] ?? false){
@@ -17,7 +19,7 @@ class Student extends Model
     }
     
     protected $fillable = [
-        'firstname', 'secondname', 'lastname', 'session', 'photo', 's_class_id', 'section_id', 'adm_no', 'admission_date', 'grad', 'grad_date', 'age', 'bg_id'
+        'firstname', 'secondname', 'lastname', 'session', 'photo', 's_class_id', 'section_id', 'adm_no', 'admission_date', 'grad', 'grad_date', 'age', 'gender', 'guardian_1', 'guardian_2', 'disability', 'special_care_diet', 'bg_id'
     ];
 
     public function my_parent()

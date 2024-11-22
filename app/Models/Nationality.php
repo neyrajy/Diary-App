@@ -12,4 +12,8 @@ class Nationality extends Model
     {
         return $this->hasMany(User::class, 'nal_id');
     }
+    public function regions()
+    {
+        return $this->hasMany(Region::class);
+    }
 }

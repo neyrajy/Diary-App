@@ -4,13 +4,7 @@
 
 <x-success_teacher_reg />
 
-    <div class="row py-3"></div>
-
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Register Teacher</div>
-                <div class="card-body">
+<div class="card-header">Register Teacher</div>
                     <form action="{{ route('admin.storeteachers') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
@@ -162,14 +156,11 @@
                             <label for="">Guardian</label>
                             <input type="checkbox" name="guardian" id="" value="1"><br>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary" style="background-color:#0000FF;">Register Teacher</button>
+                                <button type="submit" style="background-color:#f1d016;" class="btn btn-kprimary">{{ __('Register') }}</button>
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
+     
 
 
 @endsection

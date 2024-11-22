@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 use App\Models\Car;
@@ -23,11 +25,64 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    public function showProfile()
+    {
+        // Get the current admin's details
+        $admin = auth()->user(); // Assuming you use Laravel's authentication
+
+        return view('admin.profile', compact('admin'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        // Validate and update admin profile
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . auth()->id(),
+            'phone' => 'required|string|max:13',
+            // Add other fields as necessary
+        ]);
+
+        $admin = auth()->user();
+        $admin->update($request->all());
+
+        return redirect()->route('admin.profile')->with('success', 'Profile updated successfully.');
+    }
+
+    public function showSettings()
+    {
+        // Get current school settings
+        $settings = DB::table('schools')->get();
+
+        return view('admin.settings', compact('settings'));
+    }
+
+    public function updateSettings(Request $request)
+    {
+        // Validate and update settings
+        $request->validate([
+            'next_term_fees_j' => 'required|numeric',
+            'next_term_fees_pn' => 'required|numeric',
+            'next_term_fees_p' => 'required|numeric',
+            'next_term_fees_n' => 'required|numeric',
+            'next_term_fees_s' => 'required|numeric',
+            'next_term_fees_c' => 'required|numeric',
+            // Add other fields as necessary
+        ]);
+
+        foreach ($request->all() as $key => $value) {
+            DB::table('schools')->where('type', $key)->update(['description' => $value]);
+        }
+
+        return redirect()->route('admin.settings')->with('success', 'Settings updated successfully.');
+    }
+
+
     public function dashboard()
     {
-        $latestFees = Fee::all();
+        // $latestFees = Fee::all();
         $parentsCount = User::where('role_id', 4)->count();
-
         $teachersCount = User::where('role_id', 5)->count();
         $staffCount = User::where('role_id', 7)->count();
         $driversCount = User::where('role_id', 7)->count();
@@ -35,9 +90,9 @@ class AdminController extends Controller
         // $notifications = Notification::latest()->take(5)->get();
         $studentsCount = Student::count(); 
         $driversCount = User::where('role_id', 7)->count();
-        $studentsViewer = Student::all(); 
-        // $latestFees = Fee::latest()->take(5)->get();
-        return view('admin.dashboard', compact('parentsCount', 'teachersCount', 'staffCount', 'studentsCount', 'driversCount','studentsViewer', 'latestFees','events'));
+        $students = Student::all(); 
+        $latestFees = Fee::latest()->take(5)->get();
+        return view('admin.dashboard', compact('parentsCount', 'teachersCount', 'staffCount', 'studentsCount', 'driversCount','students', 'latestFees','events'));
     }
     // methods for parents routes
     public function showParentRegistrationForm()
@@ -74,7 +129,7 @@ class AdminController extends Controller
             'gender' => 'nullable|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'address' => 'nullable|string|max:255',
-            'nal_id' => 'nullable|exists:nationalities,id',
+            'nationality_id' => 'nullable|exists:nationalities,id',
             'region' => 'nullable|exists:regions,id',
             'district' => 'nullable|exists:districts,id',
             'street' => 'nullable|string|max:255',
@@ -148,7 +203,16 @@ class AdminController extends Controller
 
         return view('admin.edit-parent', compact('parent', 'nationalities', 'regions', 'districts', 'classes', 'sections', 'students'));
     }
+    public function getSectionsByClass(Request $request)
+{
+    $classId = $request->input('class_id');
     
+    // Fetch sections based on class
+    $sections = Section::where('s_class_id', $classId)->get();
+    
+    return response()->json($sections);
+}
+
     // Add method to fetch students by class and section
     public function getStudentsByClassSection(Request $request)
     {
@@ -172,7 +236,7 @@ class AdminController extends Controller
             'phone2' => 'nullable|string|max:13',
             'address' => 'nullable|string|max:255',
             'street' => 'nullable|string|max:255',
-            'nal_id' => 'nullable|exists:nationalities,id',
+            'nationality_id' => 'nullable|exists:nationalities,id',
             'region_id' => 'nullable|exists:regions,id',
             'district_id' => 'nullable|exists:districts,id',
             'class' => 'nullable',
@@ -244,7 +308,7 @@ class AdminController extends Controller
             'phone2' => 'nullable|string|max:13',
             'address' => 'nullable|string|max:255',
             'street' => 'nullable|string|max:255',
-            'nal_id' => 'nullable|exists:nationalities,id',
+            'nationality_id' => 'nullable|exists:nationalities,id',
             'region_id' => 'nullable|exists:regions,id',
             'district_id' => 'nullable|exists:districts,id',
             'section_name' => 'nullable',
@@ -253,17 +317,6 @@ class AdminController extends Controller
 
         $teacher->update($teacherDetails);
 
-        // dd($request->all());
-
-        // Find the teacher record by ID
-        // $parent = User::findOrFail($id);
-
-        // Update the teacher record with validated data
-       
-        // $parent->update($request->only([
-        //     'firstname', 'lastname', 'phone', 'phone2', 'address', 'street', 
-        //     'nal_id', 'region_id', 'district_id'
-        // ]));
 
         return redirect()->route('admin.teachers')->with('success', 'Teacher updated successfully.');
             
@@ -330,11 +383,6 @@ class AdminController extends Controller
         ]);
     }
 
-    public function fees() 
-    {
-        $fees = Fee::latest()->paginate(10);
-        return view('admin.fees', compact('fees'));
-      }
 
     public function register_student(){
         $studentsCount = Student::all();
@@ -401,7 +449,7 @@ class AdminController extends Controller
             'lastname' => 'required|max:255|min:3',
             'phone' => 'required|max:13|min:10',
             'phone2' => 'nullable|max:13|min:10',
-            'nal_id' => 'nullable|integer',
+            'nationality_id' => 'nullable|integer',
             'region_id' => 'nullable|integer',
             'district_id' => 'nullable|integer',
             'street' => 'nullable|string|max:255|min:3',
@@ -464,8 +512,16 @@ class AdminController extends Controller
         $user->update($userRole);
         return redirect()->back();
     }
-
-    public function store_staffs(Request $request){
+    public function register_staff(){
+        return view('/admin/register-staff',[
+            'nationalities' => Nationality::all(),
+            'regions' => Region::all(),
+            'disctricts' => District::all(),
+            'classes' => SClass::all(),
+            'sections' => Section::all(),
+        ]);
+    }
+    public function store_staff(Request $request){
         $staffDetails = $request->validate([
             'salary' => 'nullable',
             'employment_type' => 'nullable|string:255',
@@ -479,7 +535,7 @@ class AdminController extends Controller
             'dob' => 'nullable',
             'photo' => 'nullable|image|max:2048',
             'gender' => 'nullable',
-            'nal_id' => 'nullable',
+            'nationality_id' => 'nullable',
             'region_id' => 'nullable',
             'district_id' => 'nullable',
             'street' => 'nullable',
@@ -494,6 +550,7 @@ class AdminController extends Controller
         if($exisistingStaff){
             return redirect()->back()->withInput('Account exists!')->inputError();
         }
+        
 
         User::create($staffDetails);
         // dd($request->all());
@@ -519,7 +576,7 @@ class AdminController extends Controller
             'dob' => 'required',
             'photo' => 'required',
             'gender' => 'required',
-            'nal_id' => 'required',
+            'nationality_id' => 'required',
             'region_id' => 'required',
             'district_id' => 'required',
             'street' => 'required',
@@ -547,7 +604,7 @@ class AdminController extends Controller
             'dob' => 'nullable',
             'photo' => 'nullable|image|max:2048',
             'gender' => 'nullable',
-            'nal_id' => 'nullable',
+            'nationality_id' => 'nullable',
             'region_id' => 'nullable',
             'district_id' => 'nullable',
             'street' => 'nullable',
@@ -602,4 +659,18 @@ class AdminController extends Controller
 
         return view('admin.teachers-activities', compact('teacher','tasks','todayDate','sections','classes'));
     }
+    
+    public function regions()
+    {
+        $regions = Region::all();
+        return response()->json($regions);
+    }
+
+    public function getDistricts($regionId)
+    {
+        $region = Region::findOrFail($regionId);
+        $districts = $region->districts; 
+        return response()->json($districts);
+    }
+
 }

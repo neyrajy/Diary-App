@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '9ceed3b86c8c6fc5307f496fc97ec21363ae9588',
+        'reference' => '954bc1232f7350fe16e260564898d8d1dc8b4f43',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -391,7 +391,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '9ceed3b86c8c6fc5307f496fc97ec21363ae9588',
+            'reference' => '954bc1232f7350fe16e260564898d8d1dc8b4f43',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -592,6 +592,24 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'pear/math_biginteger' => array(
+            'pretty_version' => 'v1.0.3',
+            'version' => '1.0.3.0',
+            'reference' => '33d4357543037a458fad3e8c837a01b93104e592',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../pear/math_biginteger',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'pear/numbers_words' => array(
+            'pretty_version' => 'v0.18.2',
+            'version' => '0.18.2.0',
+            'reference' => 'e4d1d8e20def443b69fbf3028d1029950d101c9d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../pear/numbers_words',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'phar-io/manifest' => array(
             'pretty_version' => '2.0.4',
             'version' => '2.0.4.0',
@@ -775,8 +793,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '3.0.0',
+                0 => '3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(

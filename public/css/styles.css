@@ -84,17 +84,36 @@ body {
 }
 .sidebar {
     background-color: #07025d;
-    
     padding: 20px;
 }
 .sidebar a {
   color: #fff;
   text-decoration: none;
   display: block;
-  margin: 10px 0;
+  padding: 10px 10px;
 }
 .sidebar a:hover {
   color: #e7d234;
+  background-color: #1e1a6b;
+}
+/* Content Area */
+.content {
+  margin-top: 16px; /* Offset for navbar height */
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f8f9fa;
+}
+@media (max-width: 768px) {
+  .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+  }
+
+  .content {
+      margin-left: 0;
+      margin-top: 56px;
+  }
 }
 .carousel-caption {
   background: rgba(0, 0, 0, 0.5);

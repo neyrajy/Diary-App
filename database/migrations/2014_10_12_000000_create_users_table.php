@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('photo')->nullable(); 
             $table->unsignedBigInteger('region_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();
-            $table->unsignedBigInteger('nal_id')->nullable();
+            $table->unsignedBigInteger('na_id')->nullable();
             $table->string('address')->nullable();
             $table->string('street')->nullable();
             $table->boolean('verified')->default(false); 

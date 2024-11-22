@@ -9,7 +9,8 @@ use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Driver\DriverController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\StudentController;
-// use App\Http\Controllers\FeesController;
+use App\Http\Controllers\Admin\FeesController;
+use App\Http\Controllers\Admin\FeeTypeController;
 use App\Http\Controllers\SClassController;
 use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
@@ -100,9 +101,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/staff/events', [App\Http\Controllers\Staff\StaffController::class, 'events'])->name('staff.events');
     Route::get('/staff/view-nofication', [App\Http\Controllers\Staff\StaffController::class, 'view_notifications'])->name('staff.view-nofication');
     Route::get('/staff/read-more/{event}', [App\Http\Controllers\Staff\StaffController::class, 'read_more_event'])->name('staff.read-more');
-    // Routes for fees
-    // Route::resource('fees', FeesController::class);
-    // Routes for adding classes and sections
+   
+    
     
     Route::get('/driver/notifications', [App\Http\Controllers\Driver\DriverController::class, 'notifications'])->name('driver.notifications');
     Route::get('/driver/events', [App\Http\Controllers\Driver\DriverController::class, 'events'])->name('driver.events');
@@ -115,13 +115,29 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/parents', [App\Http\Controllers\Admin\AdminController::class, 'parents'])->name('admin.parents');
+    Route::get('/admin/register/parent', [App\Http\Controllers\Admin\AdminController::class, 'showParentRegistrationForm'])->name('register.parent');
+    Route::post('/admin/register/parent', [App\Http\Controllers\Admin\AdminController::class, 'registerParent'])->name('admin.store-parent');
+    
+    Route::resource('students', StudentController::class);
+    
     Route::get('/admin/teachers', [App\Http\Controllers\Admin\AdminController::class, 'teachers'])->name('admin.teachers');
     Route::get('/admin/staff', [App\Http\Controllers\Admin\AdminController::class, 'staff'])->name('admin.staff');
     Route::get('/admin/students', [App\Http\Controllers\Admin\AdminController::class, 'students'])->name('admin.students');
     Route::get('/admin/drivers', [App\Http\Controllers\Admin\AdminController::class, 'drivers'])->name('admin.drivers');
     Route::get('/admin/events', [App\Http\Controllers\Admin\AdminController::class, 'events'])->name('admin.events');
     Route::get('/admin/notifications', [App\Http\Controllers\Admin\AdminController::class, 'notifications'])->name('admin.notifications');
-    Route::get('/admin/fees', [App\Http\Controllers\Admin\AdminController::class, 'fees'])->name('admin.fees');
+    
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/get-sections', [AdminController::class, 'getSectionsByClass'])->name('getSectionsByClass');
+        Route::get('/regions', [AdminController::class, 'regions']);
+        Route::get('/regions/{region}/districts', [AdminController::class, 'getDistricts']);
+
+        Route::get('fees/{fee}/receipt', [FeesController::class, 'receipt'])->name('fees.receipt');
+
+        Route::resource('fee-types', FeeTypeController::class)->except(['show']);
+        Route::resource('fees', FeesController::class);
+});
+    
     Route::get('/admin/view-nofication', [App\Http\Controllers\Admin\AdminController::class, 'view_notifications'])->name('admin.view-nofication');
     Route::get('/admin/register-teacher', [App\Http\Controllers\Admin\AdminController::class, 'register_teacher'])->name('admin.register-teacher');
     Route::get('/admin/parents/{id}/edit', [App\Http\Controllers\Admin\AdminController::class, 'editParent'])->name('admin.edit-parent');
@@ -134,12 +150,20 @@ Route::middleware('auth')->group(function () {
     Route::post('/drivers', [App\Http\Controllers\Admin\AdminController::class, 'store_driver']);
     Route::patch('/admin/verify-parent/{id}', [App\Http\Controllers\Admin\AdminController::class, 'verifyParent'])->name('admin.verify-parent');
     Route::delete('/admin/teachers/destroy/{teacher}', [App\Http\Controllers\Admin\AdminController::class, 'destroyTeacher'])->name('admin.destroy-teacher');
+    Route::get('/admin/register-staff', [App\Http\Controllers\Admin\AdminController::class, 'register_staff'])->name('admin.register-staff');
+    Route::post('/admin/storestaff', [App\Http\Controllers\Admin\AdminController::class, 'store_staff'])->name('admin.storestaff');
+    
+   
     Route::delete('/staff/delete/{staff}', [App\Http\Controllers\Admin\AdminController::class, 'delete_staff']);
     Route::put('/staffs/edit/{staff}', [App\Http\Controllers\Admin\AdminController::class, 'edit_staff']);
     Route::get('/admin/cars', [App\Http\Controllers\Admin\AdminController::class, 'cars'])->name('admin.cars');
     Route::get('/admin/routes', [App\Http\Controllers\Admin\AdminController::class, 'routes'])->name('admin.routes');
     Route::get('/admin/teachers-activities/{teacher}', [App\Http\Controllers\Admin\AdminController::class, 'teacher_activities'])->name('admin.teachers-activities');
 
+    Route::get('/admin/profile', [App\Http\Controllers\Admin\AdminController::class, 'showProfile'])->name('admin.profile');
+    Route::post('/admin/profile/update', [App\Http\Controllers\Admin\AdminController::class, 'updateProfile'])->name('admin.profile.update');
+    Route::get('/admin/settings', [App\Http\Controllers\Admin\AdminController::class, 'showSettings'])->name('admin.settings');
+    Route::post('/admin/settings/update', [App\Http\Controllers\Admin\AdminController::class, 'updateSettings'])->name('admin.settings.update');
 
 
 
@@ -182,9 +206,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/storeDrivers', [App\Http\Controllers\Manager\ManagerController::class, 'store_drivers']);
     Route::put('/drivers/edit/{driver}', [App\Http\Controllers\Manager\ManagerController::class, 'update_driver']);
 
+
 });
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

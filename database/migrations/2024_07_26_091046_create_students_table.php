@@ -24,6 +24,11 @@ return new class extends Migration
             $table->string('session');
             $table->string('age')->nullable();
             $table->string('admission_date')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->string('disability')->nullable();
+            $table->text('special_care_diet')->nullable();
+            $table->string('guardian_1')->nullable();
+            $table->string('guardian_2')->nullable();
             $table->tinyInteger('grad')->default(0);
             $table->string('grad_date')->nullable();
             $table->timestamps();

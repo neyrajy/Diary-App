@@ -16,7 +16,7 @@ class SchoolSeeder extends Seeder
         DB::table('schools')->delete();
 
         $data = [
-            ['type' => 'current_session', 'description' => '2024-2015'],
+            ['type' => 'current_session', 'description' => '2024-2025'],
             ['type' => 'system_title', 'description' => 'KJDA'],
             ['type' => 'system_name', 'description' => 'Kiddie Junction Daycare Academy'],
             ['type' => 'term_ends', 'description' => '12/12/2024'],
@@ -25,16 +25,16 @@ class SchoolSeeder extends Seeder
             ['type' => 'address', 'description' => 'Ilomba,Mwambene (Makaburini Road), Mbeya house no 336'],
             ['type' => 'system_email', 'description' => 'info@kiddiejunctiondaycareacademy.com'],
             ['type' => 'alt_email', 'description' => ''],
-            ['type' => 'email_host', 'description' => ''],
-            ['type' => 'email_pass', 'description' => ''],
-            ['type' => 'lock_exam', 'description' => 0],
-            ['type' => 'logo', 'description' => ''],
-            ['type' => 'next_term_fees_j', 'description' => '20000'],
-            ['type' => 'next_term_fees_pn', 'description' => '25000'],
-            ['type' => 'next_term_fees_p', 'description' => '2000000'],
-            ['type' => 'next_term_fees_n', 'description' => '1800000'],
-            ['type' => 'next_term_fees_s', 'description' => '15600'],
-            ['type' => 'next_term_fees_c', 'description' => '1600'],
+            // ['type' => 'email_host', 'description' => ''],
+            // ['type' => 'email_pass', 'description' => ''],
+            // ['type' => 'lock_exam', 'description' => 0],
+            // ['type' => 'logo', 'description' => ''],
+            ['type' => 'school_fees', 'description' => '1400000'],
+            ['type' => 'bus_fees', 'description' => '100000'],
+            ['type' => 'food_fees', 'description' => '100000'],
+            // ['type' => 'next_term_fees_n', 'description' => '1800000'],
+            // ['type' => 'next_term_fees_s', 'description' => '15600'],
+            // ['type' => 'next_term_fees_c', 'description' => '1600'],
         ];
 
         DB::table('schools')->insert($data);

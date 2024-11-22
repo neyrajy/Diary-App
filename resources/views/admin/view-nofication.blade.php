@@ -4,11 +4,6 @@
 
 <x-notification_sent />
 
-    <div class="row-modal mt-3">
-        <!-- Calendar -->
-        <div class="colom-md-6">
-            <div class="card">
-                <div class="card-body">
                     <h5 class="card-title">{{__('View Notifications')}}</h5>
                     @foreach($notifications as $notification)
                     <div id="calendar" class="calendar-col-7">
@@ -22,11 +17,6 @@
                     @endforeach
                     </div><br>
                     @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-
 <script>
     $(document).ready(function() {
         $('#calendar').fullCalendar({

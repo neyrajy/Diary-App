@@ -92,28 +92,57 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"><strong>{{__('Latest Fees')}}</strong></h5>
-                    <table class="table table-striped">
+                    
+                    <table class="table">
                         <thead>
                             <tr>
-                                <th>Student</th>
-                                <th>Amount</th>
-                                <th>Date</th>
+                                <th>#</th>
+                                <th>Student Name</th>
+                                <th>Fee Type</th>
+                                <th>Paid Amount</th>
+                                <th>Status</th>
+                                <th>Fee Period</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-
-
-                        @foreach($studentsViewer as $student)
-                        @foreach($latestFees as $fee)
-                        @if($fee->student_id == $student->id)
-                            <tr>
-                                <td>{{$student->firstname}}</td>
-                                <td>Tsh {{number_format($fee->amount,2)}}</td>
-                                <td>{{$fee->paid_date}}</td>
-                            </tr>
-                            @endif
+                            @foreach ($latestFees as $fee)
+                                <tr>
+                                    <td>{{ $fee->id }}</td>
+                                    <td>{{ $fee->student->firstname }} {{ $fee->student->secondname }} {{ $fee->student->lastname }}</td>
+                                    <td>{{ $fee->feeType->name }}</td>
+                                    <td>{{ number_format($fee->paid_amount, 2) }}</td>
+                                    <td>{{ $fee->status }}</td>
+                                    <td>
+                                        @if ($fee->feeType->annual_fee && $fee->paid_amount == $fee->feeType->annual_fee)
+                                            Annual
+                                        @elseif ($fee->feeType->term_fee_1 && $fee->paid_amount == $fee->feeType->term_fee_1)
+                                            Term 1
+                                        @elseif ($fee->feeType->term_fee_2 && $fee->paid_amount == $fee->feeType->term_fee_2)
+                                            Term 2
+                                        @elseif ($fee->feeType->term_fee_3 && $fee->paid_amount == $fee->feeType->term_fee_3)
+                                            Term 3
+                                        @elseif ($fee->feeType->term_fee_4 && $fee->paid_amount == $fee->feeType->term_fee_4)
+                                            Term 4
+                                        @else
+                                            Unknown
+                                        @endif
+                                    </td>
+                                    
+                                    <td>
+                                        <a href="{{ route('admin.fees.edit', $fee->id) }}" class="btn btn-sm btn-warning">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('admin.fees.destroy', $fee->id) }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
-                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -134,3 +163,4 @@
     });
 </script>
 @endsection
+

@@ -1,15 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row py-3"></div>
 
-    <div class="row mt-4">
-        <!-- Parents Table -->
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        Parent / {{$parent->firstname}}
+                    <h5 class="card-header">
+                        Parent: {{ $parent->firstname }} {{ $parent->secondname } }{{ $parent->lastname }}
                         <span style="margin-top:-20px" class="d-flex justify-content-end">
                             <a class="btn btn-warning btn-sm" href="{{ route('admin.parents') }}"><span>&#8592;</span> Back</a>
                         </span>
@@ -28,10 +22,10 @@
                             @foreach($students as $student)
                             @if($student->id == $parent->student)
                                     
-                                {{$student->firstname}}
+                                {{$student->firstname}} {{$student->secondname}}  {{$student->lastname}} 
                             
                             @else
-                                
+                            
                             @endif
                             @endforeach
                             </td>
@@ -40,8 +34,5 @@
                             <td>{{$parent->address}}</td>
                         </tr>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
+ 
 @endsection

@@ -6,4 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Numbers' => array($vendorDir . '/pear/numbers_words'),
+    'Math_' => array($vendorDir . '/pear/math_biginteger'),
 );

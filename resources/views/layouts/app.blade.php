@@ -62,7 +62,7 @@
                                     <a href="{{ route('admin.drivers') }}"><i class="fas fa-bus"></i> Drivers</a>
                                     <a href="{{ route('admin.events') }}"><i class="fas fa-calendar-alt"></i> Events</a>
                                     <a href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Notifications</a>
-                                    <a href="{{ route('admin.fees') }}"><i class="fas fa-dollar-sign"></i> Fees</a>
+                                    <a href="{{ route('admin.fees.index') }}"><i class="fas fa-dollar-sign"></i> Fees</a>
                                     <a href="{{ route('admin.cars') }}"> <i class="fa fa-bus"></i> Bus</a>
                                     <a href="{{ route('admin.routes') }}"><i class="fa fa-map-marker"></i> Routes</a>
                                 @elseif(Auth::user()->role_id == 3)
@@ -104,7 +104,18 @@
                         </div>
 
                         <div class="col-md-10">
-                            @yield('content')
+                                <!-- Content -->
+                            <div class="content">
+                                <div class="row mt-4">
+                                    <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            @yield('content')    
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -121,3 +132,8 @@
   
 </body>
 </html>
+
+   
+
+
+
